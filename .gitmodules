@@ -1,0 +1,3 @@
+[submodule "food_opt_protos2"]
+	path = food_opt_protos2
+	url = https://github.com/laurenskz/food_opt_protos2.git
