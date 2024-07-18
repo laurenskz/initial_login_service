@@ -1,0 +1,3 @@
+python -m grpc_tools.protoc -I./food_opt_protos2/src/main/proto --python_out=./ --pyi_out=./ --grpc_python_out=./ ./food_opt_protos2/src/main/proto/com/baboea/models/*.proto
+python -m grpc_tools.protoc -I./food_opt_protos2/src/main/proto --python_out=./ --pyi_out=./ --grpc_python_out=./ ./food_opt_protos2/src/main/proto/com/baboea/*.proto
+python -m grpc_tools.protoc -I./food_opt_protos2/src/main/proto --python_out=./ --pyi_out=./ --grpc_python_out=./ ./food_opt_protos2/src/main/proto/com/baboea/services/*.proto
