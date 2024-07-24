@@ -4,9 +4,8 @@ RUN pip install -r requirements.txt
 COPY protos.sh .
 COPY food_opt_protos2/src/main/proto ./protos/foodopt/
 RUN sh /protos.sh
-COPY parse ./parse
-COPY integration_test.textproto .
+COPY login ./login
 COPY test ./test
 RUN python -m unittest
 
-CMD python -m parse.KafkaRecipeParser
+CMD python -m login.main

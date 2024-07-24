@@ -1,0 +1,90 @@
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from google.protobuf import descriptor as _descriptor
+from typing import ClassVar as _ClassVar
+
+DESCRIPTOR: _descriptor.FileDescriptor
+
+class Nutrient(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    VITAMIN_A: _ClassVar[Nutrient]
+    VITAMIN_B1: _ClassVar[Nutrient]
+    VITAMIN_B2: _ClassVar[Nutrient]
+    VITAMIN_B3: _ClassVar[Nutrient]
+    VITAMIN_B5: _ClassVar[Nutrient]
+    VITAMIN_B6: _ClassVar[Nutrient]
+    VITAMIN_B7: _ClassVar[Nutrient]
+    VITAMIN_B9: _ClassVar[Nutrient]
+    VITAMIN_B12: _ClassVar[Nutrient]
+    VITAMIN_C: _ClassVar[Nutrient]
+    VITAMIN_D: _ClassVar[Nutrient]
+    VITAMIN_E: _ClassVar[Nutrient]
+    VITAMIN_K: _ClassVar[Nutrient]
+    POTASSIUM: _ClassVar[Nutrient]
+    CHOLINE: _ClassVar[Nutrient]
+    CALCIUM: _ClassVar[Nutrient]
+    CHROMIUM: _ClassVar[Nutrient]
+    COPPER: _ClassVar[Nutrient]
+    IODINE: _ClassVar[Nutrient]
+    IRON: _ClassVar[Nutrient]
+    MAGNESIUM: _ClassVar[Nutrient]
+    MANGANESE: _ClassVar[Nutrient]
+    MOLYBDENUM: _ClassVar[Nutrient]
+    PHOSPHORUS: _ClassVar[Nutrient]
+    SELENIUM: _ClassVar[Nutrient]
+    ZINC: _ClassVar[Nutrient]
+    SFA: _ClassVar[Nutrient]
+    MUFA: _ClassVar[Nutrient]
+    PUFA: _ClassVar[Nutrient]
+    FAT: _ClassVar[Nutrient]
+    PROTEIN: _ClassVar[Nutrient]
+    CARBS: _ClassVar[Nutrient]
+    FIBER: _ClassVar[Nutrient]
+    NET_CARBS: _ClassVar[Nutrient]
+    KCAL: _ClassVar[Nutrient]
+    SODIUM: _ClassVar[Nutrient]
+    OMEGA_3: _ClassVar[Nutrient]
+    OMEGA_6: _ClassVar[Nutrient]
+    EPA: _ClassVar[Nutrient]
+    DPA: _ClassVar[Nutrient]
+    ALA: _ClassVar[Nutrient]
+VITAMIN_A: Nutrient
+VITAMIN_B1: Nutrient
+VITAMIN_B2: Nutrient
+VITAMIN_B3: Nutrient
+VITAMIN_B5: Nutrient
+VITAMIN_B6: Nutrient
+VITAMIN_B7: Nutrient
+VITAMIN_B9: Nutrient
+VITAMIN_B12: Nutrient
+VITAMIN_C: Nutrient
+VITAMIN_D: Nutrient
+VITAMIN_E: Nutrient
+VITAMIN_K: Nutrient
+POTASSIUM: Nutrient
+CHOLINE: Nutrient
+CALCIUM: Nutrient
+CHROMIUM: Nutrient
+COPPER: Nutrient
+IODINE: Nutrient
+IRON: Nutrient
+MAGNESIUM: Nutrient
+MANGANESE: Nutrient
+MOLYBDENUM: Nutrient
+PHOSPHORUS: Nutrient
+SELENIUM: Nutrient
+ZINC: Nutrient
+SFA: Nutrient
+MUFA: Nutrient
+PUFA: Nutrient
+FAT: Nutrient
+PROTEIN: Nutrient
+CARBS: Nutrient
+FIBER: Nutrient
+NET_CARBS: Nutrient
+KCAL: Nutrient
+SODIUM: Nutrient
+OMEGA_3: Nutrient
+OMEGA_6: Nutrient
+EPA: Nutrient
+DPA: Nutrient
+ALA: Nutrient
