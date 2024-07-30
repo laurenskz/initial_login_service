@@ -19,14 +19,16 @@ class Tag(_message.Message):
     def __init__(self, name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., value: _Optional[float] = ...) -> None: ...
 
 class FoodRef(_message.Message):
-    __slots__ = ("id", "name", "properties")
+    __slots__ = ("id", "name", "properties", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     PROPERTIES_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: _localized_pb2.LocalizedString
     properties: _containers.RepeatedCompositeFieldContainer[Tag]
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., properties: _Optional[_Iterable[_Union[Tag, _Mapping]]] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., properties: _Optional[_Iterable[_Union[Tag, _Mapping]]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class FoodWeight(_message.Message):
     __slots__ = ("unit", "weightForOneUnit")
@@ -37,7 +39,7 @@ class FoodWeight(_message.Message):
     def __init__(self, unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., weightForOneUnit: _Optional[float] = ...) -> None: ...
 
 class Food(_message.Message):
-    __slots__ = ("id", "localizations", "properties", "weights", "source", "sourceId", "concept")
+    __slots__ = ("id", "localizations", "properties", "weights", "source", "sourceId", "concept", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     LOCALIZATIONS_FIELD_NUMBER: _ClassVar[int]
     PROPERTIES_FIELD_NUMBER: _ClassVar[int]
@@ -45,6 +47,7 @@ class Food(_message.Message):
     SOURCE_FIELD_NUMBER: _ClassVar[int]
     SOURCEID_FIELD_NUMBER: _ClassVar[int]
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     localizations: _containers.RepeatedCompositeFieldContainer[FoodLocalized]
     properties: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyValue]
@@ -52,7 +55,8 @@ class Food(_message.Message):
     source: _food_source_pb2.FoodSourceRef
     sourceId: str
     concept: _concepts_pb2.ConceptRef
-    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[FoodLocalized, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., weights: _Optional[_Iterable[_Union[FoodWeight, _Mapping]]] = ..., source: _Optional[_Union[_food_source_pb2.FoodSourceRef, _Mapping]] = ..., sourceId: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[FoodLocalized, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., weights: _Optional[_Iterable[_Union[FoodWeight, _Mapping]]] = ..., source: _Optional[_Union[_food_source_pb2.FoodSourceRef, _Mapping]] = ..., sourceId: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class FoodLocalized(_message.Message):
     __slots__ = ("locale", "name", "description")

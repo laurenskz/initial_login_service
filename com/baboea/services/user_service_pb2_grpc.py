@@ -76,6 +76,11 @@ class UserServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdResponse.FromString,
                 _registered_method=True)
+        self.FindByHandle = channel.unary_unary(
+                '/com.baboea.services.UserService/FindByHandle',
+                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_models_dot_users__pb2.User.FromString,
+                _registered_method=True)
 
 
 class UserServiceServicer(object):
@@ -123,6 +128,12 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FindByHandle(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -160,6 +171,11 @@ def add_UserServiceServicer_to_server(servicer, server):
                     servicer.FindByRemoteId,
                     request_deserializer=com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdResponse.SerializeToString,
+            ),
+            'FindByHandle': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindByHandle,
+                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_models_dot_users__pb2.User.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -351,6 +367,33 @@ class UserService(object):
             '/com.baboea.services.UserService/FindByRemoteId',
             com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_user__service__pb2.FindByRemoteIdResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FindByHandle(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.UserService/FindByHandle',
+            com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
+            com_dot_baboea_dot_models_dot_users__pb2.User.FromString,
             options,
             channel_credentials,
             insecure,

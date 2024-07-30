@@ -178,7 +178,7 @@ class GrpcLoginService(UserInitServiceServicer):
             min=targets.minFiber,
             max=targets.maxFiber,
             useMin=True,
-            useMax=True,
+            useMax=False,
             numerator=self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fiber")),
             denominator=kcal_prop,
             useRatio=False,
@@ -193,10 +193,12 @@ class GrpcLoginService(UserInitServiceServicer):
             owner=user
         ))
         target_objective_groups.append(ObjectiveGroupRef(id=nutrient_add.id))
+        target_portions: User = self.user_service.FindByHandle(FindSingleHandleRequest(handle="admin"))
+        by_user: UserDietDefinition = self.diet_service.ByUser(UserRef(id=target_portions.id))
         result: AddResponse = self.diet_service.Add(UserDietDefinition(
             owner=user,
             objectiveGroups=target_objective_groups,
-            portionSizes=PortionConceptValues(conceptValues={"1": PortionSize(min=10.0, max=250.0, step=5.0)}),
+            portionSizes=by_user.portionSizes,
             concepts=diet.concepts, mealSizes=MealSizes(sizes=meal_sizes)
         ))
         return result.operation

@@ -16,7 +16,7 @@ from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_loc
 from com.baboea import concept_pb2 as com_dot_baboea_dot_concept__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$com/baboea/models/curated_diet.proto\x12\x11\x63om.baboea.models\x1a!com/baboea/models/localized.proto\x1a\x18\x63om/baboea/concept.proto\"\x8a\x01\n\x0b\x43uratedDiet\x12\n\n\x02id\x18\x01 \x01(\t\x12/\n\x08\x63oncepts\x18\x02 \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12>\n\rlocalizations\x18\x03 \x03(\x0b\x32\'.com.baboea.models.CuratedDietLocalized\"N\n\x0e\x43uratedDietRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\"g\n\x14\x43uratedDietLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$com/baboea/models/curated_diet.proto\x12\x11\x63om.baboea.models\x1a!com/baboea/models/localized.proto\x1a\x18\x63om/baboea/concept.proto\"\x99\x01\n\x0b\x43uratedDiet\x12\n\n\x02id\x18\x01 \x01(\t\x12/\n\x08\x63oncepts\x18\x02 \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12>\n\rlocalizations\x18\x03 \x03(\x0b\x32\'.com.baboea.models.CuratedDietLocalized\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"]\n\x0e\x43uratedDietRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"g\n\x14\x43uratedDietLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,9 +24,9 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.curated_d
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_CURATEDDIET']._serialized_start=121
-  _globals['_CURATEDDIET']._serialized_end=259
-  _globals['_CURATEDDIETREF']._serialized_start=261
-  _globals['_CURATEDDIETREF']._serialized_end=339
-  _globals['_CURATEDDIETLOCALIZED']._serialized_start=341
-  _globals['_CURATEDDIETLOCALIZED']._serialized_end=444
+  _globals['_CURATEDDIET']._serialized_end=274
+  _globals['_CURATEDDIETREF']._serialized_start=276
+  _globals['_CURATEDDIETREF']._serialized_end=369
+  _globals['_CURATEDDIETLOCALIZED']._serialized_start=371
+  _globals['_CURATEDDIETLOCALIZED']._serialized_end=474
 # @@protoc_insertion_point(module_scope)

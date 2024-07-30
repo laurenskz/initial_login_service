@@ -120,33 +120,23 @@ class RecipeServiceStub(object):
                 _registered_method=True)
         self.Remove = channel.unary_unary(
                 '/com.baboea.services.RecipeService/Remove',
-                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveRequest.SerializeToString,
+                request_serializer=com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.FromString,
-                _registered_method=True)
-        self.AddRemote = channel.unary_unary(
-                '/com.baboea.services.RecipeService/AddRemote',
-                request_serializer=com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
                 _registered_method=True)
         self.GetAll = channel.unary_unary(
                 '/com.baboea.services.RecipeService/GetAll',
-                request_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeRequest.SerializeToString,
+                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.FromString,
                 _registered_method=True)
-        self.Categories = channel.unary_unary(
-                '/com.baboea.services.RecipeService/Categories',
-                request_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryRequest.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryResponse.FromString,
+        self.Search = channel.unary_unary(
+                '/com.baboea.services.RecipeService/Search',
+                request_serializer=com_dot_baboea_dot_models_dot_recipes__pb2.RecipeQuery.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.FromString,
                 _registered_method=True)
         self.Get = channel.unary_unary(
                 '/com.baboea.services.RecipeService/Get',
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.GetRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.FromString,
-                _registered_method=True)
-        self.GetSmart = channel.unary_unary(
-                '/com.baboea.services.RecipeService/GetSmart',
-                request_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesQuery.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesResponse.FromString,
                 _registered_method=True)
         self.Update = channel.unary_unary(
                 '/com.baboea.services.RecipeService/Update',
@@ -170,31 +160,19 @@ class RecipeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AddRemote(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def GetAll(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Categories(self, request, context):
+    def Search(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Get(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetSmart(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -216,33 +194,23 @@ def add_RecipeServiceServicer_to_server(servicer, server):
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
-                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveRequest.FromString,
+                    request_deserializer=com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.SerializeToString,
-            ),
-            'AddRemote': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddRemote,
-                    request_deserializer=com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.SerializeToString,
             ),
             'GetAll': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAll,
-                    request_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeRequest.FromString,
+                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.SerializeToString,
             ),
-            'Categories': grpc.unary_unary_rpc_method_handler(
-                    servicer.Categories,
-                    request_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryRequest.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryResponse.SerializeToString,
+            'Search': grpc.unary_unary_rpc_method_handler(
+                    servicer.Search,
+                    request_deserializer=com_dot_baboea_dot_models_dot_recipes__pb2.RecipeQuery.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.SerializeToString,
             ),
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.GetRequest.FromString,
                     response_serializer=com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.SerializeToString,
-            ),
-            'GetSmart': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetSmart,
-                    request_deserializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesQuery.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
@@ -302,35 +270,8 @@ class RecipeService(object):
             request,
             target,
             '/com.baboea.services.RecipeService/Remove',
-            com_dot_baboea_dot_services_dot_base__pb2.RemoveRequest.SerializeToString,
+            com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def AddRemote(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/com.baboea.services.RecipeService/AddRemote',
-            com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.SerializeToString,
-            com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -356,7 +297,7 @@ class RecipeService(object):
             request,
             target,
             '/com.baboea.services.RecipeService/GetAll',
-            com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.FromString,
             options,
             channel_credentials,
@@ -369,7 +310,7 @@ class RecipeService(object):
             _registered_method=True)
 
     @staticmethod
-    def Categories(request,
+    def Search(request,
             target,
             options=(),
             channel_credentials=None,
@@ -382,9 +323,9 @@ class RecipeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.RecipeService/Categories',
-            com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryRequest.SerializeToString,
-            com_dot_baboea_dot_services_dot_recipe__service__pb2.CategoryResponse.FromString,
+            '/com.baboea.services.RecipeService/Search',
+            com_dot_baboea_dot_models_dot_recipes__pb2.RecipeQuery.SerializeToString,
+            com_dot_baboea_dot_services_dot_recipe__service__pb2.RecipeList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -412,33 +353,6 @@ class RecipeService(object):
             '/com.baboea.services.RecipeService/Get',
             com_dot_baboea_dot_services_dot_base__pb2.GetRequest.SerializeToString,
             com_dot_baboea_dot_models_dot_recipes__pb2.Recipe.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetSmart(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/com.baboea.services.RecipeService/GetSmart',
-            com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesQuery.SerializeToString,
-            com_dot_baboea_dot_services_dot_recipe__service__pb2.SmartRecipesResponse.FromString,
             options,
             channel_credentials,
             insecure,

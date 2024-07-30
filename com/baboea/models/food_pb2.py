@@ -19,7 +19,7 @@ from com.baboea.models import food_source_pb2 as com_dot_baboea_dot_models_dot_f
 from com.baboea.models import food_units_pb2 as com_dot_baboea_dot_models_dot_food__units__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63om/baboea/models/food.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/property.proto\x1a com/baboea/models/concepts.proto\x1a!com/baboea/models/localized.proto\x1a#com/baboea/models/food_source.proto\x1a\"com/baboea/models/food_units.proto\"F\n\x03Tag\x12\x30\n\x04name\x18\x01 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05value\x18\x02 \x01(\x01\"s\n\x07\x46oodRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12*\n\nproperties\x18\x03 \x03(\x0b\x32\x16.com.baboea.models.Tag\"T\n\nFoodWeight\x12,\n\x04unit\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.FoodUnitRef\x12\x18\n\x10weightForOneUnit\x18\x02 \x01(\x01\"\xb6\x02\n\x04\x46ood\x12\n\n\x02id\x18\x01 \x01(\t\x12\x37\n\rlocalizations\x18\x02 \x03(\x0b\x32 .com.baboea.models.FoodLocalized\x12\x34\n\nproperties\x18\x03 \x03(\x0b\x32 .com.baboea.models.PropertyValue\x12.\n\x07weights\x18\x04 \x03(\x0b\x32\x1d.com.baboea.models.FoodWeight\x12\x30\n\x06source\x18\x05 \x01(\x0b\x32 .com.baboea.models.FoodSourceRef\x12\x10\n\x08sourceId\x18\x06 \x01(\t\x12\x33\n\x07\x63oncept\x18\x07 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRefH\x00\x88\x01\x01\x42\n\n\x08_concept\"`\n\rFoodLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63om/baboea/models/food.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/property.proto\x1a com/baboea/models/concepts.proto\x1a!com/baboea/models/localized.proto\x1a#com/baboea/models/food_source.proto\x1a\"com/baboea/models/food_units.proto\"F\n\x03Tag\x12\x30\n\x04name\x18\x01 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05value\x18\x02 \x01(\x01\"\x82\x01\n\x07\x46oodRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12*\n\nproperties\x18\x03 \x03(\x0b\x32\x16.com.baboea.models.Tag\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"T\n\nFoodWeight\x12,\n\x04unit\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.FoodUnitRef\x12\x18\n\x10weightForOneUnit\x18\x02 \x01(\x01\"\xc5\x02\n\x04\x46ood\x12\n\n\x02id\x18\x01 \x01(\t\x12\x37\n\rlocalizations\x18\x02 \x03(\x0b\x32 .com.baboea.models.FoodLocalized\x12\x34\n\nproperties\x18\x03 \x03(\x0b\x32 .com.baboea.models.PropertyValue\x12.\n\x07weights\x18\x04 \x03(\x0b\x32\x1d.com.baboea.models.FoodWeight\x12\x30\n\x06source\x18\x05 \x01(\x0b\x32 .com.baboea.models.FoodSourceRef\x12\x10\n\x08sourceId\x18\x06 \x01(\t\x12\x33\n\x07\x63oncept\x18\x07 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRefH\x00\x88\x01\x01\x12\r\n\x05\x65moji\x18\x08 \x01(\tB\n\n\x08_concept\"`\n\rFoodLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,12 +28,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_TAG']._serialized_start=227
   _globals['_TAG']._serialized_end=297
-  _globals['_FOODREF']._serialized_start=299
-  _globals['_FOODREF']._serialized_end=414
-  _globals['_FOODWEIGHT']._serialized_start=416
-  _globals['_FOODWEIGHT']._serialized_end=500
-  _globals['_FOOD']._serialized_start=503
-  _globals['_FOOD']._serialized_end=813
-  _globals['_FOODLOCALIZED']._serialized_start=815
-  _globals['_FOODLOCALIZED']._serialized_end=911
+  _globals['_FOODREF']._serialized_start=300
+  _globals['_FOODREF']._serialized_end=430
+  _globals['_FOODWEIGHT']._serialized_start=432
+  _globals['_FOODWEIGHT']._serialized_end=516
+  _globals['_FOOD']._serialized_start=519
+  _globals['_FOOD']._serialized_end=844
+  _globals['_FOODLOCALIZED']._serialized_start=846
+  _globals['_FOODLOCALIZED']._serialized_end=942
 # @@protoc_insertion_point(module_scope)

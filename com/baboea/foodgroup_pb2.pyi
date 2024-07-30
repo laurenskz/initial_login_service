@@ -22,16 +22,18 @@ class Root(_message.Message):
     def __init__(self) -> None: ...
 
 class FoodGroupNode(_message.Message):
-    __slots__ = ("day", "meal", "mealComponent", "recipe")
+    __slots__ = ("day", "meal", "mealComponent", "recipe", "userRecipe")
     DAY_FIELD_NUMBER: _ClassVar[int]
     MEAL_FIELD_NUMBER: _ClassVar[int]
     MEALCOMPONENT_FIELD_NUMBER: _ClassVar[int]
     RECIPE_FIELD_NUMBER: _ClassVar[int]
+    USERRECIPE_FIELD_NUMBER: _ClassVar[int]
     day: _days_pb2.MealPlanDayRef
     meal: _meal_pb2.MealRef
     mealComponent: _meal_components_pb2.MealComponentRef
     recipe: _recipes_pb2.ParsedRemoteRecipeRef
-    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ...) -> None: ...
+    userRecipe: _recipes_pb2.RecipeRef
+    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ...) -> None: ...
 
 class FoodGroupIdentifier(_message.Message):
     __slots__ = ("path",)

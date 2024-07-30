@@ -1,5 +1,6 @@
 from com.baboea.models import food_pb2 as _food_pb2
 from com.baboea.models import concepts_pb2 as _concepts_pb2
+from com.baboea.models import users_pb2 as _users_pb2
 from com.baboea.models import food_units_pb2 as _food_units_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.models import matching_pb2 as _matching_pb2
@@ -12,56 +13,48 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class RecipeRef(_message.Message):
-    __slots__ = ("id", "name", "description")
+    __slots__ = ("id", "name")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
-    DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
-    description: str
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
 class RecipeQuery(_message.Message):
-    __slots__ = ("name", "categories", "minTime", "maxTime", "public", "private", "uid")
+    __slots__ = ("name", "page", "limit", "owner")
     NAME_FIELD_NUMBER: _ClassVar[int]
-    CATEGORIES_FIELD_NUMBER: _ClassVar[int]
-    MINTIME_FIELD_NUMBER: _ClassVar[int]
-    MAXTIME_FIELD_NUMBER: _ClassVar[int]
-    PUBLIC_FIELD_NUMBER: _ClassVar[int]
-    PRIVATE_FIELD_NUMBER: _ClassVar[int]
-    UID_FIELD_NUMBER: _ClassVar[int]
+    PAGE_FIELD_NUMBER: _ClassVar[int]
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    OWNER_FIELD_NUMBER: _ClassVar[int]
     name: str
-    categories: _containers.RepeatedCompositeFieldContainer[RecipeCategoryRef]
-    minTime: int
-    maxTime: int
-    public: bool
-    private: bool
-    uid: str
-    def __init__(self, name: _Optional[str] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., minTime: _Optional[int] = ..., maxTime: _Optional[int] = ..., public: bool = ..., private: bool = ..., uid: _Optional[str] = ...) -> None: ...
+    page: str
+    limit: int
+    owner: _users_pb2.UserRef
+    def __init__(self, name: _Optional[str] = ..., page: _Optional[str] = ..., limit: _Optional[int] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ...) -> None: ...
 
 class Recipe(_message.Message):
-    __slots__ = ("id", "name", "description", "requiredTime", "instructions", "categories", "owner", "public", "template", "remote")
+    __slots__ = ("id", "name", "description", "requiredTime", "instructions", "categories", "cuisines", "owner", "public", "quantified")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
     REQUIREDTIME_FIELD_NUMBER: _ClassVar[int]
     INSTRUCTIONS_FIELD_NUMBER: _ClassVar[int]
     CATEGORIES_FIELD_NUMBER: _ClassVar[int]
+    CUISINES_FIELD_NUMBER: _ClassVar[int]
     OWNER_FIELD_NUMBER: _ClassVar[int]
     PUBLIC_FIELD_NUMBER: _ClassVar[int]
-    TEMPLATE_FIELD_NUMBER: _ClassVar[int]
-    REMOTE_FIELD_NUMBER: _ClassVar[int]
+    QUANTIFIED_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     description: str
     requiredTime: int
-    instructions: str
+    instructions: _containers.RepeatedScalarFieldContainer[str]
     categories: _containers.RepeatedCompositeFieldContainer[RecipeCategoryRef]
-    owner: str
+    cuisines: _containers.RepeatedCompositeFieldContainer[RecipeCuisineRef]
+    owner: _users_pb2.UserRef
     public: bool
-    template: TemplateRecipe
-    remote: RemoteRecipeData
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., requiredTime: _Optional[int] = ..., instructions: _Optional[str] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., owner: _Optional[str] = ..., public: bool = ..., template: _Optional[_Union[TemplateRecipe, _Mapping]] = ..., remote: _Optional[_Union[RemoteRecipeData, _Mapping]] = ...) -> None: ...
+    quantified: QuantifiedRecipe
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., requiredTime: _Optional[int] = ..., instructions: _Optional[_Iterable[str]] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[RecipeCuisineRef, _Mapping]]] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., public: bool = ..., quantified: _Optional[_Union[QuantifiedRecipe, _Mapping]] = ...) -> None: ...
 
 class UnmatchedConcept(_message.Message):
     __slots__ = ("concept_id", "unit")
@@ -182,14 +175,16 @@ class QuantifiedRecipeIngredient(_message.Message):
     def __init__(self, food: _Optional[_Union[_food_pb2.FoodRef, _Mapping]] = ..., quantity: _Optional[float] = ...) -> None: ...
 
 class QuantifiedRecipe(_message.Message):
-    __slots__ = ("ingredients", "min", "max")
+    __slots__ = ("ingredients", "min", "max", "margin")
     INGREDIENTS_FIELD_NUMBER: _ClassVar[int]
     MIN_FIELD_NUMBER: _ClassVar[int]
     MAX_FIELD_NUMBER: _ClassVar[int]
+    MARGIN_FIELD_NUMBER: _ClassVar[int]
     ingredients: _containers.RepeatedCompositeFieldContainer[QuantifiedRecipeIngredient]
     min: float
     max: float
-    def __init__(self, ingredients: _Optional[_Iterable[_Union[QuantifiedRecipeIngredient, _Mapping]]] = ..., min: _Optional[float] = ..., max: _Optional[float] = ...) -> None: ...
+    margin: float
+    def __init__(self, ingredients: _Optional[_Iterable[_Union[QuantifiedRecipeIngredient, _Mapping]]] = ..., min: _Optional[float] = ..., max: _Optional[float] = ..., margin: _Optional[float] = ...) -> None: ...
 
 class CompositeFood(_message.Message):
     __slots__ = ("foods", "min", "max")
@@ -242,7 +237,7 @@ class ParsedRemoteRecipeRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ...) -> None: ...
 
 class ParsedRemoteRecipe(_message.Message):
-    __slots__ = ("id", "remoteRecipeId", "foods", "localizations", "categories", "cuisines", "prepTimeMinutes", "cookTimeMinutes", "totalTimeMinutes", "unmatched", "servings", "version", "propertiesPer100Kcal", "kcalPerServing", "conceptWeights")
+    __slots__ = ("id", "remoteRecipeId", "foods", "localizations", "categories", "cuisines", "prepTimeMinutes", "cookTimeMinutes", "totalTimeMinutes", "unmatched", "servings", "version", "propertiesPer100Kcal", "kcalPerServing", "conceptWeights", "remote")
     ID_FIELD_NUMBER: _ClassVar[int]
     REMOTERECIPEID_FIELD_NUMBER: _ClassVar[int]
     FOODS_FIELD_NUMBER: _ClassVar[int]
@@ -258,6 +253,7 @@ class ParsedRemoteRecipe(_message.Message):
     PROPERTIESPER100KCAL_FIELD_NUMBER: _ClassVar[int]
     KCALPERSERVING_FIELD_NUMBER: _ClassVar[int]
     CONCEPTWEIGHTS_FIELD_NUMBER: _ClassVar[int]
+    REMOTE_FIELD_NUMBER: _ClassVar[int]
     id: str
     remoteRecipeId: str
     foods: _containers.RepeatedCompositeFieldContainer[RemoteRecipeIngredient]
@@ -273,7 +269,8 @@ class ParsedRemoteRecipe(_message.Message):
     propertiesPer100Kcal: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyValue]
     kcalPerServing: float
     conceptWeights: _containers.RepeatedCompositeFieldContainer[ConceptWeightInformation]
-    def __init__(self, id: _Optional[str] = ..., remoteRecipeId: _Optional[str] = ..., foods: _Optional[_Iterable[_Union[RemoteRecipeIngredient, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[ParsedRemoteRecipeLocalized, _Mapping]]] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[RecipeCuisineRef, _Mapping]]] = ..., prepTimeMinutes: _Optional[int] = ..., cookTimeMinutes: _Optional[int] = ..., totalTimeMinutes: _Optional[int] = ..., unmatched: _Optional[_Iterable[_Union[UnmatchedIngredient, _Mapping]]] = ..., servings: _Optional[float] = ..., version: _Optional[_Union[RecipeBuildVersion, _Mapping]] = ..., propertiesPer100Kcal: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., kcalPerServing: _Optional[float] = ..., conceptWeights: _Optional[_Iterable[_Union[ConceptWeightInformation, _Mapping]]] = ...) -> None: ...
+    remote: RemoteRecipeRef
+    def __init__(self, id: _Optional[str] = ..., remoteRecipeId: _Optional[str] = ..., foods: _Optional[_Iterable[_Union[RemoteRecipeIngredient, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[ParsedRemoteRecipeLocalized, _Mapping]]] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[RecipeCuisineRef, _Mapping]]] = ..., prepTimeMinutes: _Optional[int] = ..., cookTimeMinutes: _Optional[int] = ..., totalTimeMinutes: _Optional[int] = ..., unmatched: _Optional[_Iterable[_Union[UnmatchedIngredient, _Mapping]]] = ..., servings: _Optional[float] = ..., version: _Optional[_Union[RecipeBuildVersion, _Mapping]] = ..., propertiesPer100Kcal: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., kcalPerServing: _Optional[float] = ..., conceptWeights: _Optional[_Iterable[_Union[ConceptWeightInformation, _Mapping]]] = ..., remote: _Optional[_Union[RemoteRecipeRef, _Mapping]] = ...) -> None: ...
 
 class ParsedRemoteRecipeLocalized(_message.Message):
     __slots__ = ("locale", "name", "description", "instructions")

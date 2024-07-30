@@ -80,24 +80,28 @@ class MealSelection(_message.Message):
     def __init__(self, meals: _Optional[_Iterable[_Union[_meal_pb2.MealRef, _Mapping]]] = ..., useAllMeals: bool = ..., days: _Optional[_Iterable[_Union[_days_pb2.MealPlanDayRef, _Mapping]]] = ..., useAllDays: bool = ..., components: _Optional[_Iterable[_Union[_meal_components_pb2.MealComponentRef, _Mapping]]] = ..., useAllComponents: bool = ...) -> None: ...
 
 class ApplicationLevelRef(_message.Message):
-    __slots__ = ("id", "name", "handle")
+    __slots__ = ("id", "name", "handle", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     HANDLE_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: _localized_pb2.LocalizedString
     handle: str
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., handle: _Optional[str] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., handle: _Optional[str] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class ApplicationLevel(_message.Message):
-    __slots__ = ("id", "localizations", "handle")
+    __slots__ = ("id", "localizations", "handle", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     LOCALIZATIONS_FIELD_NUMBER: _ClassVar[int]
     HANDLE_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     localizations: _containers.RepeatedCompositeFieldContainer[ApplicationLevelLocalized]
     handle: str
-    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ApplicationLevelLocalized, _Mapping]]] = ..., handle: _Optional[str] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ApplicationLevelLocalized, _Mapping]]] = ..., handle: _Optional[str] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class ApplicationLevelLocalized(_message.Message):
     __slots__ = ("locale", "name", "description")

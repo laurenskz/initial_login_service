@@ -107,4 +107,4 @@ def calculate_bmr(height_cm: float, weight_kg: float, activity_level: ActivityLe
 
 
 if __name__ == '__main__':
-    print(calculate_bmr(193, 93, ActivityLevel.moderatelyActive, Gender.male, 28))
+    print(calculate_bmr(193, 93, ActivityLevel.extraActive, Gender.male, 28,DesiredWeightLoss.maintain))

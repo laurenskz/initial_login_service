@@ -5,15 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="305493e0-36a2-4b91-b4cd-973c802eb7c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/login/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/bmr.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/impl.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/nutrients.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/foodgroup_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/foodgroup_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/foodgroup_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/foodgroup_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/generaterequest_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/generaterequest_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/generaterequest_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/generaterequest_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/concepts_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/concepts_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/concepts_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/concepts_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/curated_diet_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/curated_diet_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/curated_diet_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/curated_diet_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/food_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/food_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/food_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/food_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/meal_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/meal_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/meal_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/meal_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/objectivegroup_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/objectivegroup_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/objectivegroup_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/objectivegroup_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/recipes_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/recipes_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/recipes_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/recipes_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/users_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/users_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/models/users_pb2.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/models/users_pb2.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/services/recipe_service_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/services/recipe_service_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/services/recipe_service_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/services/recipe_service_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/services/user_service_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/services/user_service_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/baboea/services/user_service_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/com/baboea/services/user_service_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/bmr.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/bmr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/impl.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/impl.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +80,7 @@
       <recent name="D:\Software\initial_login_service" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.scratch_26">
+  <component name="RunManager" selected="Python.bmr">
     <configuration name="bmr" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="initial_login_service" />
       <option name="ENV_FILES" value="" />
@@ -169,9 +185,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.scratch_26" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.bmr" />
+        <item itemvalue="Python.scratch_26" />
         <item itemvalue="Docker.Dockerfile" />
       </list>
     </recent_temporary>

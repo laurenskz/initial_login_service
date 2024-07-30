@@ -8,28 +8,32 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class ConceptRef(_message.Message):
-    __slots__ = ("id", "name")
+    __slots__ = ("id", "name", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: _localized_pb2.LocalizedString
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class Concept(_message.Message):
-    __slots__ = ("id", "localizations", "matchSets", "parent", "children", "path")
+    __slots__ = ("id", "localizations", "matchSets", "parent", "children", "path", "emoji")
     ID_FIELD_NUMBER: _ClassVar[int]
     LOCALIZATIONS_FIELD_NUMBER: _ClassVar[int]
     MATCHSETS_FIELD_NUMBER: _ClassVar[int]
     PARENT_FIELD_NUMBER: _ClassVar[int]
     CHILDREN_FIELD_NUMBER: _ClassVar[int]
     PATH_FIELD_NUMBER: _ClassVar[int]
+    EMOJI_FIELD_NUMBER: _ClassVar[int]
     id: str
     localizations: _containers.RepeatedCompositeFieldContainer[ConceptLocalized]
     matchSets: _containers.RepeatedCompositeFieldContainer[_matching_pb2.MatchSet]
     parent: ConceptRef
     children: _containers.RepeatedCompositeFieldContainer[ConceptRef]
     path: _containers.RepeatedScalarFieldContainer[int]
-    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ConceptLocalized, _Mapping]]] = ..., matchSets: _Optional[_Iterable[_Union[_matching_pb2.MatchSet, _Mapping]]] = ..., parent: _Optional[_Union[ConceptRef, _Mapping]] = ..., children: _Optional[_Iterable[_Union[ConceptRef, _Mapping]]] = ..., path: _Optional[_Iterable[int]] = ...) -> None: ...
+    emoji: str
+    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ConceptLocalized, _Mapping]]] = ..., matchSets: _Optional[_Iterable[_Union[_matching_pb2.MatchSet, _Mapping]]] = ..., parent: _Optional[_Union[ConceptRef, _Mapping]] = ..., children: _Optional[_Iterable[_Union[ConceptRef, _Mapping]]] = ..., path: _Optional[_Iterable[int]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class ConceptLocalized(_message.Message):
     __slots__ = ("locale", "name", "description")
