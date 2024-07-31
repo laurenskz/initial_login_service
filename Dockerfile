@@ -7,5 +7,6 @@ RUN sh /protos.sh
 COPY login ./login
 COPY test ./test
 RUN python -m unittest
+EXPOSE 50053
 
 CMD python -m login.main
