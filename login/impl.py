@@ -66,9 +66,27 @@ class GrpcLoginService(UserInitServiceServicer):
         #         Create objectives
         targets = self.use_case.calculate(request)
         kcal_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="kcal"))
+        recipe_count_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="recipe_count"))
         carb_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="net_carbs"))
         protein_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="protein"))
         application_level_day = self.application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="day"))
+        application_level_meal = self.application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="meal"))
+        recipe_count_req = SpecializedRequirement(
+                    applicationLevel=application_level_meal,
+                    numerator=recipe_count_prop,
+                    useRatio=False,
+                    useMax=True,
+                    useMin=True,
+                    min=0,
+                    max=1,
+                    numeratorMeals=MealSelection(
+                        useAllMeals=True,
+                        useAllDays=True,
+                        useAllComponents=True,
+                    ),
+                    scaleNumerator=1,
+                    numeratorConcepts=RequirementConcepts(useAllConcepts=True)
+                )
         kcal_req = SpecializedRequirement(
             applicationLevel=application_level_day,
             numerator=kcal_prop,
@@ -128,6 +146,9 @@ class GrpcLoginService(UserInitServiceServicer):
         macro_response: AddResponse = self.objective_group_service.Add(
             ObjectiveGroup(name="Macros", description="Applies your desired macros to every day", owner=user,
                            objectives=[kcal_req, protein_req, carb_req]))
+        recipe_pref_response: AddResponse = self.objective_group_service.Add(
+            ObjectiveGroup(name="Recipe preferences", description="We have set the maximum number of recipes you have to make per meal to 1. Feel free to adjust", owner=user,
+                           objectives=[recipe_count_req]))
         diet: CuratedDiet = self.curated_diet.Get(GetRequest(id=request.diet.id))
         sizes = {
             MealSize.big: 1.5,
@@ -136,7 +157,7 @@ class GrpcLoginService(UserInitServiceServicer):
         }
         meal_sizes = [ClientMealSize(meal=all_meal_refs[index], size=sizes[meal.mealSize]) for index, meal in
                       enumerate(request.meals) if not meal.useKcal]
-        target_objective_groups = [ObjectiveGroupRef(id=macro_response.id)]
+        target_objective_groups = [ObjectiveGroupRef(id=macro_response.id),ObjectiveGroupRef(id=recipe_pref_response.id)]
         if meal_sizes:
             meal_kcal_overrides = [SpecializedRequirement(
                 min=meal.mealKcalMin,
