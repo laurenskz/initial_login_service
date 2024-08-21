@@ -1,5 +1,6 @@
 import grpc
-
+from prometheus_client import Counter, Histogram
+from loguru import logger
 from com.baboea.concept_pb2 import PortionConceptValues, PortionSize
 from com.baboea.models.curated_diet_pb2 import CuratedDiet
 from com.baboea.models.days_pb2 import MealPlanDay
@@ -24,6 +25,9 @@ from login.nutrients import NUTRIENT_DATA
 
 
 class GrpcLoginService(UserInitServiceServicer):
+    # Define Prometheus metrics
+    users_setup_counter = Counter('users_setup_total', 'Total number of users set up')
+    setup_user_duration_histogram = Histogram('setup_user_duration_seconds', 'Time spent setting up a user')
 
     def __init__(self, channel: grpc.Channel, use_case: BmrUseCase):
         self.use_case = use_case
@@ -37,12 +41,20 @@ class GrpcLoginService(UserInitServiceServicer):
         self.curated_diet: CuratedDietServiceStub = CuratedDietServiceStub(channel)
 
     def SetupUser(self, request: InitialLoginForm, context) -> OperationResponse:
-        print("Adding user:)")
         response: AddResponse = self.user_service.Add(
             User(externalId=request.remoteUserId, name=request.personal.name))
         user: UserRef = UserRef(id=response.id)
-        #         Create meals
-        print("User id is", user)
+        logger.bind(user=user).info(f"User created with ID: {user.id}")
+        with GrpcLoginService.setup_user_duration_histogram.time():
+            try:
+                operation_response = self.initialize_user(request, user)
+                logger.bind(user=user).info("Successfully setup user")
+            except Exception:
+                logger.bind(user=user).exception("Failed to setup user")
+        GrpcLoginService.users_setup_counter.inc()
+        return operation_response
+
+    def initialize_user(self, request, user):
         all_meal_refs = []
         for meal in request.meals:
             created_meal = Meal(
@@ -55,7 +67,6 @@ class GrpcLoginService(UserInitServiceServicer):
             add: AddResponse = self.meal_service.Add(created_meal)
             all_meal_refs.append(MealRef(id=add.id))
         #         Create days
-
         for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
             self.day_service.Add(MealPlanDay(
                 name=day,
@@ -72,21 +83,21 @@ class GrpcLoginService(UserInitServiceServicer):
         application_level_day = self.application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="day"))
         application_level_meal = self.application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="meal"))
         recipe_count_req = SpecializedRequirement(
-                    applicationLevel=application_level_meal,
-                    numerator=recipe_count_prop,
-                    useRatio=False,
-                    useMax=True,
-                    useMin=True,
-                    min=0,
-                    max=1,
-                    numeratorMeals=MealSelection(
-                        useAllMeals=True,
-                        useAllDays=True,
-                        useAllComponents=True,
-                    ),
-                    scaleNumerator=1,
-                    numeratorConcepts=RequirementConcepts(useAllConcepts=True)
-                )
+            applicationLevel=application_level_meal,
+            numerator=recipe_count_prop,
+            useRatio=False,
+            useMax=True,
+            useMin=True,
+            min=0,
+            max=1,
+            numeratorMeals=MealSelection(
+                useAllMeals=True,
+                useAllDays=True,
+                useAllComponents=True,
+            ),
+            scaleNumerator=1,
+            numeratorConcepts=RequirementConcepts(useAllConcepts=True)
+        )
         kcal_req = SpecializedRequirement(
             applicationLevel=application_level_day,
             numerator=kcal_prop,
@@ -147,7 +158,9 @@ class GrpcLoginService(UserInitServiceServicer):
             ObjectiveGroup(name="Macros", description="Applies your desired macros to every day", owner=user,
                            objectives=[kcal_req, protein_req, carb_req]))
         recipe_pref_response: AddResponse = self.objective_group_service.Add(
-            ObjectiveGroup(name="Recipe preferences", description="We have set the maximum number of recipes you have to make per meal to 1. Feel free to adjust", owner=user,
+            ObjectiveGroup(name="Recipe preferences",
+                           description="We have set the maximum number of recipes you have to make per meal to 1. Feel free to adjust",
+                           owner=user,
                            objectives=[recipe_count_req]))
         diet: CuratedDiet = self.curated_diet.Get(GetRequest(id=request.diet.id))
         sizes = {
@@ -157,7 +170,8 @@ class GrpcLoginService(UserInitServiceServicer):
         }
         meal_sizes = [ClientMealSize(meal=all_meal_refs[index], size=sizes[meal.mealSize]) for index, meal in
                       enumerate(request.meals) if not meal.useKcal]
-        target_objective_groups = [ObjectiveGroupRef(id=macro_response.id),ObjectiveGroupRef(id=recipe_pref_response.id)]
+        target_objective_groups = [ObjectiveGroupRef(id=macro_response.id),
+                                   ObjectiveGroupRef(id=recipe_pref_response.id)]
         if meal_sizes:
             meal_kcal_overrides = [SpecializedRequirement(
                 min=meal.mealKcalMin,

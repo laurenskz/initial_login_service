@@ -1,7 +1,10 @@
+import sys
 from concurrent import futures
 
 import grpc
 import os
+from loguru import logger
+from prometheus_client import start_http_server
 
 from com.baboea.models.days_pb2 import MealPlanDay
 from com.baboea.services import login_service_pb2_grpc
@@ -42,8 +45,8 @@ class TracebackLoggerInterceptor(grpc.ServerInterceptor):
             def new_behavior(request_or_iterator, servicer_context):
                 try:
                     return behavior(request_or_iterator, servicer_context)
-                except Exception as err:
-                    traceback.print_exception(err)
+                except Exception:
+                    logger.exception("Failed processing request")
 
             return new_behavior
 
@@ -51,15 +54,19 @@ class TracebackLoggerInterceptor(grpc.ServerInterceptor):
 
 
 def serve():
+    logger.info("Starting login service")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), interceptors=[TracebackLoggerInterceptor()])
     login_service_pb2_grpc.add_UserInitServiceServicer_to_server(GrpcLoginService(
         channel=grpc.insecure_channel(os.getenv("CRUD_SERVICE_URL") or "localhost:50052"),
         use_case=BaseBmrUseCase()
     ), server)
     server.add_insecure_port("[::]:50053")
+    start_http_server(8000)
     server.start()
     server.wait_for_termination()
 
 
 if __name__ == '__main__':
+    logger.remove()
+    logger.add(sys.stdout, format="{message}", serialize=True, level="INFO")
     serve()
