@@ -1,6 +1,7 @@
 from concurrent import futures
 
 import grpc
+import os
 
 from com.baboea.models.days_pb2 import MealPlanDay
 from com.baboea.services import login_service_pb2_grpc
@@ -52,7 +53,7 @@ class TracebackLoggerInterceptor(grpc.ServerInterceptor):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), interceptors=[TracebackLoggerInterceptor()])
     login_service_pb2_grpc.add_UserInitServiceServicer_to_server(GrpcLoginService(
-        channel=grpc.insecure_channel("localhost:50052"),
+        channel=grpc.insecure_channel(os.getenv("CRUD_SERVICE_URL") or "localhost:50052"),
         use_case=BaseBmrUseCase()
     ), server)
     server.add_insecure_port("[::]:50053")
