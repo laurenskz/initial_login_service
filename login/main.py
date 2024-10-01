@@ -61,7 +61,7 @@ def serve():
         use_case=BaseBmrUseCase()
     ), server)
     server.add_insecure_port("[::]:50053")
-    start_http_server(8000)
+    # start_http_server(8000)
     server.start()
     server.wait_for_termination()
 

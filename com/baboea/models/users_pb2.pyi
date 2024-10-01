@@ -19,9 +19,11 @@ class User(_message.Message):
     def __init__(self, id: _Optional[str] = ..., externalId: _Optional[str] = ..., name: _Optional[str] = ..., handle: _Optional[str] = ..., admin: bool = ...) -> None: ...
 
 class UserRef(_message.Message):
-    __slots__ = ("id", "name")
+    __slots__ = ("id", "name", "admin")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
+    ADMIN_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
+    admin: bool
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., admin: bool = ...) -> None: ...

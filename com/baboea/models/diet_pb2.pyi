@@ -4,6 +4,7 @@ from com.baboea.models import users_pb2 as _users_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from com.baboea.models import concepts_pb2 as _concepts_pb2
 from com.baboea.models import food_pb2 as _food_pb2
+from com.baboea.models import property_pb2 as _property_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -12,20 +13,22 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class UserDietDefinition(_message.Message):
-    __slots__ = ("id", "owner", "objectiveGroups", "portionSizes", "concepts", "mealSizes")
+    __slots__ = ("id", "owner", "objectiveGroups", "portionSizes", "concepts", "mealSizes", "mealBalancingProperties")
     ID_FIELD_NUMBER: _ClassVar[int]
     OWNER_FIELD_NUMBER: _ClassVar[int]
     OBJECTIVEGROUPS_FIELD_NUMBER: _ClassVar[int]
     PORTIONSIZES_FIELD_NUMBER: _ClassVar[int]
     CONCEPTS_FIELD_NUMBER: _ClassVar[int]
     MEALSIZES_FIELD_NUMBER: _ClassVar[int]
+    MEALBALANCINGPROPERTIES_FIELD_NUMBER: _ClassVar[int]
     id: str
     owner: _users_pb2.UserRef
     objectiveGroups: _containers.RepeatedCompositeFieldContainer[_objectivegroup_pb2.ObjectiveGroupRef]
     portionSizes: _concept_pb2.PortionConceptValues
     concepts: _concept_pb2.BoolConceptValues
     mealSizes: MealSizes
-    def __init__(self, id: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., objectiveGroups: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroupRef, _Mapping]]] = ..., portionSizes: _Optional[_Union[_concept_pb2.PortionConceptValues, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSizes: _Optional[_Union[MealSizes, _Mapping]] = ...) -> None: ...
+    mealBalancingProperties: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyRef]
+    def __init__(self, id: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., objectiveGroups: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroupRef, _Mapping]]] = ..., portionSizes: _Optional[_Union[_concept_pb2.PortionConceptValues, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSizes: _Optional[_Union[MealSizes, _Mapping]] = ..., mealBalancingProperties: _Optional[_Iterable[_Union[_property_pb2.PropertyRef, _Mapping]]] = ...) -> None: ...
 
 class UserDietDefinitionRef(_message.Message):
     __slots__ = ("id", "owner")

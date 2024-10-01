@@ -19,7 +19,7 @@ class MealRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
 class Meal(_message.Message):
-    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes")
+    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes", "balanced")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
@@ -27,6 +27,7 @@ class Meal(_message.Message):
     SMARTRECIPES_FIELD_NUMBER: _ClassVar[int]
     CONCEPTS_FIELD_NUMBER: _ClassVar[int]
     RECIPES_FIELD_NUMBER: _ClassVar[int]
+    BALANCED_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     description: str
@@ -34,7 +35,8 @@ class Meal(_message.Message):
     smartRecipes: SmartRecipePreferences
     concepts: _concept_pb2.BoolConceptValues
     recipes: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeRef]
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ...) -> None: ...
+    balanced: bool
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ..., balanced: bool = ...) -> None: ...
 
 class MealRequirement(_message.Message):
     __slots__ = ("min", "max", "useMin", "useMax", "numerator", "denominator", "ratio", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts")

@@ -77,6 +77,8 @@ class GrpcLoginService(UserInitServiceServicer):
         #         Create objectives
         targets = self.use_case.calculate(request)
         kcal_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="kcal"))
+        fiber_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fiber"))
+        fat_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fat"))
         recipe_count_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="recipe_count"))
         carb_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="net_carbs"))
         protein_prop = self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="protein"))
@@ -234,6 +236,7 @@ class GrpcLoginService(UserInitServiceServicer):
             owner=user,
             objectiveGroups=target_objective_groups,
             portionSizes=by_user.portionSizes,
-            concepts=diet.concepts, mealSizes=MealSizes(sizes=meal_sizes)
+            concepts=diet.concepts, mealSizes=MealSizes(sizes=meal_sizes),
+            mealBalancingProperties=[protein_prop, fiber_prop, fat_prop, carb_prop]
         ))
         return result.operation

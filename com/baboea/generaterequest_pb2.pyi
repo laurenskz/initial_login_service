@@ -19,12 +19,14 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class UserPlanInput(_message.Message):
-    __slots__ = ("user", "desiredDays")
+    __slots__ = ("user", "desiredDays", "name")
     USER_FIELD_NUMBER: _ClassVar[int]
     DESIREDDAYS_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
     user: _users_pb2.UserRef
     desiredDays: _containers.RepeatedCompositeFieldContainer[_days_pb2.MealPlanDayRef]
-    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.MealPlanDayRef, _Mapping]]] = ...) -> None: ...
+    name: str
+    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.MealPlanDayRef, _Mapping]]] = ..., name: _Optional[str] = ...) -> None: ...
 
 class MealPlanGenerateRequest(_message.Message):
     __slots__ = ("user", "desiredDays", "enabledObjectives", "availableMeals", "diet", "availableRecipes")
@@ -55,12 +57,38 @@ class GroceryList(_message.Message):
     def __init__(self, groups: _Optional[_Iterable[_Union[GroceryGroup, _Mapping]]] = ...) -> None: ...
 
 class GeneratedMealPlan(_message.Message):
-    __slots__ = ("groceryList", "days")
+    __slots__ = ("id", "groceryList", "days", "notes", "feasible")
+    ID_FIELD_NUMBER: _ClassVar[int]
     GROCERYLIST_FIELD_NUMBER: _ClassVar[int]
     DAYS_FIELD_NUMBER: _ClassVar[int]
+    NOTES_FIELD_NUMBER: _ClassVar[int]
+    FEASIBLE_FIELD_NUMBER: _ClassVar[int]
+    id: str
     groceryList: GroceryList
     days: _containers.RepeatedCompositeFieldContainer[GeneratedDay]
-    def __init__(self, groceryList: _Optional[_Union[GroceryList, _Mapping]] = ..., days: _Optional[_Iterable[_Union[GeneratedDay, _Mapping]]] = ...) -> None: ...
+    notes: _containers.RepeatedCompositeFieldContainer[GeneratedMealPlanNotes]
+    feasible: bool
+    def __init__(self, id: _Optional[str] = ..., groceryList: _Optional[_Union[GroceryList, _Mapping]] = ..., days: _Optional[_Iterable[_Union[GeneratedDay, _Mapping]]] = ..., notes: _Optional[_Iterable[_Union[GeneratedMealPlanNotes, _Mapping]]] = ..., feasible: bool = ...) -> None: ...
+
+class GeneratedMealPlanNotes(_message.Message):
+    __slots__ = ("message",)
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    message: str
+    def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class GeneratedMealPlanRef(_message.Message):
+    __slots__ = ("id", "name")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    name: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
+
+class GeneratedMealPlanQuery(_message.Message):
+    __slots__ = ("name",)
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    name: str
+    def __init__(self, name: _Optional[str] = ...) -> None: ...
 
 class GenerateRefResolution(_message.Message):
     __slots__ = ("properties", "foods", "recipes", "user", "locale")
