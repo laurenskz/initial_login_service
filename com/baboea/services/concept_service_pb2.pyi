@@ -1,4 +1,5 @@
 from com.baboea.models import concepts_pb2 as _concepts_pb2
+from com.baboea.models import concept_tag_pb2 as _concept_tag_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.services import base_pb2 as _base_pb2
 from google.protobuf.internal import containers as _containers
@@ -25,13 +26,17 @@ class ConceptUpdateRequest(_message.Message):
     def __init__(self, id: _Optional[str] = ..., newValue: _Optional[_Union[_concepts_pb2.Concept, _Mapping]] = ...) -> None: ...
 
 class ConceptQuery(_message.Message):
-    __slots__ = ("name", "page", "limit", "locale")
+    __slots__ = ("name", "page", "limit", "locale", "tags", "tagHandles")
     NAME_FIELD_NUMBER: _ClassVar[int]
     PAGE_FIELD_NUMBER: _ClassVar[int]
     LIMIT_FIELD_NUMBER: _ClassVar[int]
     LOCALE_FIELD_NUMBER: _ClassVar[int]
+    TAGS_FIELD_NUMBER: _ClassVar[int]
+    TAGHANDLES_FIELD_NUMBER: _ClassVar[int]
     name: str
     page: str
     limit: int
     locale: _localized_pb2.LocaleRef
-    def __init__(self, name: _Optional[str] = ..., page: _Optional[str] = ..., limit: _Optional[int] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ...) -> None: ...
+    tags: _containers.RepeatedCompositeFieldContainer[_concept_tag_pb2.ConceptTagRef]
+    tagHandles: _containers.RepeatedScalarFieldContainer[str]
+    def __init__(self, name: _Optional[str] = ..., page: _Optional[str] = ..., limit: _Optional[int] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ..., tags: _Optional[_Iterable[_Union[_concept_tag_pb2.ConceptTagRef, _Mapping]]] = ..., tagHandles: _Optional[_Iterable[str]] = ...) -> None: ...

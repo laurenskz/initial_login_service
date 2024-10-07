@@ -1,7 +1,8 @@
+from com.baboea.models import concept_tag_pb2 as _concept_tag_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -15,8 +16,16 @@ class PortionSize(_message.Message):
     step: float
     def __init__(self, min: _Optional[float] = ..., max: _Optional[float] = ..., step: _Optional[float] = ...) -> None: ...
 
+class ConceptTagStatus(_message.Message):
+    __slots__ = ("tag", "status")
+    TAG_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    tag: _concept_tag_pb2.ConceptTagRef
+    status: bool
+    def __init__(self, tag: _Optional[_Union[_concept_tag_pb2.ConceptTagRef, _Mapping]] = ..., status: bool = ...) -> None: ...
+
 class BoolConceptValues(_message.Message):
-    __slots__ = ("conceptValues", "foodValues")
+    __slots__ = ("conceptValues", "foodValues", "tagPreferences")
     class ConceptValuesEntry(_message.Message):
         __slots__ = ("key", "value")
         KEY_FIELD_NUMBER: _ClassVar[int]
@@ -33,9 +42,11 @@ class BoolConceptValues(_message.Message):
         def __init__(self, key: _Optional[str] = ..., value: bool = ...) -> None: ...
     CONCEPTVALUES_FIELD_NUMBER: _ClassVar[int]
     FOODVALUES_FIELD_NUMBER: _ClassVar[int]
+    TAGPREFERENCES_FIELD_NUMBER: _ClassVar[int]
     conceptValues: _containers.ScalarMap[str, bool]
     foodValues: _containers.ScalarMap[str, bool]
-    def __init__(self, conceptValues: _Optional[_Mapping[str, bool]] = ..., foodValues: _Optional[_Mapping[str, bool]] = ...) -> None: ...
+    tagPreferences: _containers.RepeatedCompositeFieldContainer[ConceptTagStatus]
+    def __init__(self, conceptValues: _Optional[_Mapping[str, bool]] = ..., foodValues: _Optional[_Mapping[str, bool]] = ..., tagPreferences: _Optional[_Iterable[_Union[ConceptTagStatus, _Mapping]]] = ...) -> None: ...
 
 class PortionConceptValues(_message.Message):
     __slots__ = ("conceptValues", "foodValues")

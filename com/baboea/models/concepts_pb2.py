@@ -14,19 +14,20 @@ _sym_db = _symbol_database.Default()
 
 from com.baboea.models import matching_pb2 as com_dot_baboea_dot_models_dot_matching__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
+from com.baboea.models import concept_tag_pb2 as com_dot_baboea_dot_models_dot_concept__tag__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/models/concepts.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/matching.proto\x1a!com/baboea/models/localized.proto\"Y\n\nConceptRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"\xfe\x01\n\x07\x43oncept\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\rlocalizations\x18\x02 \x03(\x0b\x32#.com.baboea.models.ConceptLocalized\x12.\n\tmatchSets\x18\x03 \x03(\x0b\x32\x1b.com.baboea.models.MatchSet\x12-\n\x06parent\x18\x04 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12/\n\x08\x63hildren\x18\x05 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x0c\n\x04path\x18\x06 \x03(\x03\x12\r\n\x05\x65moji\x18\x07 \x01(\t\"c\n\x10\x43onceptLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/models/concepts.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/matching.proto\x1a!com/baboea/models/localized.proto\x1a#com/baboea/models/concept_tag.proto\"Y\n\nConceptRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"\xbe\x02\n\x07\x43oncept\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\rlocalizations\x18\x02 \x03(\x0b\x32#.com.baboea.models.ConceptLocalized\x12.\n\tmatchSets\x18\x03 \x03(\x0b\x32\x1b.com.baboea.models.MatchSet\x12-\n\x06parent\x18\x04 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12/\n\x08\x63hildren\x18\x05 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x0c\n\x04path\x18\x06 \x03(\x03\x12\r\n\x05\x65moji\x18\x07 \x01(\t\x12.\n\x04tags\x18\x08 \x03(\x0b\x32 .com.baboea.models.ConceptTagRef\x12\x0e\n\x06handle\x18\t \x01(\t\"c\n\x10\x43onceptLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.concepts_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CONCEPTREF']._serialized_start=124
-  _globals['_CONCEPTREF']._serialized_end=213
-  _globals['_CONCEPT']._serialized_start=216
-  _globals['_CONCEPT']._serialized_end=470
-  _globals['_CONCEPTLOCALIZED']._serialized_start=472
-  _globals['_CONCEPTLOCALIZED']._serialized_end=571
+  _globals['_CONCEPTREF']._serialized_start=161
+  _globals['_CONCEPTREF']._serialized_end=250
+  _globals['_CONCEPT']._serialized_start=253
+  _globals['_CONCEPT']._serialized_end=571
+  _globals['_CONCEPTLOCALIZED']._serialized_start=573
+  _globals['_CONCEPTLOCALIZED']._serialized_end=672
 # @@protoc_insertion_point(module_scope)

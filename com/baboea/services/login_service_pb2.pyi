@@ -1,5 +1,6 @@
 from com.baboea.models import curated_diet_pb2 as _curated_diet_pb2
 from com.baboea.models import meal_pb2 as _meal_pb2
+from com.baboea.models import recipes_pb2 as _recipes_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from com.baboea.services import base_pb2 as _base_pb2
 from com.baboea.models import users_pb2 as _users_pb2
@@ -22,6 +23,11 @@ class MealSize(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     small: _ClassVar[MealSize]
     normal: _ClassVar[MealSize]
     big: _ClassVar[MealSize]
+
+class MealStructurePreference(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    ownRecipe: _ClassVar[MealStructurePreference]
+    generated: _ClassVar[MealStructurePreference]
 
 class ActivityLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -50,6 +56,8 @@ other: Gender
 small: MealSize
 normal: MealSize
 big: MealSize
+ownRecipe: MealStructurePreference
+generated: MealStructurePreference
 sedentary: ActivityLevel
 lightlyActive: ActivityLevel
 moderatelyActive: ActivityLevel
@@ -65,7 +73,7 @@ lose_slowly: DesiredWeightLoss
 lose_rapid: DesiredWeightLoss
 
 class MealInit(_message.Message):
-    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize")
+    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients")
     NAME_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMIN_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMAX_FIELD_NUMBER: _ClassVar[int]
@@ -73,6 +81,8 @@ class MealInit(_message.Message):
     SMART_FIELD_NUMBER: _ClassVar[int]
     SIDEDISHES_FIELD_NUMBER: _ClassVar[int]
     MEALSIZE_FIELD_NUMBER: _ClassVar[int]
+    MEALPREF_FIELD_NUMBER: _ClassVar[int]
+    OWNRECIPEINGREDIENTS_FIELD_NUMBER: _ClassVar[int]
     name: str
     mealKcalMin: float
     mealKcalMax: float
@@ -80,7 +90,9 @@ class MealInit(_message.Message):
     smart: _meal_pb2.SmartRecipePreferences
     sideDishes: _concept_pb2.BoolConceptValues
     mealSize: MealSize
-    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ...) -> None: ...
+    mealPref: MealStructurePreference
+    ownRecipeIngredients: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.QuantifiedRecipeIngredient]
+    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ...) -> None: ...
 
 class NutritionPrefs(_message.Message):
     __slots__ = ("kcal", "protein", "carbPercentage")

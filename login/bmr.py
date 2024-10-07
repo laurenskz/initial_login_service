@@ -43,9 +43,9 @@ class BaseBmrUseCase(BmrUseCase):
             protein *= 1.25
 
         fiber = {
-            Gender.male: (35, 40),
-            Gender.other: (35, 40),
-            Gender.female: (23, 30)
+            Gender.male: (35, 65),
+            Gender.other: (35, 65),
+            Gender.female: (23, 50)
         }
         minFiber, maxFiber = fiber[form.personal.gender]
         minCarb, maxCarb = carb_percentages[form.macros]

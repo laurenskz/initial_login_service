@@ -1,24 +1,29 @@
 import grpc
 from prometheus_client import Counter, Histogram
 from loguru import logger
-from com.baboea.concept_pb2 import PortionConceptValues, PortionSize
+from com.baboea.concept_pb2 import PortionConceptValues, PortionSize, BoolConceptValues
+from com.baboea.models.concepts_pb2 import Concept, ConceptRef
 from com.baboea.models.curated_diet_pb2 import CuratedDiet
 from com.baboea.models.days_pb2 import MealPlanDay
 from com.baboea.models.diet_pb2 import UserDietDefinition, ClientMealSize, MealSizes
-from com.baboea.models.meal_pb2 import Meal, MealRef
+from com.baboea.models.meal_pb2 import Meal, MealRef, SmartRecipePreferences
 from com.baboea.models.objectivegroup_pb2 import SpecializedRequirement, MealSelection, RequirementConcepts, \
     ObjectiveGroup, ObjectiveGroupRef
+from com.baboea.models.recipes_pb2 import QuantifiedRecipe, Recipe, RecipeRef
 from com.baboea.models.users_pb2 import UserRef, User
 from com.baboea.services.application_level_service_pb2_grpc import ApplicationLevelServiceStub
 from com.baboea.services.base_pb2 import OperationResponse, AddResponse, FindSingleHandleRequest, GetRequest
+from com.baboea.services.concept_service_pb2_grpc import ConceptServiceStub
 from com.baboea.services.curated_diet_service_pb2_grpc import CuratedDietServiceStub
 from com.baboea.services.diet_service_pb2_grpc import UserDietServiceStub
-from com.baboea.services.login_service_pb2 import InitialLoginForm, LoginRequest, LoginResponse, MealSize
+from com.baboea.services.login_service_pb2 import InitialLoginForm, LoginRequest, LoginResponse, MealSize, \
+    MealStructurePreference
 from com.baboea.services.login_service_pb2_grpc import UserInitServiceServicer, LoginServiceStub
 from com.baboea.services.meal_plan_day_service_pb2_grpc import MealPlanDayServiceStub
 from com.baboea.services.meal_service_pb2_grpc import MealServiceStub
 from com.baboea.services.objective_group_service_pb2_grpc import ObjectiveGroupServiceStub
 from com.baboea.services.property_service_pb2_grpc import PropertyServiceStub
+from com.baboea.services.recipe_service_pb2_grpc import RecipeServiceStub
 from com.baboea.services.user_service_pb2_grpc import UserServiceStub
 from login.bmr import BmrUseCase
 from login.nutrients import NUTRIENT_DATA
@@ -32,6 +37,8 @@ class GrpcLoginService(UserInitServiceServicer):
     def __init__(self, channel: grpc.Channel, use_case: BmrUseCase):
         self.use_case = use_case
         self.meal_service: MealServiceStub = MealServiceStub(channel)
+        self.quantified_recipes: RecipeServiceStub = RecipeServiceStub(channel)
+        self.concept_service: ConceptServiceStub = ConceptServiceStub(channel)
         self.day_service: MealPlanDayServiceStub = MealPlanDayServiceStub(channel)
         self.user_service: UserServiceStub = UserServiceStub(channel)
         self.objective_group_service: ObjectiveGroupServiceStub = ObjectiveGroupServiceStub(channel)
@@ -54,16 +61,48 @@ class GrpcLoginService(UserInitServiceServicer):
         GrpcLoginService.users_setup_counter.inc()
         return operation_response
 
-    def initialize_user(self, request, user):
+    def initialize_user(self, request, user: UserRef):
         all_meal_refs = []
-        for meal in request.meals:
-            created_meal = Meal(
-                name=meal.name,
-                description="",
-                owner=user,
-                smartRecipes=meal.smart,
-                concepts=meal.sideDishes
-            )
+        root_concept: ConceptRef = self.concept_service.ByHandle("root")
+        fat_concept: ConceptRef = self.concept_service.ByHandle("fat")
+        pantry_concept: ConceptRef = self.concept_service.ByHandle("pantry")
+        water_concept: ConceptRef = self.concept_service.ByHandle("water")
+        meal_kcal_by_recipe = {}
+        for idx, meal in enumerate(request.meals):
+            sides = {k: v for k, v in meal.sideDishes.conceptValues.items()}
+            smart = {fat_concept.id: True, pantry_concept.id: True, water_concept.id: True, **sides}
+            if meal.mealPref == MealStructurePreference.ownRecipe:
+                total_kcal = 0
+                total_weight = 0
+                for i in meal.ownRecipeIngredients:
+                    total_weight += i.quantity
+                    for p in i.food.properties:
+                        if "kcal" in [x.value.lower() for x in p.name.languages]:
+                            total_kcal += p.value
+                r = QuantifiedRecipe(ingredients=meal.ownRecipeIngredients, min=total_weight * 0.99,
+                                     max=total_weight * 1.01)
+                recipe: AddResponse = self.quantified_recipes.Add(Recipe(name=f"My standard {meal.name}", quantified=r))
+                meal_kcal_by_recipe[idx] = total_kcal
+                created_meal = Meal(
+                    name=meal.name,
+                    recipes=[RecipeRef(id=recipe.id)],
+                    balanced=False,
+                )
+            else:
+                created_meal = Meal(
+                    name=meal.name,
+                    description="",
+                    owner=user,
+                    smartRecipes=SmartRecipePreferences(
+                        enabled=meal.smart.enabled, categories=meal.smart.categories, cuisines=meal.smart.cuisines,
+                        minTime=meal.smart.minTime, maxTime=meal.smart.maxTime, accuracy=meal.smart.accuracy,
+                        concepts=BoolConceptValues(
+                            conceptValues=smart, tagPreferences=meal.smart.concepts.tagPreferences
+                        )
+                    ),
+                    concepts=BoolConceptValues(conceptValues={root_concept.id: False, **sides}),
+                    balanced=meal.name in ["Breakfast", "Lunch", "Dinner"]
+                )
             add: AddResponse = self.meal_service.Add(created_meal)
             all_meal_refs.append(MealRef(id=add.id))
         #         Create days
@@ -174,10 +213,12 @@ class GrpcLoginService(UserInitServiceServicer):
                       enumerate(request.meals) if not meal.useKcal]
         target_objective_groups = [ObjectiveGroupRef(id=macro_response.id),
                                    ObjectiveGroupRef(id=recipe_pref_response.id)]
-        if meal_sizes:
+        if [1 for m in request.meals if m.useKcal or m.mealPref == MealStructurePreference.ownRecipe]:
             meal_kcal_overrides = [SpecializedRequirement(
-                min=meal.mealKcalMin,
-                max=meal.mealKcalMax,
+                min=meal.mealKcalMin if meal.mealPref == MealStructurePreference.generated else
+                meal_kcal_by_recipe[index] * 0.99,
+                max=meal.mealKcalMax if meal.mealPref == MealStructurePreference.generated else
+                meal_kcal_by_recipe[index] * 1.01,
                 numeratorMeals=MealSelection(
                     useAllDays=True,
                     useAllComponents=True,
@@ -215,7 +256,7 @@ class GrpcLoginService(UserInitServiceServicer):
             min=targets.minFiber,
             max=targets.maxFiber,
             useMin=True,
-            useMax=False,
+            useMax=True,
             numerator=self.property_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fiber")),
             denominator=kcal_prop,
             useRatio=False,

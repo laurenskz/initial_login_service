@@ -1,5 +1,6 @@
 from com.baboea.models import matching_pb2 as _matching_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
+from com.baboea.models import concept_tag_pb2 as _concept_tag_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -18,7 +19,7 @@ class ConceptRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class Concept(_message.Message):
-    __slots__ = ("id", "localizations", "matchSets", "parent", "children", "path", "emoji")
+    __slots__ = ("id", "localizations", "matchSets", "parent", "children", "path", "emoji", "tags", "handle")
     ID_FIELD_NUMBER: _ClassVar[int]
     LOCALIZATIONS_FIELD_NUMBER: _ClassVar[int]
     MATCHSETS_FIELD_NUMBER: _ClassVar[int]
@@ -26,6 +27,8 @@ class Concept(_message.Message):
     CHILDREN_FIELD_NUMBER: _ClassVar[int]
     PATH_FIELD_NUMBER: _ClassVar[int]
     EMOJI_FIELD_NUMBER: _ClassVar[int]
+    TAGS_FIELD_NUMBER: _ClassVar[int]
+    HANDLE_FIELD_NUMBER: _ClassVar[int]
     id: str
     localizations: _containers.RepeatedCompositeFieldContainer[ConceptLocalized]
     matchSets: _containers.RepeatedCompositeFieldContainer[_matching_pb2.MatchSet]
@@ -33,7 +36,9 @@ class Concept(_message.Message):
     children: _containers.RepeatedCompositeFieldContainer[ConceptRef]
     path: _containers.RepeatedScalarFieldContainer[int]
     emoji: str
-    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ConceptLocalized, _Mapping]]] = ..., matchSets: _Optional[_Iterable[_Union[_matching_pb2.MatchSet, _Mapping]]] = ..., parent: _Optional[_Union[ConceptRef, _Mapping]] = ..., children: _Optional[_Iterable[_Union[ConceptRef, _Mapping]]] = ..., path: _Optional[_Iterable[int]] = ..., emoji: _Optional[str] = ...) -> None: ...
+    tags: _containers.RepeatedCompositeFieldContainer[_concept_tag_pb2.ConceptTagRef]
+    handle: str
+    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[ConceptLocalized, _Mapping]]] = ..., matchSets: _Optional[_Iterable[_Union[_matching_pb2.MatchSet, _Mapping]]] = ..., parent: _Optional[_Union[ConceptRef, _Mapping]] = ..., children: _Optional[_Iterable[_Union[ConceptRef, _Mapping]]] = ..., path: _Optional[_Iterable[int]] = ..., emoji: _Optional[str] = ..., tags: _Optional[_Iterable[_Union[_concept_tag_pb2.ConceptTagRef, _Mapping]]] = ..., handle: _Optional[str] = ...) -> None: ...
 
 class ConceptLocalized(_message.Message):
     __slots__ = ("locale", "name", "description")
