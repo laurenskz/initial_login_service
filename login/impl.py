@@ -63,10 +63,10 @@ class GrpcLoginService(UserInitServiceServicer):
 
     def initialize_user(self, request, user: UserRef):
         all_meal_refs = []
-        root_concept: ConceptRef = self.concept_service.ByHandle("root")
-        fat_concept: ConceptRef = self.concept_service.ByHandle("fat")
-        pantry_concept: ConceptRef = self.concept_service.ByHandle("pantry")
-        water_concept: ConceptRef = self.concept_service.ByHandle("water")
+        root_concept: ConceptRef = self.concept_service.ByHandle(FindSingleHandleRequest(handle="root"))
+        fat_concept: ConceptRef = self.concept_service.ByHandle(FindSingleHandleRequest(handle="fat"))
+        pantry_concept: ConceptRef = self.concept_service.ByHandle(FindSingleHandleRequest(handle="pantry"))
+        water_concept: ConceptRef = self.concept_service.ByHandle(FindSingleHandleRequest(handle="water"))
         meal_kcal_by_recipe = {}
         for idx, meal in enumerate(request.meals):
             sides = {k: v for k, v in meal.sideDishes.conceptValues.items()}
