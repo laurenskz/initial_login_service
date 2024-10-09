@@ -465,7 +465,7 @@ class GrpcLoginService(UserInitServiceServicer):
                                application_levels: ApplicationLevels) -> SpecializedRequirement:
         return GrpcLoginService.create_kcal_ratio_requirement(min_percentage=targets.minFatPercentage,
                                                               max_percentage=targets.maxFatPercentage,
-                                                              selected_property=properties.net_carbs, kcal_per_unit=9,
+                                                              selected_property=properties.fat, kcal_per_unit=9,
                                                               properties=properties,
                                                               application_levels=application_levels)
 
