@@ -176,7 +176,7 @@ class TestGrpcLoginService(unittest.TestCase):
         )
 
         # Call the method under test
-        recipe = GrpcLoginService.construct_own_recipe(meal)
+        recipe = GrpcLoginService.construct_own_recipe(meal, UserRef(id="bab"))
         self.assertAlmostEqual(recipe.quantified.min, 450 * 0.99)
         self.assertAlmostEqual(recipe.quantified.max, 450 * 1.01)
         self.assertEqual(recipe.name, "My standard lunch")
