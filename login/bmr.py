@@ -16,6 +16,8 @@ class UserReqs:
     maxFiber: float
     minCarbPercentage: float
     maxCarbPercentage: float
+    minFatPercentage: float
+    maxFatPercentage: float
 
 
 class BmrUseCase(abc.ABC):
@@ -35,8 +37,15 @@ class BaseBmrUseCase(BmrUseCase):
             MacroStrategy.balanced: (0.4, 0.65),
             MacroStrategy.keto: (0.0, 0.1),
             MacroStrategy.high_protein: (0.2, 0.65),
-
         }
+
+        fat_percentages = {
+            MacroStrategy.low_carb: (0.5, 0.7),  # Adjusted for typical low-carb ranges
+            MacroStrategy.balanced: (0.2, 0.35),  # Balanced diets usually have moderate fat intake
+            MacroStrategy.keto: (0.7, 0.85),  # Keto diets emphasize high fat intake
+            MacroStrategy.high_protein: (0.2, 0.35),  # High protein diets generally have moderate fat
+        }
+
         if form.macros == MacroStrategy.high_protein:
             protein *= 2.0
         if form.macros == MacroStrategy.low_carb:
@@ -49,6 +58,7 @@ class BaseBmrUseCase(BmrUseCase):
         }
         minFiber, maxFiber = fiber[form.personal.gender]
         minCarb, maxCarb = carb_percentages[form.macros]
+        minFat, maxFat = fat_percentages[form.macros]
         return UserReqs(
             minKcal=kcal * 0.99,
             maxKcal=kcal * 1.01,
@@ -57,7 +67,9 @@ class BaseBmrUseCase(BmrUseCase):
             minCarbPercentage=minCarb,
             maxCarbPercentage=maxCarb,
             minFiber=minFiber,
-            maxFiber=maxFiber
+            maxFiber=maxFiber,
+            minFatPercentage=minFat,
+            maxFatPercentage=maxFat
         )
 
 
@@ -107,4 +119,4 @@ def calculate_bmr(height_cm: float, weight_kg: float, activity_level: ActivityLe
 
 
 if __name__ == '__main__':
-    print(calculate_bmr(193, 93, ActivityLevel.extraActive, Gender.male, 28,DesiredWeightLoss.maintain))
+    print(calculate_bmr(193, 93, ActivityLevel.extraActive, Gender.male, 28, DesiredWeightLoss.maintain))
