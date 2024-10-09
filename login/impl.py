@@ -109,11 +109,12 @@ class GrpcLoginService(UserInitServiceServicer):
         all_meal_refs = []
         for idx, meal in enumerate(request.meals):
             if meal.mealPref == MealStructurePreference.ownRecipe:
-                recipe_ref = self.create_own_recipe(meal)
+                recipe_ref = self.create_own_recipe(meal, user)
                 created_meal = Meal(
                     name=meal.name,
                     recipes=[recipe_ref],
                     balanced=False,
+                    owner=user
                 )
             else:
                 created_meal = self.create_smart_meal(meal, user, self.concepts, self.tags)
@@ -136,7 +137,7 @@ class GrpcLoginService(UserInitServiceServicer):
         return sum(i.quantity for i in ingredients)
 
     @staticmethod
-    def construct_own_recipe(meal: MealInit) -> Recipe:
+    def construct_own_recipe(meal: MealInit, user: UserRef) -> Recipe:
         total_weight = GrpcLoginService.calculate_own_recipe_weight(meal.ownRecipeIngredients)
         quantified_recipe = QuantifiedRecipe(
             ingredients=meal.ownRecipeIngredients,
@@ -145,12 +146,13 @@ class GrpcLoginService(UserInitServiceServicer):
         )
         return Recipe(
             name=f"My standard {meal.name.lower()}",
-            quantified=quantified_recipe
+            quantified=quantified_recipe,
+            owner=user
         )
 
-    def create_own_recipe(self, meal: MealInit) -> RecipeRef:
+    def create_own_recipe(self, meal: MealInit, user: UserRef) -> RecipeRef:
         recipe_response = self.quantified_recipes.Add(
-            GrpcLoginService.construct_own_recipe(meal)
+            GrpcLoginService.construct_own_recipe(meal, user)
         )
         return RecipeRef(id=recipe_response.id)
 
