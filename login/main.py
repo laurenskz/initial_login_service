@@ -80,8 +80,8 @@ def serve():
             water=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="water")).id),
         ),
         tags=ConceptTags(
-            common_item=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="common_item")),
-            side_dish=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="side_dish")),
+            common_item=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="common_supermarket")),
+            side_dish=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="normal_side_food")),
         ),
         application_levels=ApplicationLevels(
             meal=application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="meal")),
