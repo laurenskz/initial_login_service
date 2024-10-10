@@ -224,6 +224,7 @@ class GrpcLoginService(UserInitServiceServicer):
     @staticmethod
     def create_all_objective_groups(
             request: InitialLoginForm,
+            concepts: Concepts,
             all_meal_refs: List[MealRef],
             reqs: UserReqs,
             properties: InitProperties,
@@ -245,6 +246,8 @@ class GrpcLoginService(UserInitServiceServicer):
         )
         objective_groups = [
             macros,
+            GrpcLoginService.create_fruit_and_veg_objective(properties=properties, concepts=concepts,
+                                                            application_levels=application_levels, user=user),
             GrpcLoginService.create_nutrient_targets(NUTRIENT_DATA, resolver, application_levels, user),
             GrpcLoginService.create_recipe_preferences_objective(properties, application_levels, user)
         ]
@@ -263,13 +266,14 @@ class GrpcLoginService(UserInitServiceServicer):
         return [
             ObjectiveGroupRef(id=self.objective_group_service.Add(x).id)
             for x in GrpcLoginService.create_all_objective_groups(
-                request,
-                all_meal_refs,
-                self.use_case.calculate(request),
-                self.properties,
-                self.application_levels,
-                user,
-                self.property_resolver)
+                request=request,
+                all_meal_refs=all_meal_refs,
+                reqs=self.use_case.calculate(request),
+                properties=self.properties,
+                application_levels=self.application_levels,
+                user=user,
+                concepts=self.concepts,
+                resolver=self.property_resolver)
         ]
 
     @staticmethod
@@ -358,6 +362,36 @@ class GrpcLoginService(UserInitServiceServicer):
         )
 
     @staticmethod
+    def create_fruit_and_veg_objective(properties: InitProperties, concepts: Concepts,
+                                       application_levels: ApplicationLevels, user: UserRef) -> ObjectiveGroup:
+        return ObjectiveGroup(
+            name="Fruit and vegetables intake",
+            description="We have established recommended minimum and generous maximum intake levels for fruits and "
+                        "vegetables to promote a balanced diet without requiring you to consume excessive amounts, "
+                        "such as 2kg of vegetables daily. Feel free to adjust these limits to suit your individual "
+                        "preferences and nutritional needs.",
+            owner=user,
+            objectives=[
+                GrpcLoginService.create_absolute_requirement_for_concept(
+                    min_value=150,
+                    max_value=600,
+                    concepts=concepts,
+                    concept=concepts.fruit,
+                    selected_property=properties.food_weight,
+                    application_levels=application_levels
+                ),
+                GrpcLoginService.create_absolute_requirement_for_concept(
+                    min_value=250,
+                    max_value=750,
+                    concepts=concepts,
+                    concept=concepts.vegetable,
+                    selected_property=properties.food_weight,
+                    application_levels=application_levels
+                ),
+            ]
+        )
+
+    @staticmethod
     def create_recipe_preferences_objective(properties: InitProperties,
                                             application_levels: ApplicationLevels, user: UserRef) -> ObjectiveGroup:
         return ObjectiveGroup(
@@ -404,9 +438,35 @@ class GrpcLoginService(UserInitServiceServicer):
     @staticmethod
     def create_protein_requirement(targets: UserReqs, properties: InitProperties,
                                    application_levels: ApplicationLevels) -> SpecializedRequirement:
-        return GrpcLoginService.create_absolute_requirement(min_value=targets.minProtein, max_value=targets.maxProtein,
+        return GrpcLoginService.create_absolute_requirement(min_value=targets.minProtein,
+                                                            max_value=targets.maxProtein,
                                                             selected_property=properties.protein,
                                                             application_levels=application_levels)
+
+    @staticmethod
+    def create_absolute_requirement_for_concept(min_value: Optional[float], max_value: Optional[float],
+                                                selected_property: PropertyRef, concept: ConceptRef,
+                                                concepts: Concepts,
+                                                application_levels: ApplicationLevels) -> SpecializedRequirement:
+        return SpecializedRequirement(
+            applicationLevel=application_levels.day,
+            numerator=selected_property,
+            denominator=selected_property,
+            useRatio=False,
+            useMax=max_value is not None,
+            useMin=min_value is not None,
+            min=min_value or 0,
+            max=max_value or 10000,
+            numeratorMeals=MealSelection(
+                useAllMeals=True,
+                useAllDays=True,
+                useAllComponents=True,
+            ),
+            scaleNumerator=1,
+            numeratorConcepts=RequirementConcepts(concepts=BoolConceptValues(
+                conceptValues={concepts.root.id: False, concept.id: True}
+            )),
+        )
 
     @staticmethod
     def create_absolute_requirement(min_value: Optional[float], max_value: Optional[float],
@@ -474,7 +534,8 @@ class GrpcLoginService(UserInitServiceServicer):
                                 application_levels: ApplicationLevels) -> SpecializedRequirement:
         return GrpcLoginService.create_kcal_ratio_requirement(min_percentage=targets.minCarbPercentage,
                                                               max_percentage=targets.maxCarbPercentage,
-                                                              selected_property=properties.net_carbs, kcal_per_unit=4,
+                                                              selected_property=properties.net_carbs,
+                                                              kcal_per_unit=4,
                                                               properties=properties,
                                                               application_levels=application_levels)
 
@@ -489,7 +550,8 @@ class GrpcLoginService(UserInitServiceServicer):
                 application_levels=application_levels
             ) for x in data.objectives
         ]
-        return ObjectiveGroup(name=data.name, description=data.description, objectives=nutrient_targets, owner=owner)
+        return ObjectiveGroup(name=data.name, description=data.description, objectives=nutrient_targets,
+                              owner=owner)
 
     @staticmethod
     def get_meal_balancing_properties(properties: InitProperties) -> List[PropertyRef]:

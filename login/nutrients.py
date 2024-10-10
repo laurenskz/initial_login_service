@@ -29,7 +29,7 @@ NUTRIENT_DATA = VitaminsAndMinerals(
         Objective(nutrient1="vitamin_d", min=15, max=100),
         Objective(nutrient1="vitamin_e", min=15, max=1000),
         Objective(nutrient1="vitamin_k", min=120, max=9999),
-        Objective(nutrient1="calcium", min=1300, max=2500),
+        Objective(nutrient1="calcium", min=1000, max=2500),
         Objective(nutrient1="copper", min=900, max=10000),
         Objective(nutrient1="iron", min=18, max=45),
         Objective(nutrient1="magnesium", min=420, max=1000),

@@ -68,7 +68,9 @@ class TestGrpcLoginService(unittest.TestCase):
             root=ConceptRef(id="root_concept_id"),
             water=ConceptRef(id="water_concept_id"),
             pantry=ConceptRef(id="pantry_concept_id"),
-            fat=ConceptRef(id="fat_concept_id")
+            fat=ConceptRef(id="fat_concept_id"),
+            fruit=ConceptRef(id="fruit_concept_id"),
+            vegetable=ConceptRef(id="vegetable_concept_id"),
         )
         self.tags = ConceptTags(
             common_item=ConceptTagRef(id="common_item_tag_id"),
@@ -84,7 +86,8 @@ class TestGrpcLoginService(unittest.TestCase):
             protein=PropertyRef(id="protein_property_id"),
             fiber=PropertyRef(id="fiber_property_id"),
             net_carbs=PropertyRef(id="net_carbs_property_id"),
-            recipe_count=PropertyRef(id="recipe_count_property_id")
+            recipe_count=PropertyRef(id="recipe_count_property_id"),
+            food_weight=PropertyRef(id="food_weight_property_id"),
         )
         self.property_resolver = UnitTestPropertyResolver()
 
@@ -322,6 +325,7 @@ class TestGrpcLoginService(unittest.TestCase):
 
         objective_groups = GrpcLoginService.create_all_objective_groups(
             request,
+            self.concepts,
             all_meal_refs,
             reqs,
             self.properties,

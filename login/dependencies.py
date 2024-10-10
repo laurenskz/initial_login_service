@@ -20,6 +20,7 @@ class InitProperties:
     fiber: PropertyRef
     net_carbs: PropertyRef
     recipe_count: PropertyRef
+    food_weight: PropertyRef
 
 
 @dataclass
@@ -34,6 +35,8 @@ class Concepts:
     water: ConceptRef
     pantry: ConceptRef
     fat: ConceptRef
+    fruit: ConceptRef
+    vegetable: ConceptRef
 
 
 @dataclass

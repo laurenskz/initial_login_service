@@ -1,22 +1,18 @@
+import os
 import sys
 from concurrent import futures
 
 import grpc
-import os
 from loguru import logger
-from prometheus_client import start_http_server
 
 from com.baboea.models.concepts_pb2 import ConceptRef
-from com.baboea.models.days_pb2 import MealPlanDay
 from com.baboea.services import login_service_pb2_grpc
 from com.baboea.services.application_level_service_pb2_grpc import ApplicationLevelServiceStub
 from com.baboea.services.base_pb2 import FindSingleHandleRequest
 from com.baboea.services.concept_service_pb2_grpc import ConceptServiceStub
-from com.baboea.services.concept_tag_service_pb2_grpc import ConceptTagService, ConceptTagServiceStub
+from com.baboea.services.concept_tag_service_pb2_grpc import ConceptTagServiceStub
 from com.baboea.services.property_service_pb2_grpc import PropertyServiceStub
 from login.bmr import BaseBmrUseCase
-import traceback
-
 from login.dependencies import Concepts, ConceptTags, ApplicationLevels, InitProperties, GrpcPropertyByHandleResolver
 from login.impl import GrpcLoginService
 
@@ -78,6 +74,8 @@ def serve():
             fat=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="fat")).id),
             pantry=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="pantry")).id),
             water=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="water")).id),
+            fruit=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="fruit")).id),
+            vegetable=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="vegetable")).id),
         ),
         tags=ConceptTags(
             common_item=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="common_supermarket")),
@@ -93,7 +91,8 @@ def serve():
             net_carbs=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="net_carbs")),
             fat=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fat")),
             fiber=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fiber")),
-            recipe_count=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="recipe_count"))
+            recipe_count=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="recipe_count")),
+            food_weight=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="food_weight"))
         ),
         property_resolver=GrpcPropertyByHandleResolver(prop_service)
     ), server)
