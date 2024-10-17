@@ -41,6 +41,6 @@ NUTRIENT_DATA = VitaminsAndMinerals(
         Objective(nutrient1="selenium", min=55, max=400),
         Objective(nutrient1="zinc", min=11, max=40),
         Objective(nutrient1="potassium", min=4700, max=9500),
-        Objective(nutrient1="sodium", max=2300)
+        Objective(nutrient1="sodium", min=0, max=2300)
     ]
 )

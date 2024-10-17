@@ -16,7 +16,8 @@ from com.baboea.models.property_pb2 import PropertyRef
 from com.baboea.models.recipes_pb2 import QuantifiedRecipeIngredient, RecipeCategoryRef, RecipeCuisineRef, RecipeRef
 from com.baboea.models.users_pb2 import UserRef, User
 from com.baboea.services.base_pb2 import AddResponse, OperationResponse
-from com.baboea.services.login_service_pb2 import InitialLoginForm, MealInit, MealStructurePreference, MealSize
+from com.baboea.services.login_service_pb2 import InitialLoginForm, MealInit, MealStructurePreference, MealSize, \
+    DesiredSetup
 from com.baboea.services.objective_group_service_pb2_grpc import ObjectiveGroupServiceStub
 from com.baboea.services.meal_service_pb2_grpc import MealServiceStub
 from com.baboea.services.user_service_pb2_grpc import UserServiceStub
@@ -204,9 +205,14 @@ class TestGrpcLoginService(unittest.TestCase):
         )
 
         # Assertions
-        self.assertTrue(GrpcLoginService.should_use_kcal(meal_own_recipe))
-        self.assertTrue(GrpcLoginService.should_use_kcal(meal_use_kcal))
-        self.assertFalse(GrpcLoginService.should_use_kcal(meal_no_kcal))
+        self.assertTrue(
+            GrpcLoginService.should_use_kcal(InitialLoginForm(desiredSetup=DesiredSetup.advanced), meal_own_recipe))
+        self.assertTrue(
+            GrpcLoginService.should_use_kcal(InitialLoginForm(desiredSetup=DesiredSetup.advanced), meal_use_kcal))
+        self.assertFalse(
+            GrpcLoginService.should_use_kcal(InitialLoginForm(desiredSetup=DesiredSetup.advanced), meal_no_kcal))
+        self.assertFalse(
+            GrpcLoginService.should_use_kcal(InitialLoginForm(desiredSetup=DesiredSetup.simplified), meal_use_kcal))
 
     def test_kcal_bounds_for_meal(self):
         # Meal with own recipe
