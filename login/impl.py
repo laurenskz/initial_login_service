@@ -119,7 +119,7 @@ class GrpcLoginService(UserInitServiceServicer):
             admin_meal: Meal = self.meal_service.Get(GetRequest(id=m.meal.id))
             meal = Meal()
             meal.CopyFrom(admin_meal)
-            meal.owner = user
+            meal.owner.CopyFrom(user)
             meal.id = ""
             our_meal: AddResponse = self.meal_service.Add(meal)
             refs.append(MealRef(id=our_meal.id))
