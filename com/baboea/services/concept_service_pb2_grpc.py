@@ -74,7 +74,7 @@ class ConceptServiceStub(object):
         self.ByHandle = channel.unary_unary(
                 '/com.baboea.services.ConceptService/ByHandle',
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_models_dot_concepts__pb2.Concept.FromString,
+                response_deserializer=com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.FromString,
                 _registered_method=True)
 
 
@@ -159,7 +159,7 @@ def add_ConceptServiceServicer_to_server(servicer, server):
             'ByHandle': grpc.unary_unary_rpc_method_handler(
                     servicer.ByHandle,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.FromString,
-                    response_serializer=com_dot_baboea_dot_models_dot_concepts__pb2.Concept.SerializeToString,
+                    response_serializer=com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -350,7 +350,7 @@ class ConceptService(object):
             target,
             '/com.baboea.services.ConceptService/ByHandle',
             com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
-            com_dot_baboea_dot_models_dot_concepts__pb2.Concept.FromString,
+            com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.FromString,
             options,
             channel_credentials,
             insecure,

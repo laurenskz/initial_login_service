@@ -1,17 +1,20 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+
 @dataclass
 class Objective:
     nutrient1: str
     min: float
     max: Optional[float] = None
 
+
 @dataclass
 class VitaminsAndMinerals:
     name: str
     description: str
     objectives: List[Objective]
+
 
 NUTRIENT_DATA = VitaminsAndMinerals(
     name="Vitamins and minerals",
@@ -37,7 +40,7 @@ NUTRIENT_DATA = VitaminsAndMinerals(
         Objective(nutrient1="phosphorus", min=1250, max=4000),
         Objective(nutrient1="selenium", min=55, max=400),
         Objective(nutrient1="zinc", min=11, max=40),
-        Objective(nutrient1="potassium", min=4700, max=9500)
+        Objective(nutrient1="potassium", min=4700, max=9500),
+        Objective(nutrient1="sodium", max=2300)
     ]
 )
-

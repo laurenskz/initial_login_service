@@ -19,7 +19,7 @@ from com.baboea.services.concept_service_pb2_grpc import ConceptServiceStub
 from com.baboea.services.curated_diet_service_pb2_grpc import CuratedDietServiceStub
 from com.baboea.services.diet_service_pb2_grpc import UserDietServiceStub
 from com.baboea.services.login_service_pb2 import InitialLoginForm, LoginRequest, LoginResponse, MealSize, \
-    MealStructurePreference, MealInit
+    MealStructurePreference, MealInit, DesiredSetup
 from com.baboea.services.login_service_pb2_grpc import UserInitServiceServicer, LoginServiceStub
 from com.baboea.services.meal_plan_day_service_pb2_grpc import MealPlanDayServiceStub
 from com.baboea.services.meal_service_pb2_grpc import MealServiceStub
@@ -88,13 +88,21 @@ class GrpcLoginService(UserInitServiceServicer):
         return operation_response
 
     def initialize_user(self, request: InitialLoginForm, user: UserRef) -> OperationResponse:
-        all_meal_refs = self.create_meals(request, user)
+        admin_diet: UserDietDefinition = self.load_admin_diet()
+        all_meal_refs = self.create_meals(request,
+                                          user) if request.desiredSetup == DesiredSetup.advanced else self.create_meals_from_admin_diet(
+            admin_diet, user)
         self.create_days(user, all_meal_refs)
         target_objective_groups = self.create_objectives(request, all_meal_refs, user)
         # Get portion sizes from admin user
-        user_diet = self.create_diet(request, self.load_curated_diet(request), self.load_admin_diet(), user,
+        meal_sizes = None
+        if request.desiredSetup == DesiredSetup.simplified:
+            meal_sizes = [ClientMealSize(meal=all_meal_refs[i], size=s.size) for i, s in
+                          enumerate(admin_diet.mealSizes.sizes)]
+        user_diet = self.create_diet(request, self.load_curated_diet(request), admin_diet, user,
                                      all_meal_refs, target_objective_groups,
-                                     GrpcLoginService.get_meal_balancing_properties(self.properties))
+                                     GrpcLoginService.get_meal_balancing_properties(self.properties),
+                                     meal_sizes=meal_sizes)
         operation_response: AddResponse = self.diet_service.Add(user_diet)
         return operation_response.operation
 
@@ -104,6 +112,18 @@ class GrpcLoginService(UserInitServiceServicer):
 
     def load_curated_diet(self, request: InitialLoginForm) -> CuratedDiet:
         return self.curated_diet.Get(GetRequest(id=request.diet.id))
+
+    def create_meals_from_admin_diet(self, admin_diet: UserDietDefinition, user: UserRef) -> List[MealRef]:
+        refs = []
+        for m in admin_diet.mealSizes.sizes:
+            admin_meal: Meal = self.meal_service.Get(GetRequest(id=m.meal.id))
+            meal = Meal()
+            meal.CopyFrom(admin_meal)
+            meal.owner = user
+            meal.id = ""
+            our_meal: AddResponse = self.meal_service.Add(meal)
+            refs.append(MealRef(id=our_meal.id))
+        return refs
 
     def create_meals(self, request: InitialLoginForm, user: UserRef) -> List[MealRef]:
         all_meal_refs = []
@@ -157,7 +177,9 @@ class GrpcLoginService(UserInitServiceServicer):
         return RecipeRef(id=recipe_response.id)
 
     @staticmethod
-    def should_use_kcal(meal: MealInit) -> bool:
+    def should_use_kcal(form: InitialLoginForm, meal: MealInit) -> bool:
+        if form.desiredSetup == DesiredSetup.simplified:
+            return False
         return meal.useKcal or meal.mealPref == MealStructurePreference.ownRecipe
 
     @staticmethod
@@ -304,7 +326,7 @@ class GrpcLoginService(UserInitServiceServicer):
                                        user: UserRef,
                                        properties: InitProperties,
                                        application_levels: ApplicationLevels) -> Optional[ObjectiveGroup]:
-        if any(GrpcLoginService.should_use_kcal(m) for m in request.meals):
+        if any(GrpcLoginService.should_use_kcal(request, m) for m in request.meals):
             return ObjectiveGroup(
                 name="Custom meal sizes",
                 description="Applies specific calories to some (or all) of your meals",
@@ -323,7 +345,7 @@ class GrpcLoginService(UserInitServiceServicer):
     ) -> List[SpecializedRequirement]:
         meal_kcal_overrides = []
         for index, meal in enumerate(request.meals):
-            if GrpcLoginService.should_use_kcal(meal):
+            if GrpcLoginService.should_use_kcal(request, meal):
                 meal_kcal_override = GrpcLoginService.create_meal_kcal_bound_req(meal, all_meal_refs[index],
                                                                                  application_levels, properties)
                 meal_kcal_overrides.append(meal_kcal_override)
@@ -337,26 +359,33 @@ class GrpcLoginService(UserInitServiceServicer):
             user: UserRef,
             all_meal_refs: List[MealRef],
             target_objective_groups: List[ObjectiveGroupRef],
-            meal_balancing_properties: List[PropertyRef]
+            meal_balancing_properties: List[PropertyRef],
+            meal_sizes: Optional[List[ClientMealSize]] = None
     ) -> UserDietDefinition:
         sizes = {
             MealSize.big: 1.5,
             MealSize.normal: 1.0,
             MealSize.small: 0.5
         }
-        meal_sizes = [
-            ClientMealSize(
-                meal=all_meal_refs[index],
-                size=sizes[meal.mealSize]
-            ) for index, meal in enumerate(request.meals) if not GrpcLoginService.should_use_kcal(meal)
-        ]
+        if not meal_sizes:
+            meal_sizes = [
+                ClientMealSize(
+                    meal=all_meal_refs[index],
+                    size=sizes[meal.mealSize]
+                ) for index, meal in enumerate(request.meals) if not GrpcLoginService.should_use_kcal(request, meal)
+            ]
 
         # Add diet definition
         return UserDietDefinition(
             owner=user,
             objectiveGroups=target_objective_groups,
             portionSizes=admin_diet.portionSizes,
-            concepts=curated.concepts,
+            concepts=BoolConceptValues(
+                conceptValues={
+                    **{food: not b for food, b in request.hatedFoods.conceptValues.items() if not b},
+                    **curated.concepts.conceptValues
+                }, tagPreferences=curated.concepts.tagPreferences
+            ),
             mealSizes=MealSizes(sizes=meal_sizes),
             mealBalancingProperties=meal_balancing_properties
         )

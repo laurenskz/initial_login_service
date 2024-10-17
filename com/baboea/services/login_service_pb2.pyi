@@ -50,6 +50,11 @@ class DesiredWeightLoss(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     maintain: _ClassVar[DesiredWeightLoss]
     lose_slowly: _ClassVar[DesiredWeightLoss]
     lose_rapid: _ClassVar[DesiredWeightLoss]
+
+class DesiredSetup(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    advanced: _ClassVar[DesiredSetup]
+    simplified: _ClassVar[DesiredSetup]
 male: Gender
 female: Gender
 other: Gender
@@ -71,6 +76,8 @@ gain_weight: DesiredWeightLoss
 maintain: DesiredWeightLoss
 lose_slowly: DesiredWeightLoss
 lose_rapid: DesiredWeightLoss
+advanced: DesiredSetup
+simplified: DesiredSetup
 
 class MealInit(_message.Message):
     __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients")
@@ -121,7 +128,7 @@ class PersonalData(_message.Message):
     def __init__(self, gender: _Optional[_Union[Gender, str]] = ..., age: _Optional[int] = ..., activityLevel: _Optional[_Union[ActivityLevel, str]] = ..., weightKg: _Optional[float] = ..., heightCm: _Optional[float] = ..., name: _Optional[str] = ...) -> None: ...
 
 class InitialLoginForm(_message.Message):
-    __slots__ = ("personal", "manual", "diet", "macros", "meals", "remoteUserId", "weightLoss")
+    __slots__ = ("personal", "manual", "diet", "macros", "meals", "remoteUserId", "weightLoss", "desiredSetup", "hatedFoods")
     PERSONAL_FIELD_NUMBER: _ClassVar[int]
     MANUAL_FIELD_NUMBER: _ClassVar[int]
     DIET_FIELD_NUMBER: _ClassVar[int]
@@ -129,6 +136,8 @@ class InitialLoginForm(_message.Message):
     MEALS_FIELD_NUMBER: _ClassVar[int]
     REMOTEUSERID_FIELD_NUMBER: _ClassVar[int]
     WEIGHTLOSS_FIELD_NUMBER: _ClassVar[int]
+    DESIREDSETUP_FIELD_NUMBER: _ClassVar[int]
+    HATEDFOODS_FIELD_NUMBER: _ClassVar[int]
     personal: PersonalData
     manual: NutritionPrefs
     diet: _curated_diet_pb2.CuratedDietRef
@@ -136,7 +145,9 @@ class InitialLoginForm(_message.Message):
     meals: _containers.RepeatedCompositeFieldContainer[MealInit]
     remoteUserId: str
     weightLoss: DesiredWeightLoss
-    def __init__(self, personal: _Optional[_Union[PersonalData, _Mapping]] = ..., manual: _Optional[_Union[NutritionPrefs, _Mapping]] = ..., diet: _Optional[_Union[_curated_diet_pb2.CuratedDietRef, _Mapping]] = ..., macros: _Optional[_Union[MacroStrategy, str]] = ..., meals: _Optional[_Iterable[_Union[MealInit, _Mapping]]] = ..., remoteUserId: _Optional[str] = ..., weightLoss: _Optional[_Union[DesiredWeightLoss, str]] = ...) -> None: ...
+    desiredSetup: DesiredSetup
+    hatedFoods: _concept_pb2.BoolConceptValues
+    def __init__(self, personal: _Optional[_Union[PersonalData, _Mapping]] = ..., manual: _Optional[_Union[NutritionPrefs, _Mapping]] = ..., diet: _Optional[_Union[_curated_diet_pb2.CuratedDietRef, _Mapping]] = ..., macros: _Optional[_Union[MacroStrategy, str]] = ..., meals: _Optional[_Iterable[_Union[MealInit, _Mapping]]] = ..., remoteUserId: _Optional[str] = ..., weightLoss: _Optional[_Union[DesiredWeightLoss, str]] = ..., desiredSetup: _Optional[_Union[DesiredSetup, str]] = ..., hatedFoods: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ...) -> None: ...
 
 class LoginRequest(_message.Message):
     __slots__ = ("remoteUserId",)
