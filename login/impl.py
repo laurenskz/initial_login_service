@@ -382,7 +382,7 @@ class GrpcLoginService(UserInitServiceServicer):
             portionSizes=admin_diet.portionSizes,
             concepts=BoolConceptValues(
                 conceptValues={
-                    **{food: not b for food, b in request.hatedFoods.conceptValues.items() if not b},
+                    **{food: not b for food, b in request.hatedFoods.conceptValues.items() if b},
                     **curated.concepts.conceptValues
                 }, tagPreferences=curated.concepts.tagPreferences
             ),
