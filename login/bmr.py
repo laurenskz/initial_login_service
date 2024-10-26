@@ -31,11 +31,10 @@ class BaseBmrUseCase(BmrUseCase):
     def calculate(self, form: InitialLoginForm) -> UserReqs:
         kcal = calculate_bmr(form.personal.heightCm, form.personal.weightKg, form.personal.activityLevel,
                              form.personal.gender, form.personal.age, form.weightLoss)
-        protein = form.personal.weightKg
         carb_percentages = {
             MacroStrategy.low_carb: (0.1, 0.3),
             MacroStrategy.balanced: (0.4, 0.65),
-            MacroStrategy.keto: (0.0, 0.1),
+            MacroStrategy.keto: (0.0, 0.05),
             MacroStrategy.high_protein: (0.2, 0.65),
         }
 
@@ -46,24 +45,28 @@ class BaseBmrUseCase(BmrUseCase):
             MacroStrategy.high_protein: (0.2, 0.35),  # High protein diets generally have moderate fat
         }
 
-        if form.macros == MacroStrategy.high_protein:
-            protein *= 2.0
-        if form.macros == MacroStrategy.low_carb:
-            protein *= 1.25
+        bw = form.personal.weightKg
+        grams_of_protein = {
+            MacroStrategy.low_carb: (bw, 1.7 * bw),  # Adjusted for typical low-carb ranges
+            MacroStrategy.balanced: (0.8 * bw, 1.4 * bw),  # Balanced diets usually have moderate fat intake
+            MacroStrategy.keto: (0.8 * bw, 1.3 * bw),  # Keto diets emphasize high fat intake
+            MacroStrategy.high_protein: (1.6 * bw, 2.35 * bw),
+        }
 
         fiber = {
-            Gender.male: (35, 65),
-            Gender.other: (35, 65),
+            Gender.male: (35, 55),
+            Gender.other: (35, 55),
             Gender.female: (23, 50)
         }
         minFiber, maxFiber = fiber[form.personal.gender]
         minCarb, maxCarb = carb_percentages[form.macros]
         minFat, maxFat = fat_percentages[form.macros]
+        minProtein, maxProtein = grams_of_protein[form.macros]
         return UserReqs(
             minKcal=kcal * 0.99,
             maxKcal=kcal * 1.01,
-            minProtein=protein * 0.9,
-            maxProtein=protein * 1.1,
+            minProtein=minProtein,
+            maxProtein=maxProtein,
             minCarbPercentage=minCarb,
             maxCarbPercentage=maxCarb,
             minFiber=minFiber,
