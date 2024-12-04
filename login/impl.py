@@ -215,7 +215,7 @@ class GrpcLoginService(UserInitServiceServicer):
             cuisines=meal.smart.cuisines,
             minTime=meal.smart.minTime,
             maxTime=meal.smart.maxTime,
-            
+            minMealKcalPercentage=75.0,
             accuracy=meal.smart.accuracy,
             concepts=BoolConceptValues(
                 conceptValues={concepts.water.id: True, concepts.pantry.id: True, concepts.fat.id: True,

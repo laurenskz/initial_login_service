@@ -2,6 +2,7 @@ from com.baboea.models import days_pb2 as _days_pb2
 from com.baboea.models import meal_components_pb2 as _meal_components_pb2
 from com.baboea.models import meal_pb2 as _meal_pb2
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
@@ -22,18 +23,20 @@ class Root(_message.Message):
     def __init__(self) -> None: ...
 
 class FoodGroupNode(_message.Message):
-    __slots__ = ("day", "meal", "mealComponent", "recipe", "userRecipe")
+    __slots__ = ("day", "meal", "mealComponent", "recipe", "userRecipe", "templateRecipe")
     DAY_FIELD_NUMBER: _ClassVar[int]
     MEAL_FIELD_NUMBER: _ClassVar[int]
     MEALCOMPONENT_FIELD_NUMBER: _ClassVar[int]
     RECIPE_FIELD_NUMBER: _ClassVar[int]
     USERRECIPE_FIELD_NUMBER: _ClassVar[int]
+    TEMPLATERECIPE_FIELD_NUMBER: _ClassVar[int]
     day: _days_pb2.MealPlanDayRef
     meal: _meal_pb2.MealRef
     mealComponent: _meal_components_pb2.MealComponentRef
     recipe: _recipes_pb2.ParsedRemoteRecipeRef
     userRecipe: _recipes_pb2.RecipeRef
-    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ...) -> None: ...
+    templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipeRef
+    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ...) -> None: ...
 
 class FoodGroupIdentifier(_message.Message):
     __slots__ = ("path",)

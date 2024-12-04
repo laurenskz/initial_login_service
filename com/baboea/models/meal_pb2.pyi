@@ -1,4 +1,5 @@
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from com.baboea.models import foodgroup_pb2 as _foodgroup_pb2
 from com.baboea.models import users_pb2 as _users_pb2
 from com.baboea.models import property_pb2 as _property_pb2
@@ -19,7 +20,7 @@ class MealRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
 class Meal(_message.Message):
-    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes", "balanced")
+    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes", "templateRecipes", "balanced")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
@@ -27,6 +28,7 @@ class Meal(_message.Message):
     SMARTRECIPES_FIELD_NUMBER: _ClassVar[int]
     CONCEPTS_FIELD_NUMBER: _ClassVar[int]
     RECIPES_FIELD_NUMBER: _ClassVar[int]
+    TEMPLATERECIPES_FIELD_NUMBER: _ClassVar[int]
     BALANCED_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
@@ -35,8 +37,9 @@ class Meal(_message.Message):
     smartRecipes: SmartRecipePreferences
     concepts: _concept_pb2.BoolConceptValues
     recipes: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeRef]
+    templateRecipes: _containers.RepeatedCompositeFieldContainer[_template_recipe_data_pb2.ImprovedTemplateRecipeRef]
     balanced: bool
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ..., balanced: bool = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]]] = ..., balanced: bool = ...) -> None: ...
 
 class MealRequirement(_message.Message):
     __slots__ = ("min", "max", "useMin", "useMax", "numerator", "denominator", "ratio", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts")
@@ -73,7 +76,7 @@ class SmartRecipeAccuracyPreference(_message.Message):
     def __init__(self, exact: bool = ..., margin: _Optional[float] = ...) -> None: ...
 
 class SmartRecipePreferences(_message.Message):
-    __slots__ = ("enabled", "categories", "cuisines", "minTime", "maxTime", "concepts", "accuracy")
+    __slots__ = ("enabled", "categories", "cuisines", "minTime", "maxTime", "concepts", "accuracy", "minMealKcalPercentage")
     ENABLED_FIELD_NUMBER: _ClassVar[int]
     CATEGORIES_FIELD_NUMBER: _ClassVar[int]
     CUISINES_FIELD_NUMBER: _ClassVar[int]
@@ -81,6 +84,7 @@ class SmartRecipePreferences(_message.Message):
     MAXTIME_FIELD_NUMBER: _ClassVar[int]
     CONCEPTS_FIELD_NUMBER: _ClassVar[int]
     ACCURACY_FIELD_NUMBER: _ClassVar[int]
+    MINMEALKCALPERCENTAGE_FIELD_NUMBER: _ClassVar[int]
     enabled: bool
     categories: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCategoryRef]
     cuisines: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCuisineRef]
@@ -88,7 +92,8 @@ class SmartRecipePreferences(_message.Message):
     maxTime: int
     concepts: _concept_pb2.BoolConceptValues
     accuracy: SmartRecipeAccuracyPreference
-    def __init__(self, enabled: bool = ..., categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., minTime: _Optional[int] = ..., maxTime: _Optional[int] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., accuracy: _Optional[_Union[SmartRecipeAccuracyPreference, _Mapping]] = ...) -> None: ...
+    minMealKcalPercentage: float
+    def __init__(self, enabled: bool = ..., categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., minTime: _Optional[int] = ..., maxTime: _Optional[int] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., accuracy: _Optional[_Union[SmartRecipeAccuracyPreference, _Mapping]] = ..., minMealKcalPercentage: _Optional[float] = ...) -> None: ...
 
 class MealQuery(_message.Message):
     __slots__ = ("name",)

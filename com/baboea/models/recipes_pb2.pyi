@@ -197,14 +197,16 @@ class CompositeFood(_message.Message):
     def __init__(self, foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., min: _Optional[int] = ..., max: _Optional[int] = ...) -> None: ...
 
 class RemoteRecipeIngredient(_message.Message):
-    __slots__ = ("concept", "unit", "quantity")
+    __slots__ = ("concept", "unit", "quantity", "originalFood")
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     UNIT_FIELD_NUMBER: _ClassVar[int]
     QUANTITY_FIELD_NUMBER: _ClassVar[int]
+    ORIGINALFOOD_FIELD_NUMBER: _ClassVar[int]
     concept: _concepts_pb2.ConceptRef
     unit: _food_units_pb2.FoodUnitRef
     quantity: float
-    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., quantity: _Optional[float] = ...) -> None: ...
+    originalFood: str
+    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., quantity: _Optional[float] = ..., originalFood: _Optional[str] = ...) -> None: ...
 
 class ConceptWeightInformation(_message.Message):
     __slots__ = ("concept", "foundMatchingIngredient", "ratioOfRecipe")
