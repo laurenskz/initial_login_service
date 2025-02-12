@@ -2,6 +2,8 @@ import abc
 from abc import abstractmethod
 from dataclasses import dataclass
 
+from injector import inject
+
 from com.baboea.services.login_service_pb2 import InitialLoginForm, ActivityLevel, Gender, MacroStrategy, \
     DesiredWeightLoss, ProteinStrategy
 
@@ -27,6 +29,10 @@ class BmrUseCase(abc.ABC):
 
 
 class BaseBmrUseCase(BmrUseCase):
+
+    @inject
+    def __init__(self):
+        super().__init__()
 
     def calculate(self, form: InitialLoginForm) -> UserReqs:
         kcal = calculate_bmr(form.personal.heightCm, form.personal.weightKg, form.personal.activityLevel,

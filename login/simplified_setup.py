@@ -1,7 +1,9 @@
 from abc import abstractmethod
 from typing import Protocol, Iterable, Tuple
 
+from com.baboea.models.days_pb2 import MealPlanDayRef
 from com.baboea.models.diet_pb2 import ClientMealSize
+from com.baboea.models.meal_pb2 import MealRef
 from com.baboea.models.objectivegroup_pb2 import ObjectiveGroupRef
 from com.baboea.models.users_pb2 import UserRef
 from com.baboea.services.login_service_pb2 import InitialLoginForm
@@ -10,13 +12,20 @@ from com.baboea.services.login_service_pb2 import InitialLoginForm
 class ObjectiveGroupCreator(Protocol):
 
     @abstractmethod
-    def create_user(self, user: UserRef) -> Iterable[ObjectiveGroupRef]:
+    def create_user(self, user: UserRef, login: InitialLoginForm) -> Iterable[ObjectiveGroupRef]:
         pass
 
 
 class MealCreator(Protocol):
     @abstractmethod
-    def create_meals(self, user: UserRef) -> Iterable[ClientMealSize]:
+    def create_meals(self, user: UserRef, login: InitialLoginForm) -> Iterable[ClientMealSize]:
+        pass
+
+
+class DayCreator(Protocol):
+    @abstractmethod
+    def create_meals(self, user: UserRef, login: InitialLoginForm, meals: Iterable[MealRef]) -> Iterable[
+        MealPlanDayRef]:
         pass
 
 

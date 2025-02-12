@@ -1,6 +1,7 @@
 import time
 
 import grpc
+from injector import inject
 from prometheus_client import Counter, Histogram
 from loguru import logger
 from typing import List, Dict, Tuple, Optional, Iterable
@@ -39,24 +40,24 @@ class GrpcLoginService(UserInitServiceServicer):
     users_setup_counter = Counter('users_setup_total', 'Total number of users set up')
     setup_user_duration_histogram = Histogram('setup_user_duration_seconds', 'Time spent setting up a user')
 
+    @inject
     def __init__(
             self,
-            channel: grpc.Channel,
             use_case: BmrUseCase,
             concepts: Concepts,
             tags: ConceptTags,
             application_levels: ApplicationLevels,
             properties: InitProperties,
             property_resolver: PropertyByHandleResolver,
-            meal_service: Optional[MealServiceStub] = None,
-            quantified_recipes: Optional[RecipeServiceStub] = None,
-            concept_service: Optional[ConceptServiceStub] = None,
-            day_service: Optional[MealPlanDayServiceStub] = None,
-            user_service: Optional[UserServiceStub] = None,
-            objective_group_service: Optional[ObjectiveGroupServiceStub] = None,
-            diet_service: Optional[UserDietServiceStub] = None,
-            application_service: Optional[ApplicationLevelServiceStub] = None,
-            curated_diet: Optional[CuratedDietServiceStub] = None,
+            meal_service: MealServiceStub,
+            quantified_recipes: RecipeServiceStub,
+            day_service: MealPlanDayServiceStub,
+            user_service: UserServiceStub,
+            objective_group_service: ObjectiveGroupServiceStub,
+            diet_service: UserDietServiceStub,
+            curated_diet: CuratedDietServiceStub,
+            application_service: ApplicationLevelServiceStub,
+            concept_service: ConceptServiceStub,
 
     ):
         self.property_resolver = property_resolver
@@ -65,15 +66,15 @@ class GrpcLoginService(UserInitServiceServicer):
         self.properties = properties
         self.application_levels = application_levels
         self.use_case = use_case
-        self.meal_service = meal_service or MealServiceStub(channel)
-        self.quantified_recipes = quantified_recipes or RecipeServiceStub(channel)
-        self.concept_service = concept_service or ConceptServiceStub(channel)
-        self.day_service = day_service or MealPlanDayServiceStub(channel)
-        self.user_service = user_service or UserServiceStub(channel)
-        self.objective_group_service = objective_group_service or ObjectiveGroupServiceStub(channel)
-        self.diet_service = diet_service or UserDietServiceStub(channel)
-        self.application_service = application_service or ApplicationLevelServiceStub(channel)
-        self.curated_diet = curated_diet or CuratedDietServiceStub(channel)
+        self.meal_service = meal_service
+        self.quantified_recipes = quantified_recipes
+        self.concept_service = concept_service
+        self.day_service = day_service
+        self.user_service = user_service
+        self.objective_group_service = objective_group_service
+        self.diet_service = diet_service
+        self.application_service = application_service
+        self.curated_diet = curated_diet
 
     def StreamWithMe(self, request_iterator, context):
         for request in request_iterator:

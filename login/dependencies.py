@@ -2,6 +2,8 @@ from abc import ABC
 from dataclasses import dataclass
 from typing import Dict
 
+from injector import inject
+
 from com.baboea.models.concept_tag_pb2 import ConceptTagRef
 from com.baboea.models.concepts_pb2 import ConceptRef
 from com.baboea.models.meal_pb2 import Meal, MealRef
@@ -53,6 +55,7 @@ class PropertyByHandleResolver(ABC):
 
 class GrpcPropertyByHandleResolver(PropertyByHandleResolver):
 
+    @inject
     def __init__(self, service: PropertyServiceStub):
         self.service = service
         self.cache: Dict[str, PropertyRef] = {}

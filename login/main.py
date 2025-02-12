@@ -3,6 +3,7 @@ import sys
 from concurrent import futures
 
 import grpc
+from injector import Injector
 from loguru import logger
 
 from com.baboea.models.concepts_pb2 import ConceptRef
@@ -11,10 +12,12 @@ from com.baboea.services.application_level_service_pb2_grpc import ApplicationLe
 from com.baboea.services.base_pb2 import FindSingleHandleRequest
 from com.baboea.services.concept_service_pb2_grpc import ConceptServiceStub
 from com.baboea.services.concept_tag_service_pb2_grpc import ConceptTagServiceStub
+from com.baboea.services.login_service_pb2_grpc import UserInitServiceServicer
 from com.baboea.services.property_service_pb2_grpc import PropertyServiceStub
 from login.bmr import BaseBmrUseCase
 from login.dependencies import Concepts, ConceptTags, ApplicationLevels, InitProperties, GrpcPropertyByHandleResolver
 from login.impl import GrpcLoginService
+from login.modules import ObjectiveModule, UseCaseModule, DataModule, NetworkingModule, CreatorModule
 
 
 def _wrap_rpc_behavior(handler, fn):
@@ -60,42 +63,16 @@ class TracebackLoggerInterceptor(grpc.ServerInterceptor):
 def serve():
     logger.info("Starting login service")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), interceptors=[TracebackLoggerInterceptor()])
-    channel = grpc.insecure_channel(os.getenv("CRUD_SERVICE_URL") or "localhost:50052")
-    prop_service = PropertyServiceStub(channel)
-    tag_service = ConceptTagServiceStub(channel)
-    concept_service = ConceptServiceStub(channel)
-    application_service = ApplicationLevelServiceStub(channel)
 
-    login_service_pb2_grpc.add_UserInitServiceServicer_to_server(GrpcLoginService(
-        channel=channel,
-        use_case=BaseBmrUseCase(),
-        concepts=Concepts(
-            root=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="root")).id),
-            fat=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="fat")).id),
-            pantry=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="pantry")).id),
-            water=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="water")).id),
-            fruit=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="fruit")).id),
-            vegetable=ConceptRef(id=concept_service.ByHandle(FindSingleHandleRequest(handle="vegetable")).id),
-        ),
-        tags=ConceptTags(
-            common_item=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="common_supermarket")),
-            side_dish=tag_service.ByHandleOrCreate(FindSingleHandleRequest(handle="normal_side_food")),
-        ),
-        application_levels=ApplicationLevels(
-            meal=application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="meal")),
-            day=application_service.ByHandleOrCreate(FindSingleHandleRequest(handle="day")),
-        ),
-        properties=InitProperties(
-            kcal=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="kcal")),
-            protein=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="protein")),
-            net_carbs=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="net_carbs")),
-            fat=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fat")),
-            fiber=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="fiber")),
-            recipe_count=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="recipe_count")),
-            food_weight=prop_service.ByHandleOrCreate(FindSingleHandleRequest(handle="food_weight"))
-        ),
-        property_resolver=GrpcPropertyByHandleResolver(prop_service)
-    ), server)
+    injector = Injector(modules=[
+        ObjectiveModule(),
+        UseCaseModule(),
+        DataModule(),
+        NetworkingModule(),
+        CreatorModule()
+    ])
+    servicer = injector.get(UserInitServiceServicer)
+    login_service_pb2_grpc.add_UserInitServiceServicer_to_server(servicer, server)
     server.add_insecure_port("[::]:50053")
     # start_http_server(8000)
     server.start()
@@ -103,6 +80,6 @@ def serve():
 
 
 if __name__ == '__main__':
-    logger.remove()
-    logger.add(sys.stdout, format="{message}", serialize=True, level="INFO")
+    # logger.remove()
+    # logger.add(sys.stdout, format="{message}", serialize=True, level="INFO")
     serve()

@@ -105,7 +105,6 @@ class TestGrpcLoginService(unittest.TestCase):
 
         # Initialize the GrpcLoginService with mocks
         self.login_service = GrpcLoginService(
-            channel=self.channel,
             use_case=self.use_case,
             concepts=self.concepts,
             tags=self.tags,
