@@ -13,21 +13,28 @@ _sym_db = _symbol_database.Default()
 
 
 from com.baboea.models import matching_pb2 as com_dot_baboea_dot_models_dot_matching__pb2
+from com.baboea.models import weights_pb2 as com_dot_baboea_dot_models_dot_weights__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
 from com.baboea.models import concept_tag_pb2 as com_dot_baboea_dot_models_dot_concept__tag__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/models/concepts.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/matching.proto\x1a!com/baboea/models/localized.proto\x1a#com/baboea/models/concept_tag.proto\"Y\n\nConceptRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"\xbe\x02\n\x07\x43oncept\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\rlocalizations\x18\x02 \x03(\x0b\x32#.com.baboea.models.ConceptLocalized\x12.\n\tmatchSets\x18\x03 \x03(\x0b\x32\x1b.com.baboea.models.MatchSet\x12-\n\x06parent\x18\x04 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12/\n\x08\x63hildren\x18\x05 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x0c\n\x04path\x18\x06 \x03(\x03\x12\r\n\x05\x65moji\x18\x07 \x01(\t\x12.\n\x04tags\x18\x08 \x03(\x0b\x32 .com.baboea.models.ConceptTagRef\x12\x0e\n\x06handle\x18\t \x01(\t\"c\n\x10\x43onceptLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/models/concepts.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/matching.proto\x1a\x1f\x63om/baboea/models/weights.proto\x1a!com/baboea/models/localized.proto\x1a#com/baboea/models/concept_tag.proto\"Y\n\nConceptRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x04 \x01(\t\"\x83\x03\n\x07\x43oncept\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\rlocalizations\x18\x02 \x03(\x0b\x32#.com.baboea.models.ConceptLocalized\x12.\n\tmatchSets\x18\x03 \x03(\x0b\x32\x1b.com.baboea.models.MatchSet\x12-\n\x06parent\x18\x04 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12/\n\x08\x63hildren\x18\x05 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x0c\n\x04path\x18\x06 \x03(\x03\x12\r\n\x05\x65moji\x18\x07 \x01(\t\x12.\n\x04tags\x18\x08 \x03(\x0b\x32 .com.baboea.models.ConceptTagRef\x12\x0e\n\x06handle\x18\t \x01(\t\x12\x1b\n\x13hasDiscretePortions\x18\n \x01(\x08\x12\x12\n\nminPortion\x18\x0b \x01(\x01\x12\x12\n\nmaxPortion\x18\x0c \x01(\x01\"x\n\x10\x43onceptLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x13\n\x0b\x61lsoKnownAs\x18\x04 \x03(\t\"\xe0\x01\n\x10WeightConstraint\x12\x31\n\nconceptOne\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x31\n\nconceptTwo\x18\x02 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x11\n\tisCrucial\x18\x03 \x01(\x08\x12\x1c\n\x14minRatioFromOneToTwo\x18\x04 \x01(\x01\x12\x1c\n\x14maxRatioFromOneToTwo\x18\x05 \x01(\x01\x12\x17\n\x0f\x63onceptTwoScale\x18\x06 \x01(\x01\"L\n\x0c\x46ixedWeights\x12<\n\x07weights\x18\x01 \x03(\x0b\x32+.com.baboea.models.ModifiableFreeFormWeight\"\xc7\x01\n\x11QuantifiedConcept\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x12\n\nisDiscrete\x18\x04 \x01(\x08\x12/\n\x05range\x18\x02 \x01(\x0b\x32\x1e.com.baboea.models.RangeWeightH\x00\x12\x33\n\x08\x66reeForm\x18\x03 \x01(\x0b\x32\x1f.com.baboea.models.FixedWeightsH\x00\x42\x08\n\x06weightb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.concepts_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CONCEPTREF']._serialized_start=161
-  _globals['_CONCEPTREF']._serialized_end=250
-  _globals['_CONCEPT']._serialized_start=253
-  _globals['_CONCEPT']._serialized_end=571
-  _globals['_CONCEPTLOCALIZED']._serialized_start=573
-  _globals['_CONCEPTLOCALIZED']._serialized_end=672
+  _globals['_CONCEPTREF']._serialized_start=194
+  _globals['_CONCEPTREF']._serialized_end=283
+  _globals['_CONCEPT']._serialized_start=286
+  _globals['_CONCEPT']._serialized_end=673
+  _globals['_CONCEPTLOCALIZED']._serialized_start=675
+  _globals['_CONCEPTLOCALIZED']._serialized_end=795
+  _globals['_WEIGHTCONSTRAINT']._serialized_start=798
+  _globals['_WEIGHTCONSTRAINT']._serialized_end=1022
+  _globals['_FIXEDWEIGHTS']._serialized_start=1024
+  _globals['_FIXEDWEIGHTS']._serialized_end=1100
+  _globals['_QUANTIFIEDCONCEPT']._serialized_start=1103
+  _globals['_QUANTIFIEDCONCEPT']._serialized_end=1302
 # @@protoc_insertion_point(module_scope)

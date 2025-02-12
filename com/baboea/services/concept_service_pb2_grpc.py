@@ -76,6 +76,16 @@ class ConceptServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.FromString,
                 _registered_method=True)
+        self.ShoppingCategories = channel.unary_unary(
+                '/com.baboea.services.ConceptService/ShoppingCategories',
+                request_serializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListQuery.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListResponse.FromString,
+                _registered_method=True)
+        self.GetPaths = channel.unary_unary(
+                '/com.baboea.services.ConceptService/GetPaths',
+                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ConceptPathResponse.FromString,
+                _registered_method=True)
 
 
 class ConceptServiceServicer(object):
@@ -123,6 +133,18 @@ class ConceptServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ShoppingCategories(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPaths(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ConceptServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -160,6 +182,16 @@ def add_ConceptServiceServicer_to_server(servicer, server):
                     servicer.ByHandle,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.FromString,
                     response_serializer=com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.SerializeToString,
+            ),
+            'ShoppingCategories': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShoppingCategories,
+                    request_deserializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListQuery.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListResponse.SerializeToString,
+            ),
+            'GetPaths': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPaths,
+                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_concept__service__pb2.ConceptPathResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -351,6 +383,60 @@ class ConceptService(object):
             '/com.baboea.services.ConceptService/ByHandle',
             com_dot_baboea_dot_services_dot_base__pb2.FindSingleHandleRequest.SerializeToString,
             com_dot_baboea_dot_models_dot_concepts__pb2.ConceptRef.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ShoppingCategories(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ConceptService/ShoppingCategories',
+            com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListQuery.SerializeToString,
+            com_dot_baboea_dot_services_dot_concept__service__pb2.ShoppingListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetPaths(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ConceptService/GetPaths',
+            com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_concept__service__pb2.ConceptPathResponse.FromString,
             options,
             channel_credentials,
             insecure,

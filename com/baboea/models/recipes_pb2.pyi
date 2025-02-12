@@ -6,11 +6,32 @@ from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.models import matching_pb2 as _matching_pb2
 from com.baboea.models import property_pb2 as _property_pb2
 from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+
+class ParsedRemoteRecipeApprovalState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    APPROVED: _ClassVar[ParsedRemoteRecipeApprovalState]
+    DISCARDED: _ClassVar[ParsedRemoteRecipeApprovalState]
+    SKIPPED: _ClassVar[ParsedRemoteRecipeApprovalState]
+    PENDING: _ClassVar[ParsedRemoteRecipeApprovalState]
+
+class ParsedRemoteRecipeSubstitution(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    MODIFY_QUANTITIES_VEG_PROTEIN: _ClassVar[ParsedRemoteRecipeSubstitution]
+    MAKE_CARBS_OPTIONAL: _ClassVar[ParsedRemoteRecipeSubstitution]
+    SUBSTITUTE_COMMON_SWAPS: _ClassVar[ParsedRemoteRecipeSubstitution]
+APPROVED: ParsedRemoteRecipeApprovalState
+DISCARDED: ParsedRemoteRecipeApprovalState
+SKIPPED: ParsedRemoteRecipeApprovalState
+PENDING: ParsedRemoteRecipeApprovalState
+MODIFY_QUANTITIES_VEG_PROTEIN: ParsedRemoteRecipeSubstitution
+MAKE_CARBS_OPTIONAL: ParsedRemoteRecipeSubstitution
+SUBSTITUTE_COMMON_SWAPS: ParsedRemoteRecipeSubstitution
 
 class RecipeRef(_message.Message):
     __slots__ = ("id", "name")
@@ -197,16 +218,20 @@ class CompositeFood(_message.Message):
     def __init__(self, foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., min: _Optional[int] = ..., max: _Optional[int] = ...) -> None: ...
 
 class RemoteRecipeIngredient(_message.Message):
-    __slots__ = ("concept", "unit", "quantity", "originalFood")
+    __slots__ = ("concept", "unit", "quantity", "originalFood", "gramQuantity", "confidence")
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     UNIT_FIELD_NUMBER: _ClassVar[int]
     QUANTITY_FIELD_NUMBER: _ClassVar[int]
     ORIGINALFOOD_FIELD_NUMBER: _ClassVar[int]
+    GRAMQUANTITY_FIELD_NUMBER: _ClassVar[int]
+    CONFIDENCE_FIELD_NUMBER: _ClassVar[int]
     concept: _concepts_pb2.ConceptRef
     unit: _food_units_pb2.FoodUnitRef
     quantity: float
     originalFood: str
-    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., quantity: _Optional[float] = ..., originalFood: _Optional[str] = ...) -> None: ...
+    gramQuantity: float
+    confidence: float
+    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., quantity: _Optional[float] = ..., originalFood: _Optional[str] = ..., gramQuantity: _Optional[float] = ..., confidence: _Optional[float] = ...) -> None: ...
 
 class ConceptWeightInformation(_message.Message):
     __slots__ = ("concept", "foundMatchingIngredient", "ratioOfRecipe")
@@ -238,8 +263,18 @@ class ParsedRemoteRecipeRef(_message.Message):
     name: _localized_pb2.LocalizedString
     def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ...) -> None: ...
 
+class ParsedRemoteRecipeVerifiedData(_message.Message):
+    __slots__ = ("processedByAdmin", "approvalState", "allowedModifications")
+    PROCESSEDBYADMIN_FIELD_NUMBER: _ClassVar[int]
+    APPROVALSTATE_FIELD_NUMBER: _ClassVar[int]
+    ALLOWEDMODIFICATIONS_FIELD_NUMBER: _ClassVar[int]
+    processedByAdmin: bool
+    approvalState: ParsedRemoteRecipeApprovalState
+    allowedModifications: _containers.RepeatedScalarFieldContainer[ParsedRemoteRecipeSubstitution]
+    def __init__(self, processedByAdmin: bool = ..., approvalState: _Optional[_Union[ParsedRemoteRecipeApprovalState, str]] = ..., allowedModifications: _Optional[_Iterable[_Union[ParsedRemoteRecipeSubstitution, str]]] = ...) -> None: ...
+
 class ParsedRemoteRecipe(_message.Message):
-    __slots__ = ("id", "remoteRecipeId", "foods", "localizations", "categories", "cuisines", "prepTimeMinutes", "cookTimeMinutes", "totalTimeMinutes", "unmatched", "servings", "version", "propertiesPer100Kcal", "kcalPerServing", "conceptWeights", "remote")
+    __slots__ = ("id", "remoteRecipeId", "foods", "localizations", "categories", "cuisines", "prepTimeMinutes", "cookTimeMinutes", "totalTimeMinutes", "unmatched", "servings", "version", "propertiesPer100Kcal", "kcalPerServing", "conceptWeights", "remote", "verificationData", "curated")
     ID_FIELD_NUMBER: _ClassVar[int]
     REMOTERECIPEID_FIELD_NUMBER: _ClassVar[int]
     FOODS_FIELD_NUMBER: _ClassVar[int]
@@ -256,6 +291,8 @@ class ParsedRemoteRecipe(_message.Message):
     KCALPERSERVING_FIELD_NUMBER: _ClassVar[int]
     CONCEPTWEIGHTS_FIELD_NUMBER: _ClassVar[int]
     REMOTE_FIELD_NUMBER: _ClassVar[int]
+    VERIFICATIONDATA_FIELD_NUMBER: _ClassVar[int]
+    CURATED_FIELD_NUMBER: _ClassVar[int]
     id: str
     remoteRecipeId: str
     foods: _containers.RepeatedCompositeFieldContainer[RemoteRecipeIngredient]
@@ -272,7 +309,9 @@ class ParsedRemoteRecipe(_message.Message):
     kcalPerServing: float
     conceptWeights: _containers.RepeatedCompositeFieldContainer[ConceptWeightInformation]
     remote: RemoteRecipeRef
-    def __init__(self, id: _Optional[str] = ..., remoteRecipeId: _Optional[str] = ..., foods: _Optional[_Iterable[_Union[RemoteRecipeIngredient, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[ParsedRemoteRecipeLocalized, _Mapping]]] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[RecipeCuisineRef, _Mapping]]] = ..., prepTimeMinutes: _Optional[int] = ..., cookTimeMinutes: _Optional[int] = ..., totalTimeMinutes: _Optional[int] = ..., unmatched: _Optional[_Iterable[_Union[UnmatchedIngredient, _Mapping]]] = ..., servings: _Optional[float] = ..., version: _Optional[_Union[RecipeBuildVersion, _Mapping]] = ..., propertiesPer100Kcal: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., kcalPerServing: _Optional[float] = ..., conceptWeights: _Optional[_Iterable[_Union[ConceptWeightInformation, _Mapping]]] = ..., remote: _Optional[_Union[RemoteRecipeRef, _Mapping]] = ...) -> None: ...
+    verificationData: ParsedRemoteRecipeVerifiedData
+    curated: bool
+    def __init__(self, id: _Optional[str] = ..., remoteRecipeId: _Optional[str] = ..., foods: _Optional[_Iterable[_Union[RemoteRecipeIngredient, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[ParsedRemoteRecipeLocalized, _Mapping]]] = ..., categories: _Optional[_Iterable[_Union[RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[RecipeCuisineRef, _Mapping]]] = ..., prepTimeMinutes: _Optional[int] = ..., cookTimeMinutes: _Optional[int] = ..., totalTimeMinutes: _Optional[int] = ..., unmatched: _Optional[_Iterable[_Union[UnmatchedIngredient, _Mapping]]] = ..., servings: _Optional[float] = ..., version: _Optional[_Union[RecipeBuildVersion, _Mapping]] = ..., propertiesPer100Kcal: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., kcalPerServing: _Optional[float] = ..., conceptWeights: _Optional[_Iterable[_Union[ConceptWeightInformation, _Mapping]]] = ..., remote: _Optional[_Union[RemoteRecipeRef, _Mapping]] = ..., verificationData: _Optional[_Union[ParsedRemoteRecipeVerifiedData, _Mapping]] = ..., curated: bool = ...) -> None: ...
 
 class ParsedRemoteRecipeLocalized(_message.Message):
     __slots__ = ("locale", "name", "description", "instructions")

@@ -76,6 +76,16 @@ class ParsedRemoteRecipeServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefResponse.FromString,
                 _registered_method=True)
+        self.Verify = channel.unary_unary(
+                '/com.baboea.services.ParsedRemoteRecipeService/Verify',
+                request_serializer=com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
+                _registered_method=True)
+        self.GetCuratedNonVerifiedRecipes = channel.unary_unary(
+                '/com.baboea.services.ParsedRemoteRecipeService/GetCuratedNonVerifiedRecipes',
+                request_serializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesResponse.FromString,
+                _registered_method=True)
 
 
 class ParsedRemoteRecipeServiceServicer(object):
@@ -123,6 +133,18 @@ class ParsedRemoteRecipeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Verify(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCuratedNonVerifiedRecipes(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ParsedRemoteRecipeServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -160,6 +182,16 @@ def add_ParsedRemoteRecipeServiceServicer_to_server(servicer, server):
                     servicer.ResolveByIds,
                     request_deserializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefResponse.SerializeToString,
+            ),
+            'Verify': grpc.unary_unary_rpc_method_handler(
+                    servicer.Verify,
+                    request_deserializer=com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.SerializeToString,
+            ),
+            'GetCuratedNonVerifiedRecipes': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCuratedNonVerifiedRecipes,
+                    request_deserializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -351,6 +383,60 @@ class ParsedRemoteRecipeService(object):
             '/com.baboea.services.ParsedRemoteRecipeService/ResolveByIds',
             com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_built__recipe__service__pb2.ResolveFoodRefResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Verify(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ParsedRemoteRecipeService/Verify',
+            com_dot_baboea_dot_models_dot_recipes__pb2.ParsedRemoteRecipe.SerializeToString,
+            com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCuratedNonVerifiedRecipes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ParsedRemoteRecipeService/GetCuratedNonVerifiedRecipes',
+            com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_built__recipe__service__pb2.GetCuratedNonVerifiedRecipesResponse.FromString,
             options,
             channel_credentials,
             insecure,

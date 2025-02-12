@@ -117,6 +117,11 @@ class UserInitServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_login__service__pb2.InitialLoginForm.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
                 _registered_method=True)
+        self.StreamWithMe = channel.stream_stream(
+                '/com.baboea.services.UserInitService/StreamWithMe',
+                request_serializer=com_dot_baboea_dot_services_dot_login__service__pb2.TempTest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_login__service__pb2.TempResponse.FromString,
+                _registered_method=True)
 
 
 class UserInitServiceServicer(object):
@@ -129,6 +134,12 @@ class UserInitServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamWithMe(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserInitServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -136,6 +147,11 @@ def add_UserInitServiceServicer_to_server(servicer, server):
                     servicer.SetupUser,
                     request_deserializer=com_dot_baboea_dot_services_dot_login__service__pb2.InitialLoginForm.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.SerializeToString,
+            ),
+            'StreamWithMe': grpc.stream_stream_rpc_method_handler(
+                    servicer.StreamWithMe,
+                    request_deserializer=com_dot_baboea_dot_services_dot_login__service__pb2.TempTest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_login__service__pb2.TempResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -165,6 +181,33 @@ class UserInitService(object):
             '/com.baboea.services.UserInitService/SetupUser',
             com_dot_baboea_dot_services_dot_login__service__pb2.InitialLoginForm.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamWithMe(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(
+            request_iterator,
+            target,
+            '/com.baboea.services.UserInitService/StreamWithMe',
+            com_dot_baboea_dot_services_dot_login__service__pb2.TempTest.SerializeToString,
+            com_dot_baboea_dot_services_dot_login__service__pb2.TempResponse.FromString,
             options,
             channel_credentials,
             insecure,

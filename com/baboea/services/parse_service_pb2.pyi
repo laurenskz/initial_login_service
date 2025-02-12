@@ -4,6 +4,7 @@ from com.baboea.models import concept_impl_pb2 as _concept_impl_pb2
 from com.baboea.models import food_units_pb2 as _food_units_pb2
 from com.baboea.models import property_pb2 as _property_pb2
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from com.baboea.models import matching_pb2 as _matching_pb2
 from com.baboea.services import base_pb2 as _base_pb2
 from google.protobuf.internal import containers as _containers
@@ -14,7 +15,7 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class RecipeParseSet(_message.Message):
-    __slots__ = ("concept", "cuisine", "category", "units", "piecesUnit", "gramsUnit", "kcalProperty", "conceptImplementation", "conversionList", "version")
+    __slots__ = ("concept", "cuisine", "category", "units", "piecesUnit", "gramsUnit", "kcalProperty", "conceptImplementation", "conversionList", "version", "allConcepts")
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     CUISINE_FIELD_NUMBER: _ClassVar[int]
     CATEGORY_FIELD_NUMBER: _ClassVar[int]
@@ -25,6 +26,7 @@ class RecipeParseSet(_message.Message):
     CONCEPTIMPLEMENTATION_FIELD_NUMBER: _ClassVar[int]
     CONVERSIONLIST_FIELD_NUMBER: _ClassVar[int]
     VERSION_FIELD_NUMBER: _ClassVar[int]
+    ALLCONCEPTS_FIELD_NUMBER: _ClassVar[int]
     concept: ConceptParseSet
     cuisine: RecipeCuisineParseSet
     category: RecipeCategoryParseSet
@@ -35,7 +37,16 @@ class RecipeParseSet(_message.Message):
     conceptImplementation: _concept_impl_pb2.ConceptImplementationData
     conversionList: _food_units_pb2.ConversionList
     version: _recipes_pb2.RecipeBuildVersion
-    def __init__(self, concept: _Optional[_Union[ConceptParseSet, _Mapping]] = ..., cuisine: _Optional[_Union[RecipeCuisineParseSet, _Mapping]] = ..., category: _Optional[_Union[RecipeCategoryParseSet, _Mapping]] = ..., units: _Optional[_Union[FoodUnitParseSet, _Mapping]] = ..., piecesUnit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., gramsUnit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., kcalProperty: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., conceptImplementation: _Optional[_Union[_concept_impl_pb2.ConceptImplementationData, _Mapping]] = ..., conversionList: _Optional[_Union[_food_units_pb2.ConversionList, _Mapping]] = ..., version: _Optional[_Union[_recipes_pb2.RecipeBuildVersion, _Mapping]] = ...) -> None: ...
+    allConcepts: _containers.RepeatedCompositeFieldContainer[ConceptRefWithAkas]
+    def __init__(self, concept: _Optional[_Union[ConceptParseSet, _Mapping]] = ..., cuisine: _Optional[_Union[RecipeCuisineParseSet, _Mapping]] = ..., category: _Optional[_Union[RecipeCategoryParseSet, _Mapping]] = ..., units: _Optional[_Union[FoodUnitParseSet, _Mapping]] = ..., piecesUnit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., gramsUnit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., kcalProperty: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., conceptImplementation: _Optional[_Union[_concept_impl_pb2.ConceptImplementationData, _Mapping]] = ..., conversionList: _Optional[_Union[_food_units_pb2.ConversionList, _Mapping]] = ..., version: _Optional[_Union[_recipes_pb2.RecipeBuildVersion, _Mapping]] = ..., allConcepts: _Optional[_Iterable[_Union[ConceptRefWithAkas, _Mapping]]] = ...) -> None: ...
+
+class ConceptRefWithAkas(_message.Message):
+    __slots__ = ("concept", "alsoKnownAs")
+    CONCEPT_FIELD_NUMBER: _ClassVar[int]
+    ALSOKNOWNAS_FIELD_NUMBER: _ClassVar[int]
+    concept: _concepts_pb2.ConceptRef
+    alsoKnownAs: _containers.RepeatedCompositeFieldContainer[_localized_pb2.LocalizedString]
+    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., alsoKnownAs: _Optional[_Iterable[_Union[_localized_pb2.LocalizedString, _Mapping]]] = ...) -> None: ...
 
 class ConceptParseSet(_message.Message):
     __slots__ = ("sets",)
@@ -102,6 +113,20 @@ class PendingRemoteRecipe(_message.Message):
     remote: _recipes_pb2.RemoteRecipe
     localeId: str
     def __init__(self, minVersion: _Optional[int] = ..., remote: _Optional[_Union[_recipes_pb2.RemoteRecipe, _Mapping]] = ..., localeId: _Optional[str] = ...) -> None: ...
+
+class PendingVerifiedRecipe(_message.Message):
+    __slots__ = ("minVersion", "parsed")
+    MINVERSION_FIELD_NUMBER: _ClassVar[int]
+    PARSED_FIELD_NUMBER: _ClassVar[int]
+    minVersion: int
+    parsed: _recipes_pb2.ParsedRemoteRecipe
+    def __init__(self, minVersion: _Optional[int] = ..., parsed: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipe, _Mapping]] = ...) -> None: ...
+
+class VerifiedRecipeOutput(_message.Message):
+    __slots__ = ("craftedTemplateRecipes",)
+    CRAFTEDTEMPLATERECIPES_FIELD_NUMBER: _ClassVar[int]
+    craftedTemplateRecipes: _containers.RepeatedCompositeFieldContainer[_template_recipe_data_pb2.ImprovedTemplateRecipe]
+    def __init__(self, craftedTemplateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]]] = ...) -> None: ...
 
 class RecipeToProcess(_message.Message):
     __slots__ = ("localeId", "minRecipeBuildVersion", "recipe")

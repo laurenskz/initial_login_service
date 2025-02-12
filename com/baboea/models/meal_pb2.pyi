@@ -5,11 +5,44 @@ from com.baboea.models import users_pb2 as _users_pb2
 from com.baboea.models import property_pb2 as _property_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+
+class DiscreteMealSize(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    MEAL_SIZE_TINY: _ClassVar[DiscreteMealSize]
+    MEAL_SIZE_SMALL: _ClassVar[DiscreteMealSize]
+    MEAL_SIZE_MEDIUM: _ClassVar[DiscreteMealSize]
+    MEAL_SIZE_LARGE: _ClassVar[DiscreteMealSize]
+    MEAL_SIZE_HUGE: _ClassVar[DiscreteMealSize]
+
+class MealType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    BREAKFAST: _ClassVar[MealType]
+    LUNCH: _ClassVar[MealType]
+    DINNER: _ClassVar[MealType]
+    SNACK: _ClassVar[MealType]
+    PRE_WORKOUT: _ClassVar[MealType]
+    INTRA_WORKOUT: _ClassVar[MealType]
+    POST_WORKOUT: _ClassVar[MealType]
+    DESSERT: _ClassVar[MealType]
+MEAL_SIZE_TINY: DiscreteMealSize
+MEAL_SIZE_SMALL: DiscreteMealSize
+MEAL_SIZE_MEDIUM: DiscreteMealSize
+MEAL_SIZE_LARGE: DiscreteMealSize
+MEAL_SIZE_HUGE: DiscreteMealSize
+BREAKFAST: MealType
+LUNCH: MealType
+DINNER: MealType
+SNACK: MealType
+PRE_WORKOUT: MealType
+INTRA_WORKOUT: MealType
+POST_WORKOUT: MealType
+DESSERT: MealType
 
 class MealRef(_message.Message):
     __slots__ = ("id", "name")

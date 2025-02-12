@@ -21,6 +21,14 @@ class ObjectiveGroupRef(_message.Message):
     name: str
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
+class SpecializedRequirementRef(_message.Message):
+    __slots__ = ("id", "numerator")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    NUMERATOR_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    numerator: _property_pb2.PropertyRef
+    def __init__(self, id: _Optional[str] = ..., numerator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ...) -> None: ...
+
 class SpecializedRequirement(_message.Message):
     __slots__ = ("id", "min", "max", "useMin", "useMax", "numerator", "denominator", "useRatio", "applicationLevel", "numeratorMeals", "denominatorMeals", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts")
     ID_FIELD_NUMBER: _ClassVar[int]

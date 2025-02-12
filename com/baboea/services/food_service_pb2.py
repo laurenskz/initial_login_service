@@ -15,33 +15,42 @@ _sym_db = _symbol_database.Default()
 from com.baboea.models import food_pb2 as com_dot_baboea_dot_models_dot_food__pb2
 from com.baboea.models import food_source_pb2 as com_dot_baboea_dot_models_dot_food__source__pb2
 from com.baboea.models import property_pb2 as com_dot_baboea_dot_models_dot_property__pb2
+from com.baboea.models import weights_pb2 as com_dot_baboea_dot_models_dot_weights__pb2
 from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&com/baboea/services/food_service.proto\x12\x13\x63om.baboea.services\x1a\x1c\x63om/baboea/models/food.proto\x1a#com/baboea/models/food_source.proto\x1a com/baboea/models/property.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a!com/baboea/models/localized.proto\"L\n\x08\x46oodList\x12)\n\x05items\x18\x01 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"J\n\x11\x46oodUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12)\n\x08newValue\x18\x02 \x01(\x0b\x32\x17.com.baboea.models.Food\"d\n\tFoodQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"b\n\x1a\x41ppendAllPropertiesRequest\x12\x0e\n\x06\x66oodId\x18\x01 \x01(\t\x12\x34\n\nproperties\x18\x02 \x03(\x0b\x32 .com.baboea.models.PropertyValue\"\x8b\x01\n\x15\x46oodByPropertyRequest\x12,\n\x04prop\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12\'\n\x04sort\x18\x02 \x01(\x0e\x32\x19.com.baboea.services.Sort\x12\x0c\n\x04page\x18\x03 \x01(\t\x12\r\n\x05limit\x18\x04 \x01(\x05\"\\\n\x15\x46oodBySourceIdRequest\x12\x11\n\tsourceIds\x18\x01 \x03(\t\x12\x30\n\x06source\x18\x02 \x01(\x0b\x32 .com.baboea.models.FoodSourceRef\"C\n\x16\x46oodBySourceIdResponse\x12)\n\x05\x66oods\x18\x01 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef*\x19\n\x04Sort\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\x32\xbb\x04\n\x0b\x46oodService\x12\x42\n\x03\x41\x64\x64\x12\x17.com.baboea.models.Food\x1a .com.baboea.services.AddResponse\"\x00\x12H\n\x06Remove\x12\x17.com.baboea.models.Food\x1a#.com.baboea.services.RemoveResponse\"\x00\x12M\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a\x1d.com.baboea.services.FoodList\"\x00\x12I\n\x06Search\x12\x1e.com.baboea.services.FoodQuery\x1a\x1d.com.baboea.services.FoodList\"\x00\x12\x41\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a\x17.com.baboea.models.Food\"\x00\x12h\n\x0bGetBySource\x12*.com.baboea.services.FoodBySourceIdRequest\x1a+.com.baboea.services.FoodBySourceIdResponse\"\x00\x12W\n\x06Update\x12&.com.baboea.services.FoodUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&com/baboea/services/food_service.proto\x12\x13\x63om.baboea.services\x1a\x1c\x63om/baboea/models/food.proto\x1a#com/baboea/models/food_source.proto\x1a com/baboea/models/property.proto\x1a\x1f\x63om/baboea/models/weights.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a!com/baboea/models/localized.proto\"L\n\x08\x46oodList\x12)\n\x05items\x18\x01 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"J\n\x11\x46oodUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12)\n\x08newValue\x18\x02 \x01(\x0b\x32\x17.com.baboea.models.Food\"d\n\tFoodQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"b\n\x1a\x41ppendAllPropertiesRequest\x12\x0e\n\x06\x66oodId\x18\x01 \x01(\t\x12\x34\n\nproperties\x18\x02 \x03(\x0b\x32 .com.baboea.models.PropertyValue\"\x8b\x01\n\x15\x46oodByPropertyRequest\x12,\n\x04prop\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12\'\n\x04sort\x18\x02 \x01(\x0e\x32\x19.com.baboea.services.Sort\x12\x0c\n\x04page\x18\x03 \x01(\t\x12\r\n\x05limit\x18\x04 \x01(\x05\"\\\n\x15\x46oodBySourceIdRequest\x12\x11\n\tsourceIds\x18\x01 \x03(\t\x12\x30\n\x06source\x18\x02 \x01(\x0b\x32 .com.baboea.models.FoodSourceRef\"C\n\x16\x46oodBySourceIdResponse\x12)\n\x05\x66oods\x18\x01 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\"k\n\x11GetWeightsRequest\x12(\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.FoodRef\x12,\n\x06locale\x18\x02 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"D\n\x12GetWeightsResponse\x12.\n\x07weights\x18\x01 \x03(\x0b\x32\x1d.com.baboea.models.FoodWeight\"P\n\x1aGetFreeFormWeightsResponse\x12\x32\n\x07weights\x18\x01 \x03(\x0b\x32!.com.baboea.models.FreeFormWeight\"\x9d\x01\n#AddFreeFormWeightsToSourceIdRequest\x12\x10\n\x08sourceId\x18\x01 \x01(\t\x12\x30\n\x06source\x18\x02 \x01(\x0b\x32 .com.baboea.models.FoodSourceRef\x12\x32\n\x07weights\x18\x03 \x01(\x0b\x32!.com.baboea.models.FreeFormWeight*\x19\n\x04Sort\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\x32\x8e\x07\n\x0b\x46oodService\x12\x42\n\x03\x41\x64\x64\x12\x17.com.baboea.models.Food\x1a .com.baboea.services.AddResponse\"\x00\x12H\n\x06Remove\x12\x17.com.baboea.models.Food\x1a#.com.baboea.services.RemoveResponse\"\x00\x12M\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a\x1d.com.baboea.services.FoodList\"\x00\x12I\n\x06Search\x12\x1e.com.baboea.services.FoodQuery\x1a\x1d.com.baboea.services.FoodList\"\x00\x12\x41\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a\x17.com.baboea.models.Food\"\x00\x12h\n\x0bGetBySource\x12*.com.baboea.services.FoodBySourceIdRequest\x1a+.com.baboea.services.FoodBySourceIdResponse\"\x00\x12W\n\x06Update\x12&.com.baboea.services.FoodUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x12_\n\nGetWeights\x12&.com.baboea.services.GetWeightsRequest\x1a\'.com.baboea.services.GetWeightsResponse\"\x00\x12o\n\x12GetFreeFormWeights\x12&.com.baboea.services.GetWeightsRequest\x1a/.com.baboea.services.GetFreeFormWeightsResponse\"\x00\x12\x7f\n\x1c\x41\x64\x64\x46reeFormWeightsToSourceId\x12\x38.com.baboea.services.AddFreeFormWeightsToSourceIdRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.services.food_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_SORT']._serialized_start=892
-  _globals['_SORT']._serialized_end=917
-  _globals['_FOODLIST']._serialized_start=231
-  _globals['_FOODLIST']._serialized_end=307
-  _globals['_FOODUPDATEREQUEST']._serialized_start=309
-  _globals['_FOODUPDATEREQUEST']._serialized_end=383
-  _globals['_FOODQUERY']._serialized_start=385
-  _globals['_FOODQUERY']._serialized_end=485
-  _globals['_APPENDALLPROPERTIESREQUEST']._serialized_start=487
-  _globals['_APPENDALLPROPERTIESREQUEST']._serialized_end=585
-  _globals['_FOODBYPROPERTYREQUEST']._serialized_start=588
-  _globals['_FOODBYPROPERTYREQUEST']._serialized_end=727
-  _globals['_FOODBYSOURCEIDREQUEST']._serialized_start=729
-  _globals['_FOODBYSOURCEIDREQUEST']._serialized_end=821
-  _globals['_FOODBYSOURCEIDRESPONSE']._serialized_start=823
-  _globals['_FOODBYSOURCEIDRESPONSE']._serialized_end=890
-  _globals['_FOODSERVICE']._serialized_start=920
-  _globals['_FOODSERVICE']._serialized_end=1491
+  _globals['_SORT']._serialized_start=1346
+  _globals['_SORT']._serialized_end=1371
+  _globals['_FOODLIST']._serialized_start=264
+  _globals['_FOODLIST']._serialized_end=340
+  _globals['_FOODUPDATEREQUEST']._serialized_start=342
+  _globals['_FOODUPDATEREQUEST']._serialized_end=416
+  _globals['_FOODQUERY']._serialized_start=418
+  _globals['_FOODQUERY']._serialized_end=518
+  _globals['_APPENDALLPROPERTIESREQUEST']._serialized_start=520
+  _globals['_APPENDALLPROPERTIESREQUEST']._serialized_end=618
+  _globals['_FOODBYPROPERTYREQUEST']._serialized_start=621
+  _globals['_FOODBYPROPERTYREQUEST']._serialized_end=760
+  _globals['_FOODBYSOURCEIDREQUEST']._serialized_start=762
+  _globals['_FOODBYSOURCEIDREQUEST']._serialized_end=854
+  _globals['_FOODBYSOURCEIDRESPONSE']._serialized_start=856
+  _globals['_FOODBYSOURCEIDRESPONSE']._serialized_end=923
+  _globals['_GETWEIGHTSREQUEST']._serialized_start=925
+  _globals['_GETWEIGHTSREQUEST']._serialized_end=1032
+  _globals['_GETWEIGHTSRESPONSE']._serialized_start=1034
+  _globals['_GETWEIGHTSRESPONSE']._serialized_end=1102
+  _globals['_GETFREEFORMWEIGHTSRESPONSE']._serialized_start=1104
+  _globals['_GETFREEFORMWEIGHTSRESPONSE']._serialized_end=1184
+  _globals['_ADDFREEFORMWEIGHTSTOSOURCEIDREQUEST']._serialized_start=1187
+  _globals['_ADDFREEFORMWEIGHTSTOSOURCEIDREQUEST']._serialized_end=1344
+  _globals['_FOODSERVICE']._serialized_start=1374
+  _globals['_FOODSERVICE']._serialized_end=2284
 # @@protoc_insertion_point(module_scope)

@@ -15,42 +15,43 @@ _sym_db = _symbol_database.Default()
 from com.baboea.models import recipes_pb2 as com_dot_baboea_dot_models_dot_recipes__pb2
 from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
 from com.baboea.models import property_pb2 as com_dot_baboea_dot_models_dot_property__pb2
+from com.baboea.models import dates_pb2 as com_dot_baboea_dot_models_dot_dates__pb2
 from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(com/baboea/services/recipe_service.proto\x12\x13\x63om.baboea.services\x1a\x1f\x63om/baboea/models/recipes.proto\x1a com/baboea/models/concepts.proto\x1a com/baboea/models/property.proto\x1a\x1e\x63om/baboea/services/base.proto\"P\n\nRecipeList\x12+\n\x05items\x18\x01 \x03(\x0b\x32\x1c.com.baboea.models.RecipeRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"N\n\x13RecipeUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12+\n\x08newValue\x18\x02 \x01(\x0b\x32\x19.com.baboea.models.Recipe\"[\n\rRecipeRequest\x12\x0c\n\x04page\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12-\n\x05query\x18\x03 \x01(\x0b\x32\x1e.com.baboea.models.RecipeQuery\"\x1d\n\rCategoryQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\"a\n\x0f\x43\x61tegoryRequest\x12\x0c\n\x04page\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x31\n\x05query\x18\x03 \x01(\x0b\x32\".com.baboea.services.CategoryQuery\"^\n\x10\x43\x61tegoryResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"\'\n\x0b\x44oubleRange\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\"\xf4\x03\n\x11SmartRecipesQuery\x12\x38\n\ncategories\x18\x01 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x35\n\x08\x63uisines\x18\x02 \x03(\x0b\x32#.com.baboea.models.RecipeCuisineRef\x12\x36\n\x0f\x61llowedConcepts\x18\x0b \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x37\n\x10requiredConcepts\x18\n \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x36\n\x0f\x63ookTimeMinutes\x18\x03 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x36\n\x0fprepTimeMinutes\x18\x04 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x37\n\x10totalTimeMinutes\x18\x07 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x18\n\x10smartRecipeCount\x18\x05 \x01(\x05\x12:\n\x06ranges\x18\x06 \x03(\x0b\x32*.com.baboea.services.RequiredPropertyRange\"$\n\x08IntRange\x12\x0b\n\x03min\x18\x01 \x01(\x05\x12\x0b\n\x03max\x18\x02 \x01(\x05\"\x8c\x01\n\x15RequiredPropertyRange\x12\x30\n\x08property\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12\x41\n\x17propertyRangePer100Kcal\x18\x02 \x01(\x0b\x32 .com.baboea.services.DoubleRange\"\x8c\x01\n\x10SmartRecipeEntry\x12\x38\n\x06recipe\x18\x01 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRef\x12>\n\x0bingredients\x18\x02 \x03(\x0b\x32).com.baboea.models.RemoteRecipeIngredient\"N\n\x14SmartRecipesResponse\x12\x36\n\x07recipes\x18\x01 \x03(\x0b\x32%.com.baboea.services.SmartRecipeEntry2u\n\x12SmartRecipeService\x12_\n\x08GetSmart\x12&.com.baboea.services.SmartRecipesQuery\x1a).com.baboea.services.SmartRecipesResponse\"\x00\x32\xdf\x03\n\rRecipeService\x12\x44\n\x03\x41\x64\x64\x12\x19.com.baboea.models.Recipe\x1a .com.baboea.services.AddResponse\"\x00\x12J\n\x06Remove\x12\x19.com.baboea.models.Recipe\x1a#.com.baboea.services.RemoveResponse\"\x00\x12O\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a\x1f.com.baboea.services.RecipeList\"\x00\x12K\n\x06Search\x12\x1e.com.baboea.models.RecipeQuery\x1a\x1f.com.baboea.services.RecipeList\"\x00\x12\x43\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a\x19.com.baboea.models.Recipe\"\x00\x12Y\n\x06Update\x12(.com.baboea.services.RecipeUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(com/baboea/services/recipe_service.proto\x12\x13\x63om.baboea.services\x1a\x1f\x63om/baboea/models/recipes.proto\x1a com/baboea/models/concepts.proto\x1a com/baboea/models/property.proto\x1a\x1d\x63om/baboea/models/dates.proto\x1a\x1e\x63om/baboea/services/base.proto\"P\n\nRecipeList\x12+\n\x05items\x18\x01 \x03(\x0b\x32\x1c.com.baboea.models.RecipeRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"N\n\x13RecipeUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12+\n\x08newValue\x18\x02 \x01(\x0b\x32\x19.com.baboea.models.Recipe\"[\n\rRecipeRequest\x12\x0c\n\x04page\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12-\n\x05query\x18\x03 \x01(\x0b\x32\x1e.com.baboea.models.RecipeQuery\"\x1d\n\rCategoryQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\"a\n\x0f\x43\x61tegoryRequest\x12\x0c\n\x04page\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x31\n\x05query\x18\x03 \x01(\x0b\x32\".com.baboea.services.CategoryQuery\"^\n\x10\x43\x61tegoryResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"\'\n\x0b\x44oubleRange\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\"\xa9\x04\n\x11SmartRecipesQuery\x12\x38\n\ncategories\x18\x01 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x35\n\x08\x63uisines\x18\x02 \x03(\x0b\x32#.com.baboea.models.RecipeCuisineRef\x12\x36\n\x0f\x61llowedConcepts\x18\x0b \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x37\n\x10requiredConcepts\x18\n \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x36\n\x0f\x63ookTimeMinutes\x18\x03 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x36\n\x0fprepTimeMinutes\x18\x04 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x37\n\x10totalTimeMinutes\x18\x07 \x01(\x0b\x32\x1d.com.baboea.services.IntRange\x12\x18\n\x10smartRecipeCount\x18\x05 \x01(\x05\x12:\n\x06ranges\x18\x06 \x03(\x0b\x32*.com.baboea.services.RequiredPropertyRange\x12\x33\n\ntargetDate\x18\x0c \x01(\x0b\x32\x1f.com.baboea.models.CalendarDate\"$\n\x08IntRange\x12\x0b\n\x03min\x18\x01 \x01(\x05\x12\x0b\n\x03max\x18\x02 \x01(\x05\"\x8c\x01\n\x15RequiredPropertyRange\x12\x30\n\x08property\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12\x41\n\x17propertyRangePer100Kcal\x18\x02 \x01(\x0b\x32 .com.baboea.services.DoubleRange\"\x8c\x01\n\x10SmartRecipeEntry\x12\x38\n\x06recipe\x18\x01 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRef\x12>\n\x0bingredients\x18\x02 \x03(\x0b\x32).com.baboea.models.RemoteRecipeIngredient\"N\n\x14SmartRecipesResponse\x12\x36\n\x07recipes\x18\x01 \x03(\x0b\x32%.com.baboea.services.SmartRecipeEntry2u\n\x12SmartRecipeService\x12_\n\x08GetSmart\x12&.com.baboea.services.SmartRecipesQuery\x1a).com.baboea.services.SmartRecipesResponse\"\x00\x32\xdf\x03\n\rRecipeService\x12\x44\n\x03\x41\x64\x64\x12\x19.com.baboea.models.Recipe\x1a .com.baboea.services.AddResponse\"\x00\x12J\n\x06Remove\x12\x19.com.baboea.models.Recipe\x1a#.com.baboea.services.RemoveResponse\"\x00\x12O\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a\x1f.com.baboea.services.RecipeList\"\x00\x12K\n\x06Search\x12\x1e.com.baboea.models.RecipeQuery\x1a\x1f.com.baboea.services.RecipeList\"\x00\x12\x43\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a\x19.com.baboea.models.Recipe\"\x00\x12Y\n\x06Update\x12(.com.baboea.services.RecipeUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.services.recipe_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_RECIPELIST']._serialized_start=198
-  _globals['_RECIPELIST']._serialized_end=278
-  _globals['_RECIPEUPDATEREQUEST']._serialized_start=280
-  _globals['_RECIPEUPDATEREQUEST']._serialized_end=358
-  _globals['_RECIPEREQUEST']._serialized_start=360
-  _globals['_RECIPEREQUEST']._serialized_end=451
-  _globals['_CATEGORYQUERY']._serialized_start=453
-  _globals['_CATEGORYQUERY']._serialized_end=482
-  _globals['_CATEGORYREQUEST']._serialized_start=484
-  _globals['_CATEGORYREQUEST']._serialized_end=581
-  _globals['_CATEGORYRESPONSE']._serialized_start=583
-  _globals['_CATEGORYRESPONSE']._serialized_end=677
-  _globals['_DOUBLERANGE']._serialized_start=679
-  _globals['_DOUBLERANGE']._serialized_end=718
-  _globals['_SMARTRECIPESQUERY']._serialized_start=721
-  _globals['_SMARTRECIPESQUERY']._serialized_end=1221
-  _globals['_INTRANGE']._serialized_start=1223
-  _globals['_INTRANGE']._serialized_end=1259
-  _globals['_REQUIREDPROPERTYRANGE']._serialized_start=1262
-  _globals['_REQUIREDPROPERTYRANGE']._serialized_end=1402
-  _globals['_SMARTRECIPEENTRY']._serialized_start=1405
-  _globals['_SMARTRECIPEENTRY']._serialized_end=1545
-  _globals['_SMARTRECIPESRESPONSE']._serialized_start=1547
-  _globals['_SMARTRECIPESRESPONSE']._serialized_end=1625
-  _globals['_SMARTRECIPESERVICE']._serialized_start=1627
-  _globals['_SMARTRECIPESERVICE']._serialized_end=1744
-  _globals['_RECIPESERVICE']._serialized_start=1747
-  _globals['_RECIPESERVICE']._serialized_end=2226
+  _globals['_RECIPELIST']._serialized_start=229
+  _globals['_RECIPELIST']._serialized_end=309
+  _globals['_RECIPEUPDATEREQUEST']._serialized_start=311
+  _globals['_RECIPEUPDATEREQUEST']._serialized_end=389
+  _globals['_RECIPEREQUEST']._serialized_start=391
+  _globals['_RECIPEREQUEST']._serialized_end=482
+  _globals['_CATEGORYQUERY']._serialized_start=484
+  _globals['_CATEGORYQUERY']._serialized_end=513
+  _globals['_CATEGORYREQUEST']._serialized_start=515
+  _globals['_CATEGORYREQUEST']._serialized_end=612
+  _globals['_CATEGORYRESPONSE']._serialized_start=614
+  _globals['_CATEGORYRESPONSE']._serialized_end=708
+  _globals['_DOUBLERANGE']._serialized_start=710
+  _globals['_DOUBLERANGE']._serialized_end=749
+  _globals['_SMARTRECIPESQUERY']._serialized_start=752
+  _globals['_SMARTRECIPESQUERY']._serialized_end=1305
+  _globals['_INTRANGE']._serialized_start=1307
+  _globals['_INTRANGE']._serialized_end=1343
+  _globals['_REQUIREDPROPERTYRANGE']._serialized_start=1346
+  _globals['_REQUIREDPROPERTYRANGE']._serialized_end=1486
+  _globals['_SMARTRECIPEENTRY']._serialized_start=1489
+  _globals['_SMARTRECIPEENTRY']._serialized_end=1629
+  _globals['_SMARTRECIPESRESPONSE']._serialized_start=1631
+  _globals['_SMARTRECIPESRESPONSE']._serialized_end=1709
+  _globals['_SMARTRECIPESERVICE']._serialized_start=1711
+  _globals['_SMARTRECIPESERVICE']._serialized_end=1828
+  _globals['_RECIPESERVICE']._serialized_start=1831
+  _globals['_RECIPESERVICE']._serialized_end=2310
 # @@protoc_insertion_point(module_scope)

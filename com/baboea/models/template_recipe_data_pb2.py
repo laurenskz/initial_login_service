@@ -13,28 +13,33 @@ _sym_db = _symbol_database.Default()
 
 
 from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
+from com.baboea.models import culinary_groups_pb2 as com_dot_baboea_dot_models_dot_culinary__groups__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
+from com.baboea.models import property_pb2 as com_dot_baboea_dot_models_dot_property__pb2
 from com.baboea.models import recipes_pb2 as com_dot_baboea_dot_models_dot_recipes__pb2
 from com.baboea.models import users_pb2 as com_dot_baboea_dot_models_dot_users__pb2
+from com.baboea.models import flavour_recipe_pb2 as com_dot_baboea_dot_models_dot_flavour__recipe__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,com/baboea/models/template_recipe_data.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/concepts.proto\x1a!com/baboea/models/localized.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a\x1d\x63om/baboea/models/users.proto\"h\n\x19ImprovedTemplateRecipeRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x03 \x01(\t\"\x80\x01\n\x17TemplateRecipeLocalized\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0cinstructions\x18\x03 \x03(\t\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"\xaa\x03\n\x16ImprovedTemplateRecipe\x12\n\n\x02id\x18\x01 \x01(\t\x12\x38\n\ncategories\x18\x02 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x35\n\x08\x63uisines\x18\x03 \x03(\x0b\x32#.com.baboea.models.RecipeCuisineRef\x12\x18\n\x10totalTimeMinutes\x18\x04 \x01(\x05\x12\x10\n\x08isPublic\x18\x05 \x01(\x08\x12\x12\n\nisVerified\x18\x06 \x01(\x08\x12)\n\x05owner\x18\x07 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\r\n\x05\x65moji\x18\x08 \x01(\t\x12\x14\n\x0c\x61llowedScale\x18\t \x01(\x01\x12@\n\x06groups\x18\n \x03(\x0b\x32\x30.com.baboea.models.TemplateRecipeIngredientGroup\x12\x41\n\rlocalizations\x18\x0b \x03(\x0b\x32*.com.baboea.models.TemplateRecipeLocalized\" \n\x12TemplateRecipeData\x12\n\n\x02id\x18\x01 \x01(\t\"\x8e\x02\n\x1dTemplateRecipeIngredientGroup\x12\x10\n\x08optional\x18\x01 \x01(\x08\x12<\n\x07options\x18\x02 \x03(\x0b\x32+.com.baboea.models.TemplateRecipeIngredient\x12\x19\n\x11maxCountPerRecipe\x18\x06 \x01(\x01\x12\x19\n\x11minCountPerRecipe\x18\x07 \x01(\x01\x12\x16\n\x0cnoRepetition\x18\x03 \x01(\x08H\x00\x12\"\n\x18maxRepetitionsPerServing\x18\x04 \x01(\x01H\x00\x12\x1d\n\x13\x66ixedMaxRepetitions\x18\x05 \x01(\x01H\x00\x42\x0c\n\nrepetition\"q\n\x18TemplateRecipeIngredient\x12+\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x13\n\x0bquantityMin\x18\x02 \x01(\x01\x12\x13\n\x0bquantityMax\x18\x03 \x01(\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,com/baboea/models/template_recipe_data.proto\x12\x11\x63om.baboea.models\x1a com/baboea/models/concepts.proto\x1a\'com/baboea/models/culinary_groups.proto\x1a!com/baboea/models/localized.proto\x1a com/baboea/models/property.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a\x1d\x63om/baboea/models/users.proto\x1a&com/baboea/models/flavour_recipe.proto\"h\n\x19ImprovedTemplateRecipeRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x03 \x01(\t\"\x80\x01\n\x17TemplateRecipeLocalized\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0cinstructions\x18\x03 \x03(\t\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"j\n\x1cTemplateRecipePropertyBounds\x12\x30\n\x08property\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12\x0b\n\x03min\x18\x02 \x01(\x01\x12\x0b\n\x03max\x18\x03 \x01(\x01\"\xf1\x04\n\x16ImprovedTemplateRecipe\x12\n\n\x02id\x18\x01 \x01(\t\x12\x38\n\ncategories\x18\x02 \x03(\x0b\x32$.com.baboea.models.RecipeCategoryRef\x12\x35\n\x08\x63uisines\x18\x03 \x03(\x0b\x32#.com.baboea.models.RecipeCuisineRef\x12\x18\n\x10totalTimeMinutes\x18\x04 \x01(\x05\x12\x10\n\x08isPublic\x18\x05 \x01(\x08\x12\x12\n\nisVerified\x18\x06 \x01(\x08\x12)\n\x05owner\x18\x07 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\r\n\x05\x65moji\x18\x08 \x01(\t\x12\x14\n\x0c\x61llowedScale\x18\t \x01(\x01\x12@\n\x06groups\x18\n \x03(\x0b\x32\x30.com.baboea.models.TemplateRecipeIngredientGroup\x12\x41\n\rlocalizations\x18\x0b \x03(\x0b\x32*.com.baboea.models.TemplateRecipeLocalized\x12>\n\x11globalConstraints\x18\x0c \x03(\x0b\x32#.com.baboea.models.GlobalConstraint\x12<\n\x10ratioConstraints\x18\r \x03(\x0b\x32\".com.baboea.models.RatioConstraint\x12G\n\x0epropertyBounds\x18\x0e \x03(\x0b\x32/.com.baboea.models.TemplateRecipePropertyBounds\"\xdf\x01\n\x1dTemplateRecipeWithoutMetaData\x12@\n\x06groups\x18\x01 \x03(\x0b\x32\x30.com.baboea.models.TemplateRecipeIngredientGroup\x12>\n\x11globalConstraints\x18\x02 \x03(\x0b\x32#.com.baboea.models.GlobalConstraint\x12<\n\x10ratioConstraints\x18\x03 \x03(\x0b\x32\".com.baboea.models.RatioConstraint\"\x8e\x02\n\x1dTemplateRecipeIngredientGroup\x12:\n\rculinaryGroup\x18\x01 \x01(\x0b\x32#.com.baboea.models.CulinaryGroupRef\x12\x36\n\x08\x63oncepts\x18\x02 \x03(\x0b\x32$.com.baboea.models.QuantifiedConcept\x12\x0f\n\x07groupId\x18\x03 \x01(\t\x12W\n\x0cnameOverride\x18\x04 \x01(\x0b\x32<.com.baboea.models.TemplateRecipeIngredientGroupNameOverrideH\x00\x88\x01\x01\x42\x0f\n\r_nameOverride\"l\n)TemplateRecipeIngredientGroupNameOverride\x12\x30\n\x04name\x18\x01 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x02 \x01(\tb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.template_recipe_data_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_IMPROVEDTEMPLATERECIPEREF']._serialized_start=200
-  _globals['_IMPROVEDTEMPLATERECIPEREF']._serialized_end=304
-  _globals['_TEMPLATERECIPELOCALIZED']._serialized_start=307
-  _globals['_TEMPLATERECIPELOCALIZED']._serialized_end=435
-  _globals['_IMPROVEDTEMPLATERECIPE']._serialized_start=438
-  _globals['_IMPROVEDTEMPLATERECIPE']._serialized_end=864
-  _globals['_TEMPLATERECIPEDATA']._serialized_start=866
-  _globals['_TEMPLATERECIPEDATA']._serialized_end=898
-  _globals['_TEMPLATERECIPEINGREDIENTGROUP']._serialized_start=901
-  _globals['_TEMPLATERECIPEINGREDIENTGROUP']._serialized_end=1171
-  _globals['_TEMPLATERECIPEINGREDIENT']._serialized_start=1173
-  _globals['_TEMPLATERECIPEINGREDIENT']._serialized_end=1286
+  _globals['_IMPROVEDTEMPLATERECIPEREF']._serialized_start=315
+  _globals['_IMPROVEDTEMPLATERECIPEREF']._serialized_end=419
+  _globals['_TEMPLATERECIPELOCALIZED']._serialized_start=422
+  _globals['_TEMPLATERECIPELOCALIZED']._serialized_end=550
+  _globals['_TEMPLATERECIPEPROPERTYBOUNDS']._serialized_start=552
+  _globals['_TEMPLATERECIPEPROPERTYBOUNDS']._serialized_end=658
+  _globals['_IMPROVEDTEMPLATERECIPE']._serialized_start=661
+  _globals['_IMPROVEDTEMPLATERECIPE']._serialized_end=1286
+  _globals['_TEMPLATERECIPEWITHOUTMETADATA']._serialized_start=1289
+  _globals['_TEMPLATERECIPEWITHOUTMETADATA']._serialized_end=1512
+  _globals['_TEMPLATERECIPEINGREDIENTGROUP']._serialized_start=1515
+  _globals['_TEMPLATERECIPEINGREDIENTGROUP']._serialized_end=1785
+  _globals['_TEMPLATERECIPEINGREDIENTGROUPNAMEOVERRIDE']._serialized_start=1787
+  _globals['_TEMPLATERECIPEINGREDIENTGROUPNAMEOVERRIDE']._serialized_end=1895
 # @@protoc_insertion_point(module_scope)

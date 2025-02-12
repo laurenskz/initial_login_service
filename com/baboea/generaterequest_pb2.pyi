@@ -3,10 +3,12 @@ from com.baboea.models import objectivegroup_pb2 as _objectivegroup_pb2
 from com.baboea.models import diet_pb2 as _diet_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.models import property_pb2 as _property_pb2
+from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from com.baboea.models import days_pb2 as _days_pb2
 from com.baboea.models import food_pb2 as _food_pb2
 from com.baboea.models import recipes_pb2 as _recipes_pb2
 from com.baboea.models import meal_pb2 as _meal_pb2
+from com.baboea.models import dates_pb2 as _dates_pb2
 from com.baboea.models import meal_components_pb2 as _meal_components_pb2
 from com.baboea import requirement_pb2 as _requirement_pb2
 from com.baboea import concept_pb2 as _concept_pb2
@@ -24,25 +26,29 @@ class UserPlanInput(_message.Message):
     DESIREDDAYS_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     user: _users_pb2.UserRef
-    desiredDays: _containers.RepeatedCompositeFieldContainer[_days_pb2.MealPlanDayRef]
+    desiredDays: _containers.RepeatedCompositeFieldContainer[_days_pb2.UserPlanDay]
     name: str
-    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.MealPlanDayRef, _Mapping]]] = ..., name: _Optional[str] = ...) -> None: ...
+    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., name: _Optional[str] = ...) -> None: ...
 
 class MealPlanGenerateRequest(_message.Message):
-    __slots__ = ("user", "desiredDays", "enabledObjectives", "availableMeals", "diet", "availableRecipes")
+    __slots__ = ("user", "dates", "utilizedDayTemplates", "enabledObjectives", "availableMeals", "diet", "availableRecipes", "templateRecipes")
     USER_FIELD_NUMBER: _ClassVar[int]
-    DESIREDDAYS_FIELD_NUMBER: _ClassVar[int]
+    DATES_FIELD_NUMBER: _ClassVar[int]
+    UTILIZEDDAYTEMPLATES_FIELD_NUMBER: _ClassVar[int]
     ENABLEDOBJECTIVES_FIELD_NUMBER: _ClassVar[int]
     AVAILABLEMEALS_FIELD_NUMBER: _ClassVar[int]
     DIET_FIELD_NUMBER: _ClassVar[int]
     AVAILABLERECIPES_FIELD_NUMBER: _ClassVar[int]
+    TEMPLATERECIPES_FIELD_NUMBER: _ClassVar[int]
     user: _users_pb2.UserRef
-    desiredDays: _containers.RepeatedCompositeFieldContainer[_days_pb2.MealPlanDay]
+    dates: _containers.RepeatedCompositeFieldContainer[_days_pb2.UserPlanDay]
+    utilizedDayTemplates: _containers.RepeatedCompositeFieldContainer[_days_pb2.MealPlanDay]
     enabledObjectives: _containers.RepeatedCompositeFieldContainer[_objectivegroup_pb2.ObjectiveGroup]
     availableMeals: _containers.RepeatedCompositeFieldContainer[_meal_pb2.Meal]
     diet: _diet_pb2.UserDietDefinition
     availableRecipes: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.Recipe]
-    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.MealPlanDay, _Mapping]]] = ..., enabledObjectives: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroup, _Mapping]]] = ..., availableMeals: _Optional[_Iterable[_Union[_meal_pb2.Meal, _Mapping]]] = ..., diet: _Optional[_Union[_diet_pb2.UserDietDefinition, _Mapping]] = ..., availableRecipes: _Optional[_Iterable[_Union[_recipes_pb2.Recipe, _Mapping]]] = ...) -> None: ...
+    templateRecipes: _containers.RepeatedCompositeFieldContainer[_template_recipe_data_pb2.ImprovedTemplateRecipe]
+    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., dates: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., utilizedDayTemplates: _Optional[_Iterable[_Union[_days_pb2.MealPlanDay, _Mapping]]] = ..., enabledObjectives: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroup, _Mapping]]] = ..., availableMeals: _Optional[_Iterable[_Union[_meal_pb2.Meal, _Mapping]]] = ..., diet: _Optional[_Union[_diet_pb2.UserDietDefinition, _Mapping]] = ..., availableRecipes: _Optional[_Iterable[_Union[_recipes_pb2.Recipe, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]]] = ...) -> None: ...
 
 class GroceryGroup(_message.Message):
     __slots__ = ("foods",)
@@ -104,15 +110,33 @@ class GenerateRefResolution(_message.Message):
     locale: _localized_pb2.LocaleRef
     def __init__(self, properties: _Optional[_Iterable[_Union[_property_pb2.PropertyRef, _Mapping]]] = ..., foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]]] = ..., user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ...) -> None: ...
 
+class FailedObjective(_message.Message):
+    __slots__ = ("requirement",)
+    REQUIREMENT_FIELD_NUMBER: _ClassVar[int]
+    requirement: _objectivegroup_pb2.SpecializedRequirementRef
+    def __init__(self, requirement: _Optional[_Union[_objectivegroup_pb2.SpecializedRequirementRef, _Mapping]] = ...) -> None: ...
+
 class GeneratedDay(_message.Message):
-    __slots__ = ("day", "meals", "properties")
+    __slots__ = ("day", "meals", "properties", "failedObjectives")
     DAY_FIELD_NUMBER: _ClassVar[int]
     MEALS_FIELD_NUMBER: _ClassVar[int]
     PROPERTIES_FIELD_NUMBER: _ClassVar[int]
-    day: _days_pb2.MealPlanDayRef
+    FAILEDOBJECTIVES_FIELD_NUMBER: _ClassVar[int]
+    day: _days_pb2.UserPlanDay
     meals: _containers.RepeatedCompositeFieldContainer[GeneratedMeal]
     properties: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyValue]
-    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meals: _Optional[_Iterable[_Union[GeneratedMeal, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ...) -> None: ...
+    failedObjectives: _containers.RepeatedCompositeFieldContainer[FailedObjective]
+    def __init__(self, day: _Optional[_Union[_days_pb2.UserPlanDay, _Mapping]] = ..., meals: _Optional[_Iterable[_Union[GeneratedMeal, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., failedObjectives: _Optional[_Iterable[_Union[FailedObjective, _Mapping]]] = ...) -> None: ...
+
+class GeneratedMetaDay(_message.Message):
+    __slots__ = ("pending", "day", "errorMessages")
+    PENDING_FIELD_NUMBER: _ClassVar[int]
+    DAY_FIELD_NUMBER: _ClassVar[int]
+    ERRORMESSAGES_FIELD_NUMBER: _ClassVar[int]
+    pending: bool
+    day: GeneratedDay
+    errorMessages: _containers.RepeatedCompositeFieldContainer[_localized_pb2.LocalizedString]
+    def __init__(self, pending: bool = ..., day: _Optional[_Union[GeneratedDay, _Mapping]] = ..., errorMessages: _Optional[_Iterable[_Union[_localized_pb2.LocalizedString, _Mapping]]] = ...) -> None: ...
 
 class GeneratedMeal(_message.Message):
     __slots__ = ("meal", "components", "properties")
@@ -125,18 +149,20 @@ class GeneratedMeal(_message.Message):
     def __init__(self, meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., components: _Optional[_Iterable[_Union[GeneratedMealComponent, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ...) -> None: ...
 
 class GeneratedMealComponent(_message.Message):
-    __slots__ = ("component", "recipe", "userRecipe", "foods", "properties")
+    __slots__ = ("component", "recipe", "userRecipe", "templateRecipe", "foods", "properties")
     COMPONENT_FIELD_NUMBER: _ClassVar[int]
     RECIPE_FIELD_NUMBER: _ClassVar[int]
     USERRECIPE_FIELD_NUMBER: _ClassVar[int]
+    TEMPLATERECIPE_FIELD_NUMBER: _ClassVar[int]
     FOODS_FIELD_NUMBER: _ClassVar[int]
     PROPERTIES_FIELD_NUMBER: _ClassVar[int]
     component: _meal_components_pb2.MealComponentRef
     recipe: _recipes_pb2.ParsedRemoteRecipeRef
     userRecipe: _recipes_pb2.RecipeRef
+    templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipeRef
     foods: _containers.RepeatedCompositeFieldContainer[QuantifiedFood]
     properties: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyValue]
-    def __init__(self, component: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ..., foods: _Optional[_Iterable[_Union[QuantifiedFood, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ...) -> None: ...
+    def __init__(self, component: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ..., foods: _Optional[_Iterable[_Union[QuantifiedFood, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ...) -> None: ...
 
 class QuantifiedFood(_message.Message):
     __slots__ = ("food", "quantity")

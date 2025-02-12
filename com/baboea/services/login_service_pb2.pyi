@@ -1,6 +1,7 @@
 from com.baboea.models import curated_diet_pb2 as _curated_diet_pb2
 from com.baboea.models import meal_pb2 as _meal_pb2
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from com.baboea.services import base_pb2 as _base_pb2
 from com.baboea.models import users_pb2 as _users_pb2
@@ -28,6 +29,7 @@ class MealStructurePreference(int, metaclass=_enum_type_wrapper.EnumTypeWrapper)
     __slots__ = ()
     ownRecipe: _ClassVar[MealStructurePreference]
     generated: _ClassVar[MealStructurePreference]
+    disable: _ClassVar[MealStructurePreference]
 
 class ActivityLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -42,7 +44,15 @@ class MacroStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     balanced: _ClassVar[MacroStrategy]
     keto: _ClassVar[MacroStrategy]
     low_carb: _ClassVar[MacroStrategy]
-    high_protein: _ClassVar[MacroStrategy]
+    high_carb: _ClassVar[MacroStrategy]
+
+class ProteinStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    low_protein: _ClassVar[ProteinStrategy]
+    high_protein: _ClassVar[ProteinStrategy]
+    medium_protein: _ClassVar[ProteinStrategy]
+    medium_high_protein: _ClassVar[ProteinStrategy]
+    medium_low_protein: _ClassVar[ProteinStrategy]
 
 class DesiredWeightLoss(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -63,6 +73,7 @@ normal: MealSize
 big: MealSize
 ownRecipe: MealStructurePreference
 generated: MealStructurePreference
+disable: MealStructurePreference
 sedentary: ActivityLevel
 lightlyActive: ActivityLevel
 moderatelyActive: ActivityLevel
@@ -71,7 +82,12 @@ extraActive: ActivityLevel
 balanced: MacroStrategy
 keto: MacroStrategy
 low_carb: MacroStrategy
-high_protein: MacroStrategy
+high_carb: MacroStrategy
+low_protein: ProteinStrategy
+high_protein: ProteinStrategy
+medium_protein: ProteinStrategy
+medium_high_protein: ProteinStrategy
+medium_low_protein: ProteinStrategy
 gain_weight: DesiredWeightLoss
 maintain: DesiredWeightLoss
 lose_slowly: DesiredWeightLoss
@@ -80,7 +96,7 @@ advanced: DesiredSetup
 simplified: DesiredSetup
 
 class MealInit(_message.Message):
-    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients")
+    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients", "templateRecipe")
     NAME_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMIN_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMAX_FIELD_NUMBER: _ClassVar[int]
@@ -90,6 +106,7 @@ class MealInit(_message.Message):
     MEALSIZE_FIELD_NUMBER: _ClassVar[int]
     MEALPREF_FIELD_NUMBER: _ClassVar[int]
     OWNRECIPEINGREDIENTS_FIELD_NUMBER: _ClassVar[int]
+    TEMPLATERECIPE_FIELD_NUMBER: _ClassVar[int]
     name: str
     mealKcalMin: float
     mealKcalMax: float
@@ -99,7 +116,8 @@ class MealInit(_message.Message):
     mealSize: MealSize
     mealPref: MealStructurePreference
     ownRecipeIngredients: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.QuantifiedRecipeIngredient]
-    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ...) -> None: ...
+    templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipe
+    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]] = ...) -> None: ...
 
 class NutritionPrefs(_message.Message):
     __slots__ = ("kcal", "protein", "carbPercentage")
@@ -128,7 +146,7 @@ class PersonalData(_message.Message):
     def __init__(self, gender: _Optional[_Union[Gender, str]] = ..., age: _Optional[int] = ..., activityLevel: _Optional[_Union[ActivityLevel, str]] = ..., weightKg: _Optional[float] = ..., heightCm: _Optional[float] = ..., name: _Optional[str] = ...) -> None: ...
 
 class InitialLoginForm(_message.Message):
-    __slots__ = ("personal", "manual", "diet", "macros", "meals", "remoteUserId", "weightLoss", "desiredSetup", "hatedFoods")
+    __slots__ = ("personal", "manual", "diet", "macros", "meals", "remoteUserId", "weightLoss", "desiredSetup", "hatedFoods", "proteinStrategy")
     PERSONAL_FIELD_NUMBER: _ClassVar[int]
     MANUAL_FIELD_NUMBER: _ClassVar[int]
     DIET_FIELD_NUMBER: _ClassVar[int]
@@ -138,6 +156,7 @@ class InitialLoginForm(_message.Message):
     WEIGHTLOSS_FIELD_NUMBER: _ClassVar[int]
     DESIREDSETUP_FIELD_NUMBER: _ClassVar[int]
     HATEDFOODS_FIELD_NUMBER: _ClassVar[int]
+    PROTEINSTRATEGY_FIELD_NUMBER: _ClassVar[int]
     personal: PersonalData
     manual: NutritionPrefs
     diet: _curated_diet_pb2.CuratedDietRef
@@ -147,7 +166,8 @@ class InitialLoginForm(_message.Message):
     weightLoss: DesiredWeightLoss
     desiredSetup: DesiredSetup
     hatedFoods: _concept_pb2.BoolConceptValues
-    def __init__(self, personal: _Optional[_Union[PersonalData, _Mapping]] = ..., manual: _Optional[_Union[NutritionPrefs, _Mapping]] = ..., diet: _Optional[_Union[_curated_diet_pb2.CuratedDietRef, _Mapping]] = ..., macros: _Optional[_Union[MacroStrategy, str]] = ..., meals: _Optional[_Iterable[_Union[MealInit, _Mapping]]] = ..., remoteUserId: _Optional[str] = ..., weightLoss: _Optional[_Union[DesiredWeightLoss, str]] = ..., desiredSetup: _Optional[_Union[DesiredSetup, str]] = ..., hatedFoods: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ...) -> None: ...
+    proteinStrategy: ProteinStrategy
+    def __init__(self, personal: _Optional[_Union[PersonalData, _Mapping]] = ..., manual: _Optional[_Union[NutritionPrefs, _Mapping]] = ..., diet: _Optional[_Union[_curated_diet_pb2.CuratedDietRef, _Mapping]] = ..., macros: _Optional[_Union[MacroStrategy, str]] = ..., meals: _Optional[_Iterable[_Union[MealInit, _Mapping]]] = ..., remoteUserId: _Optional[str] = ..., weightLoss: _Optional[_Union[DesiredWeightLoss, str]] = ..., desiredSetup: _Optional[_Union[DesiredSetup, str]] = ..., hatedFoods: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., proteinStrategy: _Optional[_Union[ProteinStrategy, str]] = ...) -> None: ...
 
 class LoginRequest(_message.Message):
     __slots__ = ("remoteUserId",)
@@ -162,3 +182,15 @@ class LoginResponse(_message.Message):
     user: _users_pb2.UserRef
     needsInit: bool
     def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., needsInit: bool = ...) -> None: ...
+
+class TempTest(_message.Message):
+    __slots__ = ("text",)
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    text: str
+    def __init__(self, text: _Optional[str] = ...) -> None: ...
+
+class TempResponse(_message.Message):
+    __slots__ = ("text",)
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    text: str
+    def __init__(self, text: _Optional[str] = ...) -> None: ...

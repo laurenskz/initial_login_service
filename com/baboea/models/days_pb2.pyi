@@ -1,5 +1,6 @@
 from com.baboea.models import meal_pb2 as _meal_pb2
 from com.baboea.models import users_pb2 as _users_pb2
+from com.baboea.models import dates_pb2 as _dates_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
@@ -29,3 +30,11 @@ class MealPlanDayRef(_message.Message):
     id: str
     name: str
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
+
+class UserPlanDay(_message.Message):
+    __slots__ = ("date", "desiredDayTemplate")
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    DESIREDDAYTEMPLATE_FIELD_NUMBER: _ClassVar[int]
+    date: _dates_pb2.CalendarDate
+    desiredDayTemplate: MealPlanDayRef
+    def __init__(self, date: _Optional[_Union[_dates_pb2.CalendarDate, _Mapping]] = ..., desiredDayTemplate: _Optional[_Union[MealPlanDayRef, _Mapping]] = ...) -> None: ...

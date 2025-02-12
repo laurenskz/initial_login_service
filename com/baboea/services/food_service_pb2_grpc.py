@@ -76,6 +76,21 @@ class FoodServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.FoodUpdateRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
                 _registered_method=True)
+        self.GetWeights = channel.unary_unary(
+                '/com.baboea.services.FoodService/GetWeights',
+                request_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsResponse.FromString,
+                _registered_method=True)
+        self.GetFreeFormWeights = channel.unary_unary(
+                '/com.baboea.services.FoodService/GetFreeFormWeights',
+                request_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetFreeFormWeightsResponse.FromString,
+                _registered_method=True)
+        self.AddFreeFormWeightsToSourceId = channel.unary_unary(
+                '/com.baboea.services.FoodService/AddFreeFormWeightsToSourceId',
+                request_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.AddFreeFormWeightsToSourceIdRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
+                _registered_method=True)
 
 
 class FoodServiceServicer(object):
@@ -123,6 +138,24 @@ class FoodServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetWeights(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFreeFormWeights(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddFreeFormWeightsToSourceId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_FoodServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -159,6 +192,21 @@ def add_FoodServiceServicer_to_server(servicer, server):
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
                     request_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.FoodUpdateRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.SerializeToString,
+            ),
+            'GetWeights': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWeights,
+                    request_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsResponse.SerializeToString,
+            ),
+            'GetFreeFormWeights': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFreeFormWeights,
+                    request_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_food__service__pb2.GetFreeFormWeightsResponse.SerializeToString,
+            ),
+            'AddFreeFormWeightsToSourceId': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddFreeFormWeightsToSourceId,
+                    request_deserializer=com_dot_baboea_dot_services_dot_food__service__pb2.AddFreeFormWeightsToSourceIdRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.SerializeToString,
             ),
     }
@@ -350,6 +398,87 @@ class FoodService(object):
             target,
             '/com.baboea.services.FoodService/Update',
             com_dot_baboea_dot_services_dot_food__service__pb2.FoodUpdateRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetWeights(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.FoodService/GetWeights',
+            com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFreeFormWeights(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.FoodService/GetFreeFormWeights',
+            com_dot_baboea_dot_services_dot_food__service__pb2.GetWeightsRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_food__service__pb2.GetFreeFormWeightsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddFreeFormWeightsToSourceId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.FoodService/AddFreeFormWeightsToSourceId',
+            com_dot_baboea_dot_services_dot_food__service__pb2.AddFreeFormWeightsToSourceIdRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
             options,
             channel_credentials,

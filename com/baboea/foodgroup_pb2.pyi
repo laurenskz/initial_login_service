@@ -30,13 +30,13 @@ class FoodGroupNode(_message.Message):
     RECIPE_FIELD_NUMBER: _ClassVar[int]
     USERRECIPE_FIELD_NUMBER: _ClassVar[int]
     TEMPLATERECIPE_FIELD_NUMBER: _ClassVar[int]
-    day: _days_pb2.MealPlanDayRef
+    day: _days_pb2.UserPlanDay
     meal: _meal_pb2.MealRef
     mealComponent: _meal_components_pb2.MealComponentRef
     recipe: _recipes_pb2.ParsedRemoteRecipeRef
     userRecipe: _recipes_pb2.RecipeRef
     templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipeRef
-    def __init__(self, day: _Optional[_Union[_days_pb2.MealPlanDayRef, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ...) -> None: ...
+    def __init__(self, day: _Optional[_Union[_days_pb2.UserPlanDay, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., mealComponent: _Optional[_Union[_meal_components_pb2.MealComponentRef, _Mapping]] = ..., recipe: _Optional[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]] = ..., userRecipe: _Optional[_Union[_recipes_pb2.RecipeRef, _Mapping]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ...) -> None: ...
 
 class FoodGroupIdentifier(_message.Message):
     __slots__ = ("path",)

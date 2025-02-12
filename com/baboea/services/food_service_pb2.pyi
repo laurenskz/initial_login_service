@@ -1,6 +1,7 @@
 from com.baboea.models import food_pb2 as _food_pb2
 from com.baboea.models import food_source_pb2 as _food_source_pb2
 from com.baboea.models import property_pb2 as _property_pb2
+from com.baboea.models import weights_pb2 as _weights_pb2
 from com.baboea.services import base_pb2 as _base_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from google.protobuf.internal import containers as _containers
@@ -79,3 +80,33 @@ class FoodBySourceIdResponse(_message.Message):
     FOODS_FIELD_NUMBER: _ClassVar[int]
     foods: _containers.RepeatedCompositeFieldContainer[_food_pb2.FoodRef]
     def __init__(self, foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ...) -> None: ...
+
+class GetWeightsRequest(_message.Message):
+    __slots__ = ("food", "locale")
+    FOOD_FIELD_NUMBER: _ClassVar[int]
+    LOCALE_FIELD_NUMBER: _ClassVar[int]
+    food: _food_pb2.FoodRef
+    locale: _localized_pb2.LocaleRef
+    def __init__(self, food: _Optional[_Union[_food_pb2.FoodRef, _Mapping]] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ...) -> None: ...
+
+class GetWeightsResponse(_message.Message):
+    __slots__ = ("weights",)
+    WEIGHTS_FIELD_NUMBER: _ClassVar[int]
+    weights: _containers.RepeatedCompositeFieldContainer[_food_pb2.FoodWeight]
+    def __init__(self, weights: _Optional[_Iterable[_Union[_food_pb2.FoodWeight, _Mapping]]] = ...) -> None: ...
+
+class GetFreeFormWeightsResponse(_message.Message):
+    __slots__ = ("weights",)
+    WEIGHTS_FIELD_NUMBER: _ClassVar[int]
+    weights: _containers.RepeatedCompositeFieldContainer[_weights_pb2.FreeFormWeight]
+    def __init__(self, weights: _Optional[_Iterable[_Union[_weights_pb2.FreeFormWeight, _Mapping]]] = ...) -> None: ...
+
+class AddFreeFormWeightsToSourceIdRequest(_message.Message):
+    __slots__ = ("sourceId", "source", "weights")
+    SOURCEID_FIELD_NUMBER: _ClassVar[int]
+    SOURCE_FIELD_NUMBER: _ClassVar[int]
+    WEIGHTS_FIELD_NUMBER: _ClassVar[int]
+    sourceId: str
+    source: _food_source_pb2.FoodSourceRef
+    weights: _weights_pb2.FreeFormWeight
+    def __init__(self, sourceId: _Optional[str] = ..., source: _Optional[_Union[_food_source_pb2.FoodSourceRef, _Mapping]] = ..., weights: _Optional[_Union[_weights_pb2.FreeFormWeight, _Mapping]] = ...) -> None: ...

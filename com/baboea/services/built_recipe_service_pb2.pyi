@@ -47,3 +47,17 @@ class ResolveFoodRefResponse(_message.Message):
     RECIPES_FIELD_NUMBER: _ClassVar[int]
     recipes: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.ParsedRemoteRecipeRef]
     def __init__(self, recipes: _Optional[_Iterable[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]]] = ...) -> None: ...
+
+class GetCuratedNonVerifiedRecipesRequest(_message.Message):
+    __slots__ = ("pendingIds", "count")
+    PENDINGIDS_FIELD_NUMBER: _ClassVar[int]
+    COUNT_FIELD_NUMBER: _ClassVar[int]
+    pendingIds: _containers.RepeatedScalarFieldContainer[str]
+    count: int
+    def __init__(self, pendingIds: _Optional[_Iterable[str]] = ..., count: _Optional[int] = ...) -> None: ...
+
+class GetCuratedNonVerifiedRecipesResponse(_message.Message):
+    __slots__ = ("items",)
+    ITEMS_FIELD_NUMBER: _ClassVar[int]
+    items: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.ParsedRemoteRecipe]
+    def __init__(self, items: _Optional[_Iterable[_Union[_recipes_pb2.ParsedRemoteRecipe, _Mapping]]] = ...) -> None: ...

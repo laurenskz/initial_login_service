@@ -43,14 +43,12 @@ class ImprovedTemplateRecipeQuery(_message.Message):
     def __init__(self, name: _Optional[str] = ..., page: _Optional[str] = ..., limit: _Optional[int] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ..., alsoPublic: bool = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ...) -> None: ...
 
 class SmartTemplateRecipeEntry(_message.Message):
-    __slots__ = ("item", "ingredients", "allowedScale")
+    __slots__ = ("item", "data")
     ITEM_FIELD_NUMBER: _ClassVar[int]
-    INGREDIENTS_FIELD_NUMBER: _ClassVar[int]
-    ALLOWEDSCALE_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
     item: _template_recipe_data_pb2.ImprovedTemplateRecipeRef
-    ingredients: _containers.RepeatedCompositeFieldContainer[_template_recipe_data_pb2.TemplateRecipeIngredientGroup]
-    allowedScale: float
-    def __init__(self, item: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ..., ingredients: _Optional[_Iterable[_Union[_template_recipe_data_pb2.TemplateRecipeIngredientGroup, _Mapping]]] = ..., allowedScale: _Optional[float] = ...) -> None: ...
+    data: _template_recipe_data_pb2.TemplateRecipeWithoutMetaData
+    def __init__(self, item: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ..., data: _Optional[_Union[_template_recipe_data_pb2.TemplateRecipeWithoutMetaData, _Mapping]] = ...) -> None: ...
 
 class SmartTemplateRecipeResponse(_message.Message):
     __slots__ = ("items",)

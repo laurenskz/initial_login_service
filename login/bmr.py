@@ -3,7 +3,7 @@ from abc import abstractmethod
 from dataclasses import dataclass
 
 from com.baboea.services.login_service_pb2 import InitialLoginForm, ActivityLevel, Gender, MacroStrategy, \
-    DesiredWeightLoss
+    DesiredWeightLoss, ProteinStrategy
 
 
 @dataclass
@@ -32,27 +32,28 @@ class BaseBmrUseCase(BmrUseCase):
         kcal = calculate_bmr(form.personal.heightCm, form.personal.weightKg, form.personal.activityLevel,
                              form.personal.gender, form.personal.age, form.weightLoss)
         carb_percentages = {
-            MacroStrategy.low_carb: (0.1, 0.3),
+            MacroStrategy.low_carb: (0.1, 0.35),
             MacroStrategy.balanced: (0.4, 0.65),
             MacroStrategy.keto: (0.0, 0.05),
-            MacroStrategy.high_protein: (0.2, 0.65),
+            MacroStrategy.high_carb: (0.65, 0.8),
         }
 
         fat_percentages = {
             MacroStrategy.low_carb: (0.5, 0.7),  # Adjusted for typical low-carb ranges
             MacroStrategy.balanced: (0.2, 0.35),  # Balanced diets usually have moderate fat intake
             MacroStrategy.keto: (0.7, 0.85),  # Keto diets emphasize high fat intake
-            MacroStrategy.high_protein: (0.2, 0.35),  # High protein diets generally have moderate fat
+            MacroStrategy.high_carb: (0.1, 0.2),  # High protein diets generally have moderate fat
         }
 
         bw = form.personal.weightKg
-        grams_of_protein = {
-            MacroStrategy.low_carb: (bw, 1.7 * bw),  # Adjusted for typical low-carb ranges
-            MacroStrategy.balanced: (0.8 * bw, 1.4 * bw),  # Balanced diets usually have moderate fat intake
-            MacroStrategy.keto: (0.8 * bw, 1.3 * bw),  # Keto diets emphasize high fat intake
-            MacroStrategy.high_protein: (1.6 * bw, 2.35 * bw),
-        }
 
+        grams_of_protein = {
+            ProteinStrategy.high_protein: 2.5 * bw,  # Adjusted for typical low-carb ranges
+            ProteinStrategy.low_protein: 0.8 * bw,  # Balanced diets usually have moderate fat intake
+            ProteinStrategy.medium_low_protein: 1.2 * bw,  # Keto diets emphasize high fat intake
+            ProteinStrategy.medium_high_protein: 2.0 * bw,
+            ProteinStrategy.medium_protein: 1.6 * bw,
+        }
         fiber = {
             Gender.male: (35, 55),
             Gender.other: (35, 55),
@@ -61,7 +62,8 @@ class BaseBmrUseCase(BmrUseCase):
         minFiber, maxFiber = fiber[form.personal.gender]
         minCarb, maxCarb = carb_percentages[form.macros]
         minFat, maxFat = fat_percentages[form.macros]
-        minProtein, maxProtein = grams_of_protein[form.macros]
+        minProtein, maxProtein = grams_of_protein[form.proteinStrategy] * 0.99, grams_of_protein[
+            form.proteinStrategy] * 1.05
         return UserReqs(
             minKcal=kcal * 0.99,
             maxKcal=kcal * 1.01,

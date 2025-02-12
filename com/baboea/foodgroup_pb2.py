@@ -19,21 +19,21 @@ from com.baboea.models import recipes_pb2 as com_dot_baboea_dot_models_dot_recip
 from com.baboea.models import template_recipe_data_pb2 as com_dot_baboea_dot_models_dot_template__recipe__data__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1a\x63om/baboea/foodgroup.proto\x12\ncom.baboea\x1a\x1c\x63om/baboea/models/days.proto\x1a\'com/baboea/models/meal_components.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a,com/baboea/models/template_recipe_data.proto\"\x06\n\x04Root\"\xf0\x02\n\rFoodGroupNode\x12\x30\n\x03\x64\x61y\x18\x01 \x01(\x0b\x32!.com.baboea.models.MealPlanDayRefH\x00\x12*\n\x04meal\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.MealRefH\x00\x12<\n\rmealComponent\x18\x03 \x01(\x0b\x32#.com.baboea.models.MealComponentRefH\x00\x12:\n\x06recipe\x18\x04 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRefH\x00\x12\x32\n\nuserRecipe\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.RecipeRefH\x00\x12\x46\n\x0etemplateRecipe\x18\x06 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRefH\x00\x42\x0b\n\tcomponent\">\n\x13\x46oodGroupIdentifier\x12\'\n\x04path\x18\x01 \x03(\x0b\x32\x19.com.baboea.FoodGroupNode\"\x18\n\nRecipeNode\x12\n\n\x02id\x18\x01 \x01(\t*,\n\x12MealComponentGroup\x12\t\n\x05SIDES\x10\x00\x12\x0b\n\x07RECIPES\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1a\x63om/baboea/foodgroup.proto\x12\ncom.baboea\x1a\x1c\x63om/baboea/models/days.proto\x1a\'com/baboea/models/meal_components.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a,com/baboea/models/template_recipe_data.proto\"\x06\n\x04Root\"\xed\x02\n\rFoodGroupNode\x12-\n\x03\x64\x61y\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.UserPlanDayH\x00\x12*\n\x04meal\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.MealRefH\x00\x12<\n\rmealComponent\x18\x03 \x01(\x0b\x32#.com.baboea.models.MealComponentRefH\x00\x12:\n\x06recipe\x18\x04 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRefH\x00\x12\x32\n\nuserRecipe\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.RecipeRefH\x00\x12\x46\n\x0etemplateRecipe\x18\x06 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRefH\x00\x42\x0b\n\tcomponent\">\n\x13\x46oodGroupIdentifier\x12\'\n\x04path\x18\x01 \x03(\x0b\x32\x19.com.baboea.FoodGroupNode\"\x18\n\nRecipeNode\x12\n\n\x02id\x18\x01 \x01(\t*,\n\x12MealComponentGroup\x12\t\n\x05SIDES\x10\x00\x12\x0b\n\x07RECIPES\x10\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.foodgroup_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_MEALCOMPONENTGROUP']._serialized_start=691
-  _globals['_MEALCOMPONENTGROUP']._serialized_end=735
+  _globals['_MEALCOMPONENTGROUP']._serialized_start=688
+  _globals['_MEALCOMPONENTGROUP']._serialized_end=732
   _globals['_ROOT']._serialized_start=222
   _globals['_ROOT']._serialized_end=228
   _globals['_FOODGROUPNODE']._serialized_start=231
-  _globals['_FOODGROUPNODE']._serialized_end=599
-  _globals['_FOODGROUPIDENTIFIER']._serialized_start=601
-  _globals['_FOODGROUPIDENTIFIER']._serialized_end=663
-  _globals['_RECIPENODE']._serialized_start=665
-  _globals['_RECIPENODE']._serialized_end=689
+  _globals['_FOODGROUPNODE']._serialized_end=596
+  _globals['_FOODGROUPIDENTIFIER']._serialized_start=598
+  _globals['_FOODGROUPIDENTIFIER']._serialized_end=660
+  _globals['_RECIPENODE']._serialized_start=662
+  _globals['_RECIPENODE']._serialized_end=686
 # @@protoc_insertion_point(module_scope)

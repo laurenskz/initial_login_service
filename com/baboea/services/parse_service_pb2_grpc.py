@@ -122,6 +122,11 @@ class RecipeVersionServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
                 _registered_method=True)
+        self.UploadVerifiedRecipesForCurrentVersion = channel.unary_unary(
+                '/com.baboea.services.RecipeVersionService/UploadVerifiedRecipesForCurrentVersion',
+                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
+                _registered_method=True)
 
 
 class RecipeVersionServiceServicer(object):
@@ -139,6 +144,12 @@ class RecipeVersionServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UploadVerifiedRecipesForCurrentVersion(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RecipeVersionServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -149,6 +160,11 @@ def add_RecipeVersionServiceServicer_to_server(servicer, server):
             ),
             'UploadPendingRecipesForCurrentVersion': grpc.unary_unary_rpc_method_handler(
                     servicer.UploadPendingRecipesForCurrentVersion,
+                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.SerializeToString,
+            ),
+            'UploadVerifiedRecipesForCurrentVersion': grpc.unary_unary_rpc_method_handler(
+                    servicer.UploadVerifiedRecipesForCurrentVersion,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.SerializeToString,
             ),
@@ -205,6 +221,33 @@ class RecipeVersionService(object):
             request,
             target,
             '/com.baboea.services.RecipeVersionService/UploadPendingRecipesForCurrentVersion',
+            com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UploadVerifiedRecipesForCurrentVersion(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.RecipeVersionService/UploadVerifiedRecipesForCurrentVersion',
             com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.OperationResponse.FromString,
             options,

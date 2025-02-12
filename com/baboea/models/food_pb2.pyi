@@ -1,4 +1,5 @@
 from com.baboea.models import property_pb2 as _property_pb2
+from com.baboea.models import weights_pb2 as _weights_pb2
 from com.baboea.models import concepts_pb2 as _concepts_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.models import food_source_pb2 as _food_source_pb2
@@ -39,7 +40,7 @@ class FoodWeight(_message.Message):
     def __init__(self, unit: _Optional[_Union[_food_units_pb2.FoodUnitRef, _Mapping]] = ..., weightForOneUnit: _Optional[float] = ...) -> None: ...
 
 class Food(_message.Message):
-    __slots__ = ("id", "localizations", "properties", "weights", "source", "sourceId", "concept", "emoji", "relevance")
+    __slots__ = ("id", "localizations", "properties", "weights", "source", "sourceId", "concept", "emoji", "relevance", "freeFormWeights")
     ID_FIELD_NUMBER: _ClassVar[int]
     LOCALIZATIONS_FIELD_NUMBER: _ClassVar[int]
     PROPERTIES_FIELD_NUMBER: _ClassVar[int]
@@ -49,6 +50,7 @@ class Food(_message.Message):
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     EMOJI_FIELD_NUMBER: _ClassVar[int]
     RELEVANCE_FIELD_NUMBER: _ClassVar[int]
+    FREEFORMWEIGHTS_FIELD_NUMBER: _ClassVar[int]
     id: str
     localizations: _containers.RepeatedCompositeFieldContainer[FoodLocalized]
     properties: _containers.RepeatedCompositeFieldContainer[_property_pb2.PropertyValue]
@@ -58,7 +60,8 @@ class Food(_message.Message):
     concept: _concepts_pb2.ConceptRef
     emoji: str
     relevance: float
-    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[FoodLocalized, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., weights: _Optional[_Iterable[_Union[FoodWeight, _Mapping]]] = ..., source: _Optional[_Union[_food_source_pb2.FoodSourceRef, _Mapping]] = ..., sourceId: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., emoji: _Optional[str] = ..., relevance: _Optional[float] = ...) -> None: ...
+    freeFormWeights: _containers.RepeatedCompositeFieldContainer[_weights_pb2.FreeFormWeight]
+    def __init__(self, id: _Optional[str] = ..., localizations: _Optional[_Iterable[_Union[FoodLocalized, _Mapping]]] = ..., properties: _Optional[_Iterable[_Union[_property_pb2.PropertyValue, _Mapping]]] = ..., weights: _Optional[_Iterable[_Union[FoodWeight, _Mapping]]] = ..., source: _Optional[_Union[_food_source_pb2.FoodSourceRef, _Mapping]] = ..., sourceId: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., emoji: _Optional[str] = ..., relevance: _Optional[float] = ..., freeFormWeights: _Optional[_Iterable[_Union[_weights_pb2.FreeFormWeight, _Mapping]]] = ...) -> None: ...
 
 class FoodLocalized(_message.Message):
     __slots__ = ("locale", "name", "description")

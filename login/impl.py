@@ -1,3 +1,5 @@
+import time
+
 import grpc
 from prometheus_client import Counter, Histogram
 from loguru import logger
@@ -19,7 +21,7 @@ from com.baboea.services.concept_service_pb2_grpc import ConceptServiceStub
 from com.baboea.services.curated_diet_service_pb2_grpc import CuratedDietServiceStub
 from com.baboea.services.diet_service_pb2_grpc import UserDietServiceStub
 from com.baboea.services.login_service_pb2 import InitialLoginForm, LoginRequest, LoginResponse, MealSize, \
-    MealStructurePreference, MealInit, DesiredSetup
+    MealStructurePreference, MealInit, DesiredSetup, TempResponse
 from com.baboea.services.login_service_pb2_grpc import UserInitServiceServicer, LoginServiceStub
 from com.baboea.services.meal_plan_day_service_pb2_grpc import MealPlanDayServiceStub
 from com.baboea.services.meal_service_pb2_grpc import MealServiceStub
@@ -72,6 +74,11 @@ class GrpcLoginService(UserInitServiceServicer):
         self.diet_service = diet_service or UserDietServiceStub(channel)
         self.application_service = application_service or ApplicationLevelServiceStub(channel)
         self.curated_diet = curated_diet or CuratedDietServiceStub(channel)
+
+    def StreamWithMe(self, request_iterator, context):
+        for request in request_iterator:
+            print(request)
+            yield TempResponse(text=f"{request.text}1")
 
     def SetupUser(self, request: InitialLoginForm, context) -> OperationResponse:
         response: AddResponse = self.user_service.Add(
