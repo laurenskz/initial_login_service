@@ -2,6 +2,7 @@ from typing import Iterable, Dict
 
 from injector import inject
 
+from com.baboea.concept_pb2 import BoolConceptValues
 from com.baboea.models.curated_diet_pb2 import CuratedDiet
 from com.baboea.models.diet_pb2 import ClientMealSize, UserDietDefinition
 from com.baboea.models.localized_pb2 import LocaleRef
@@ -14,6 +15,7 @@ from com.baboea.services.curated_diet_service_pb2_grpc import CuratedDietService
 from com.baboea.services.login_service_pb2 import InitialLoginForm, MealStructurePreference, MealInit, MealSize
 from com.baboea.services.meal_service_pb2_grpc import MealServiceStub
 from com.baboea.services.template_recipe_service_pb2_grpc import ImprovedTemplateRecipeServiceStub
+from login.dependencies import Concepts
 from login.simplified_setup import MealCreator
 
 
@@ -28,12 +30,14 @@ class BaseMealCreator(MealCreator):
     def __init__(self,
                  meal_service: MealServiceStub,
                  admin_diet: UserDietDefinition,
-                 template_recipe_service: ImprovedTemplateRecipeServiceStub
+                 template_recipe_service: ImprovedTemplateRecipeServiceStub,
+                 concepts: Concepts
                  ):
         super().__init__()
         self.template_recipe_service = template_recipe_service
         self.admin_diet = admin_diet
         self.meal_service = meal_service
+        self.concepts = concepts
         self.admin_meal_ref_map: Dict[str, MealRef] = {
             x.meal.name.lower(): x.meal
             for x in admin_diet.mealSizes.sizes
@@ -63,7 +67,10 @@ class BaseMealCreator(MealCreator):
             name=init.name,
             owner=user,
             templateRecipes=[ImprovedTemplateRecipeRef(id=res.id)],
-            balanced=True
+            balanced=True,
+            concepts=BoolConceptValues(
+                conceptValues={self.concepts.root.id: False}
+            )
         )
         meal_res: AddResponse = self.meal_service.Add(user_meal)
         return MealRef(id=meal_res.id)

@@ -71,6 +71,11 @@ class FoodLogServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.UpdateFoodRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.FromString,
                 _registered_method=True)
+        self.ReplaceFood = channel.unary_unary(
+                '/com.baboea.services.FoodLogService/ReplaceFood',
+                request_serializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.ReplaceFoodRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.FromString,
+                _registered_method=True)
         self.DeleteFood = channel.unary_unary(
                 '/com.baboea.services.FoodLogService/DeleteFood',
                 request_serializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.DeleteFoodRequest.SerializeToString,
@@ -122,6 +127,12 @@ class FoodLogServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplaceFood(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DeleteFood(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -165,6 +176,11 @@ def add_FoodLogServiceServicer_to_server(servicer, server):
             'UpdateFood': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateFood,
                     request_deserializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.UpdateFoodRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.SerializeToString,
+            ),
+            'ReplaceFood': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplaceFood,
+                    request_deserializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.ReplaceFoodRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.SerializeToString,
             ),
             'DeleteFood': grpc.unary_unary_rpc_method_handler(
@@ -339,6 +355,33 @@ class FoodLogService(object):
             target,
             '/com.baboea.services.FoodLogService/UpdateFood',
             com_dot_baboea_dot_services_dot_food__log__service__pb2.UpdateFoodRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReplaceFood(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.FoodLogService/ReplaceFood',
+            com_dot_baboea_dot_services_dot_food__log__service__pb2.ReplaceFoodRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_food__log__service__pb2.NewDailyPropertiesResponse.FromString,
             options,
             channel_credentials,

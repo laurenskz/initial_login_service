@@ -13,23 +13,31 @@ _sym_db = _symbol_database.Default()
 
 
 from com.baboea.models import concept_impl_pb2 as com_dot_baboea_dot_models_dot_concept__impl__pb2
+from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
+from com.baboea.models import property_pb2 as com_dot_baboea_dot_models_dot_property__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
 from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.com/baboea/services/concept_impl_service.proto\x12\x13\x63om.baboea.services\x1a$com/baboea/models/concept_impl.proto\x1a!com/baboea/models/localized.proto\x1a\x1e\x63om/baboea/services/base.proto\"n\n\x19\x43onceptImplementationList\x12:\n\x05items\x18\x01 \x03(\x0b\x32+.com.baboea.models.ConceptImplementationRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"l\n\"ConceptImplementationUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\x08newValue\x18\x02 \x01(\x0b\x32(.com.baboea.models.ConceptImplementation\"u\n\x1a\x43onceptImplementationQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef2\xd9\x04\n\x1c\x43onceptImplementationService\x12S\n\x03\x41\x64\x64\x12(.com.baboea.models.ConceptImplementation\x1a .com.baboea.services.AddResponse\"\x00\x12Y\n\x06Remove\x12(.com.baboea.models.ConceptImplementation\x1a#.com.baboea.services.RemoveResponse\"\x00\x12^\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a..com.baboea.services.ConceptImplementationList\"\x00\x12k\n\x06Search\x12/.com.baboea.services.ConceptImplementationQuery\x1a..com.baboea.services.ConceptImplementationList\"\x00\x12R\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a(.com.baboea.models.ConceptImplementation\"\x00\x12h\n\x06Update\x12\x37.com.baboea.services.ConceptImplementationUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.com/baboea/services/concept_impl_service.proto\x12\x13\x63om.baboea.services\x1a$com/baboea/models/concept_impl.proto\x1a com/baboea/models/concepts.proto\x1a com/baboea/models/property.proto\x1a!com/baboea/models/localized.proto\x1a\x1e\x63om/baboea/services/base.proto\"n\n\x19\x43onceptImplementationList\x12:\n\x05items\x18\x01 \x03(\x0b\x32+.com.baboea.models.ConceptImplementationRef\x12\x15\n\rnextPageToken\x18\x02 \x01(\t\"l\n\"ConceptImplementationUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\x08newValue\x18\x02 \x01(\x0b\x32(.com.baboea.models.ConceptImplementation\"u\n\x1a\x43onceptImplementationQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12,\n\x06locale\x18\x04 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"T\n\"GetPropertiesForDefaultImplRequest\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\"Z\n\x12\x46oodWithProperties\x12\x0e\n\x06\x66oodId\x18\x01 \x01(\t\x12\x34\n\nproperties\x18\x02 \x03(\x0b\x32 .com.baboea.models.PropertyValue\"]\n#GetPropertiesForDefaultImplResponse\x12\x36\n\x05\x66oods\x18\x01 \x03(\x0b\x32\'.com.baboea.services.FoodWithProperties2\xee\x05\n\x1c\x43onceptImplementationService\x12S\n\x03\x41\x64\x64\x12(.com.baboea.models.ConceptImplementation\x1a .com.baboea.services.AddResponse\"\x00\x12\x92\x01\n\x1bGetPropertiesForDefaultImpl\x12\x37.com.baboea.services.GetPropertiesForDefaultImplRequest\x1a\x38.com.baboea.services.GetPropertiesForDefaultImplResponse\"\x00\x12Y\n\x06Remove\x12(.com.baboea.models.ConceptImplementation\x1a#.com.baboea.services.RemoveResponse\"\x00\x12^\n\x06GetAll\x12\".com.baboea.services.GetAllRequest\x1a..com.baboea.services.ConceptImplementationList\"\x00\x12k\n\x06Search\x12/.com.baboea.services.ConceptImplementationQuery\x1a..com.baboea.services.ConceptImplementationList\"\x00\x12R\n\x03Get\x12\x1f.com.baboea.services.GetRequest\x1a(.com.baboea.models.ConceptImplementation\"\x00\x12h\n\x06Update\x12\x37.com.baboea.services.ConceptImplementationUpdateRequest\x1a#.com.baboea.services.UpdateResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.services.concept_impl_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CONCEPTIMPLEMENTATIONLIST']._serialized_start=176
-  _globals['_CONCEPTIMPLEMENTATIONLIST']._serialized_end=286
-  _globals['_CONCEPTIMPLEMENTATIONUPDATEREQUEST']._serialized_start=288
-  _globals['_CONCEPTIMPLEMENTATIONUPDATEREQUEST']._serialized_end=396
-  _globals['_CONCEPTIMPLEMENTATIONQUERY']._serialized_start=398
-  _globals['_CONCEPTIMPLEMENTATIONQUERY']._serialized_end=515
-  _globals['_CONCEPTIMPLEMENTATIONSERVICE']._serialized_start=518
-  _globals['_CONCEPTIMPLEMENTATIONSERVICE']._serialized_end=1119
+  _globals['_CONCEPTIMPLEMENTATIONLIST']._serialized_start=244
+  _globals['_CONCEPTIMPLEMENTATIONLIST']._serialized_end=354
+  _globals['_CONCEPTIMPLEMENTATIONUPDATEREQUEST']._serialized_start=356
+  _globals['_CONCEPTIMPLEMENTATIONUPDATEREQUEST']._serialized_end=464
+  _globals['_CONCEPTIMPLEMENTATIONQUERY']._serialized_start=466
+  _globals['_CONCEPTIMPLEMENTATIONQUERY']._serialized_end=583
+  _globals['_GETPROPERTIESFORDEFAULTIMPLREQUEST']._serialized_start=585
+  _globals['_GETPROPERTIESFORDEFAULTIMPLREQUEST']._serialized_end=669
+  _globals['_FOODWITHPROPERTIES']._serialized_start=671
+  _globals['_FOODWITHPROPERTIES']._serialized_end=761
+  _globals['_GETPROPERTIESFORDEFAULTIMPLRESPONSE']._serialized_start=763
+  _globals['_GETPROPERTIESFORDEFAULTIMPLRESPONSE']._serialized_end=856
+  _globals['_CONCEPTIMPLEMENTATIONSERVICE']._serialized_start=859
+  _globals['_CONCEPTIMPLEMENTATIONSERVICE']._serialized_end=1609
 # @@protoc_insertion_point(module_scope)

@@ -14,28 +14,29 @@ _sym_db = _symbol_database.Default()
 
 from com.baboea.models import food_pb2 as com_dot_baboea_dot_models_dot_food__pb2
 from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
+from com.baboea.models import users_pb2 as com_dot_baboea_dot_models_dot_users__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$com/baboea/models/concept_impl.proto\x12\x11\x63om.baboea.models\x1a\x1c\x63om/baboea/models/food.proto\x1a com/baboea/models/concepts.proto\x1a!com/baboea/models/localized.proto\"}\n\x15\x43onceptImplementation\x12\n\n\x02id\x18\x01 \x01(\t\x12H\n\rlocalizations\x18\x02 \x03(\x0b\x32\x31.com.baboea.models.ConceptImplementationLocalized\x12\x0e\n\x06handle\x18\x04 \x01(\t\"q\n\x1e\x43onceptImplementationLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"X\n\x18\x43onceptImplementationRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\"\x9f\x01\n\x1c\x43onceptImplementationNodeRef\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x07\x63oncept\x18\x02 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x43\n\x0eimplementation\x18\x04 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\"\xc7\x01\n\x19\x43onceptImplementationNode\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x07\x63oncept\x18\x02 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12)\n\x05\x66oods\x18\x03 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x43\n\x0eimplementation\x18\x04 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\"\xa1\x01\n\x19\x43onceptImplementationData\x12?\n\x05nodes\x18\x01 \x03(\x0b\x32\x30.com.baboea.models.ConceptImplementationNodeFull\x12\x43\n\x0eimplementation\x18\x02 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\"w\n\x1d\x43onceptImplementationNodeFull\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12&\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x17.com.baboea.models.Foodb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$com/baboea/models/concept_impl.proto\x12\x11\x63om.baboea.models\x1a\x1c\x63om/baboea/models/food.proto\x1a com/baboea/models/concepts.proto\x1a\x1d\x63om/baboea/models/users.proto\x1a!com/baboea/models/localized.proto\"}\n\x15\x43onceptImplementation\x12\n\n\x02id\x18\x01 \x01(\t\x12H\n\rlocalizations\x18\x02 \x03(\x0b\x32\x31.com.baboea.models.ConceptImplementationLocalized\x12\x0e\n\x06handle\x18\x04 \x01(\t\"q\n\x1e\x43onceptImplementationLocalized\x12,\n\x06locale\x18\x01 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"X\n\x18\x43onceptImplementationRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\"\x9f\x01\n\x1c\x43onceptImplementationNodeRef\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x07\x63oncept\x18\x02 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x43\n\x0eimplementation\x18\x04 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\"\x81\x02\n\x19\x43onceptImplementationNode\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x07\x63oncept\x18\x02 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12)\n\x05\x66oods\x18\x03 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x43\n\x0eimplementation\x18\x04 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\x12.\n\x05owner\x18\x05 \x01(\x0b\x32\x1a.com.baboea.models.UserRefH\x00\x88\x01\x01\x42\x08\n\x06_owner\"\xa1\x01\n\x19\x43onceptImplementationData\x12?\n\x05nodes\x18\x01 \x03(\x0b\x32\x30.com.baboea.models.ConceptImplementationNodeFull\x12\x43\n\x0eimplementation\x18\x02 \x01(\x0b\x32+.com.baboea.models.ConceptImplementationRef\"w\n\x1d\x43onceptImplementationNodeFull\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12&\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x17.com.baboea.models.Foodb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.concept_impl_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CONCEPTIMPLEMENTATION']._serialized_start=158
-  _globals['_CONCEPTIMPLEMENTATION']._serialized_end=283
-  _globals['_CONCEPTIMPLEMENTATIONLOCALIZED']._serialized_start=285
-  _globals['_CONCEPTIMPLEMENTATIONLOCALIZED']._serialized_end=398
-  _globals['_CONCEPTIMPLEMENTATIONREF']._serialized_start=400
-  _globals['_CONCEPTIMPLEMENTATIONREF']._serialized_end=488
-  _globals['_CONCEPTIMPLEMENTATIONNODEREF']._serialized_start=491
-  _globals['_CONCEPTIMPLEMENTATIONNODEREF']._serialized_end=650
-  _globals['_CONCEPTIMPLEMENTATIONNODE']._serialized_start=653
-  _globals['_CONCEPTIMPLEMENTATIONNODE']._serialized_end=852
-  _globals['_CONCEPTIMPLEMENTATIONDATA']._serialized_start=855
-  _globals['_CONCEPTIMPLEMENTATIONDATA']._serialized_end=1016
-  _globals['_CONCEPTIMPLEMENTATIONNODEFULL']._serialized_start=1018
-  _globals['_CONCEPTIMPLEMENTATIONNODEFULL']._serialized_end=1137
+  _globals['_CONCEPTIMPLEMENTATION']._serialized_start=189
+  _globals['_CONCEPTIMPLEMENTATION']._serialized_end=314
+  _globals['_CONCEPTIMPLEMENTATIONLOCALIZED']._serialized_start=316
+  _globals['_CONCEPTIMPLEMENTATIONLOCALIZED']._serialized_end=429
+  _globals['_CONCEPTIMPLEMENTATIONREF']._serialized_start=431
+  _globals['_CONCEPTIMPLEMENTATIONREF']._serialized_end=519
+  _globals['_CONCEPTIMPLEMENTATIONNODEREF']._serialized_start=522
+  _globals['_CONCEPTIMPLEMENTATIONNODEREF']._serialized_end=681
+  _globals['_CONCEPTIMPLEMENTATIONNODE']._serialized_start=684
+  _globals['_CONCEPTIMPLEMENTATIONNODE']._serialized_end=941
+  _globals['_CONCEPTIMPLEMENTATIONDATA']._serialized_start=944
+  _globals['_CONCEPTIMPLEMENTATIONDATA']._serialized_end=1105
+  _globals['_CONCEPTIMPLEMENTATIONNODEFULL']._serialized_start=1107
+  _globals['_CONCEPTIMPLEMENTATIONNODEFULL']._serialized_end=1226
 # @@protoc_insertion_point(module_scope)

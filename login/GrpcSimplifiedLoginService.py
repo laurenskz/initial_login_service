@@ -41,6 +41,13 @@ class GrpcSimplifiedLoginService(UserInitServiceServicer):
         self.props = props
 
     def SetupUser(self, request: InitialLoginForm, context):
+        print("Adding first user")
+        try:
+            self.create_user(request)
+        except:
+            print("Error while setting up user")
+
+    def create_user(self, request):
         response: AddResponse = self.user_service.Add(
             User(externalId=request.remoteUserId, name=request.personal.name))
         user: UserRef = UserRef(id=response.id)

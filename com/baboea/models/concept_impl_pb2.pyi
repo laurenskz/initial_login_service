@@ -1,5 +1,6 @@
 from com.baboea.models import food_pb2 as _food_pb2
 from com.baboea.models import concepts_pb2 as _concepts_pb2
+from com.baboea.models import users_pb2 as _users_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
@@ -47,16 +48,18 @@ class ConceptImplementationNodeRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., implementation: _Optional[_Union[ConceptImplementationRef, _Mapping]] = ...) -> None: ...
 
 class ConceptImplementationNode(_message.Message):
-    __slots__ = ("id", "concept", "foods", "implementation")
+    __slots__ = ("id", "concept", "foods", "implementation", "owner")
     ID_FIELD_NUMBER: _ClassVar[int]
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     FOODS_FIELD_NUMBER: _ClassVar[int]
     IMPLEMENTATION_FIELD_NUMBER: _ClassVar[int]
+    OWNER_FIELD_NUMBER: _ClassVar[int]
     id: str
     concept: _concepts_pb2.ConceptRef
     foods: _containers.RepeatedCompositeFieldContainer[_food_pb2.FoodRef]
     implementation: ConceptImplementationRef
-    def __init__(self, id: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., implementation: _Optional[_Union[ConceptImplementationRef, _Mapping]] = ...) -> None: ...
+    owner: _users_pb2.UserRef
+    def __init__(self, id: _Optional[str] = ..., concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., implementation: _Optional[_Union[ConceptImplementationRef, _Mapping]] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ...) -> None: ...
 
 class ConceptImplementationData(_message.Message):
     __slots__ = ("nodes", "implementation")

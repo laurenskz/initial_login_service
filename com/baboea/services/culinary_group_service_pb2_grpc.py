@@ -3,9 +3,9 @@
 import grpc
 import warnings
 
-from com.baboea.models import concept_impl_pb2 as com_dot_baboea_dot_models_dot_concept__impl__pb2
+from com.baboea.models import culinary_groups_pb2 as com_dot_baboea_dot_models_dot_culinary__groups__pb2
 from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base__pb2
-from com.baboea.services import concept_impl_node_service_pb2 as com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2
+from com.baboea.services import culinary_group_service_pb2 as com_dot_baboea_dot_services_dot_culinary__group__service__pb2
 
 GRPC_GENERATED_VERSION = '1.65.1'
 GRPC_VERSION = grpc.__version__
@@ -22,7 +22,7 @@ except ImportError:
 if _version_not_supported:
     warnings.warn(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in com/baboea/services/concept_impl_node_service_pb2_grpc.py depends on'
+        + f' but the generated code in com/baboea/services/culinary_group_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -32,7 +32,7 @@ if _version_not_supported:
     )
 
 
-class ConceptImplementationNodeServiceStub(object):
+class CulinaryGroupServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -42,48 +42,43 @@ class ConceptImplementationNodeServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Add = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/Add',
-                request_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.SerializeToString,
+                '/com.baboea.services.CulinaryGroupService/Add',
+                request_serializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
                 _registered_method=True)
         self.Remove = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/Remove',
-                request_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.SerializeToString,
+                '/com.baboea.services.CulinaryGroupService/Remove',
+                request_serializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.FromString,
                 _registered_method=True)
         self.GetAll = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/GetAll',
+                '/com.baboea.services.CulinaryGroupService/GetAll',
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.FromString,
-                _registered_method=True)
-        self.GetFullFoods = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/GetFullFoods',
-                request_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationRef.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationData.FromString,
+                response_deserializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.FromString,
                 _registered_method=True)
         self.Search = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/Search',
-                request_serializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeQuery.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.FromString,
+                '/com.baboea.services.CulinaryGroupService/Search',
+                request_serializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupQuery.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.FromString,
                 _registered_method=True)
         self.Get = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/Get',
+                '/com.baboea.services.CulinaryGroupService/Get',
                 request_serializer=com_dot_baboea_dot_services_dot_base__pb2.GetRequest.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.FromString,
+                response_deserializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.FromString,
+                _registered_method=True)
+        self.GetAllFull = channel.unary_unary(
+                '/com.baboea.services.CulinaryGroupService/GetAllFull',
+                request_serializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupGetAllResponse.FromString,
                 _registered_method=True)
         self.Update = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/Update',
-                request_serializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeUpdateRequest.SerializeToString,
-                response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
-                _registered_method=True)
-        self.CreateOrUpdate = channel.unary_unary(
-                '/com.baboea.services.ConceptImplementationNodeService/CreateOrUpdate',
-                request_serializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.CreateOrUpdateRequest.SerializeToString,
+                '/com.baboea.services.CulinaryGroupService/Update',
+                request_serializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupUpdateRequest.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
                 _registered_method=True)
 
 
-class ConceptImplementationNodeServiceServicer(object):
+class CulinaryGroupServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Add(self, request, context):
@@ -104,12 +99,6 @@ class ConceptImplementationNodeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetFullFoods(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def Search(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -122,70 +111,65 @@ class ConceptImplementationNodeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAllFull(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def Update(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CreateOrUpdate(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
-
-def add_ConceptImplementationNodeServiceServicer_to_server(servicer, server):
+def add_CulinaryGroupServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Add': grpc.unary_unary_rpc_method_handler(
                     servicer.Add,
-                    request_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.FromString,
+                    request_deserializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
-                    request_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.FromString,
+                    request_deserializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.SerializeToString,
             ),
             'GetAll': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAll,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.SerializeToString,
-            ),
-            'GetFullFoods': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetFullFoods,
-                    request_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationRef.FromString,
-                    response_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationData.SerializeToString,
+                    response_serializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.SerializeToString,
             ),
             'Search': grpc.unary_unary_rpc_method_handler(
                     servicer.Search,
-                    request_deserializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeQuery.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.SerializeToString,
+                    request_deserializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupQuery.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.SerializeToString,
             ),
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
                     request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.GetRequest.FromString,
-                    response_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.SerializeToString,
+                    response_serializer=com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.SerializeToString,
+            ),
+            'GetAllFull': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAllFull,
+                    request_deserializer=com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupGetAllResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeUpdateRequest.FromString,
-                    response_serializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.SerializeToString,
-            ),
-            'CreateOrUpdate': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateOrUpdate,
-                    request_deserializer=com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.CreateOrUpdateRequest.FromString,
+                    request_deserializer=com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupUpdateRequest.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'com.baboea.services.ConceptImplementationNodeService', rpc_method_handlers)
+            'com.baboea.services.CulinaryGroupService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('com.baboea.services.ConceptImplementationNodeService', rpc_method_handlers)
+    server.add_registered_method_handlers('com.baboea.services.CulinaryGroupService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class ConceptImplementationNodeService(object):
+class CulinaryGroupService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -202,8 +186,8 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/Add',
-            com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.SerializeToString,
+            '/com.baboea.services.CulinaryGroupService/Add',
+            com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
             options,
             channel_credentials,
@@ -229,8 +213,8 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/Remove',
-            com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.SerializeToString,
+            '/com.baboea.services.CulinaryGroupService/Remove',
+            com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.RemoveResponse.FromString,
             options,
             channel_credentials,
@@ -256,36 +240,9 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/GetAll',
+            '/com.baboea.services.CulinaryGroupService/GetAll',
             com_dot_baboea_dot_services_dot_base__pb2.GetAllRequest.SerializeToString,
-            com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetFullFoods(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/com.baboea.services.ConceptImplementationNodeService/GetFullFoods',
-            com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationRef.SerializeToString,
-            com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationData.FromString,
+            com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -310,9 +267,9 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/Search',
-            com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeQuery.SerializeToString,
-            com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeList.FromString,
+            '/com.baboea.services.CulinaryGroupService/Search',
+            com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupQuery.SerializeToString,
+            com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -337,9 +294,36 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/Get',
+            '/com.baboea.services.CulinaryGroupService/Get',
             com_dot_baboea_dot_services_dot_base__pb2.GetRequest.SerializeToString,
-            com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementationNode.FromString,
+            com_dot_baboea_dot_models_dot_culinary__groups__pb2.CulinaryGroup.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAllFull(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.CulinaryGroupService/GetAllFull',
+            com_dot_baboea_dot_services_dot_base__pb2.EmptyRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupGetAllResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -364,35 +348,8 @@ class ConceptImplementationNodeService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.baboea.services.ConceptImplementationNodeService/Update',
-            com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.ConceptImplementationNodeUpdateRequest.SerializeToString,
-            com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def CreateOrUpdate(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/com.baboea.services.ConceptImplementationNodeService/CreateOrUpdate',
-            com_dot_baboea_dot_services_dot_concept__impl__node__service__pb2.CreateOrUpdateRequest.SerializeToString,
+            '/com.baboea.services.CulinaryGroupService/Update',
+            com_dot_baboea_dot_services_dot_culinary__group__service__pb2.CulinaryGroupUpdateRequest.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.UpdateResponse.FromString,
             options,
             channel_credentials,

@@ -94,6 +94,16 @@ class UpdateFoodRequest(_message.Message):
     specifier: FoodLogMealSpecifier
     def __init__(self, food: _Optional[_Union[_generaterequest_pb2.QuantifiedFood, _Mapping]] = ..., specifier: _Optional[_Union[FoodLogMealSpecifier, _Mapping]] = ...) -> None: ...
 
+class ReplaceFoodRequest(_message.Message):
+    __slots__ = ("originalFood", "specifier", "newFood")
+    ORIGINALFOOD_FIELD_NUMBER: _ClassVar[int]
+    SPECIFIER_FIELD_NUMBER: _ClassVar[int]
+    NEWFOOD_FIELD_NUMBER: _ClassVar[int]
+    originalFood: _food_pb2.FoodRef
+    specifier: FoodLogMealSpecifier
+    newFood: _food_pb2.FoodRef
+    def __init__(self, originalFood: _Optional[_Union[_food_pb2.FoodRef, _Mapping]] = ..., specifier: _Optional[_Union[FoodLogMealSpecifier, _Mapping]] = ..., newFood: _Optional[_Union[_food_pb2.FoodRef, _Mapping]] = ...) -> None: ...
+
 class DeleteFoodRequest(_message.Message):
     __slots__ = ("food", "specifier")
     FOOD_FIELD_NUMBER: _ClassVar[int]

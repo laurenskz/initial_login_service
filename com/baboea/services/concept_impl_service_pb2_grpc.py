@@ -46,6 +46,11 @@ class ConceptImplementationServiceStub(object):
                 request_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementation.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
                 _registered_method=True)
+        self.GetPropertiesForDefaultImpl = channel.unary_unary(
+                '/com.baboea.services.ConceptImplementationService/GetPropertiesForDefaultImpl',
+                request_serializer=com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplResponse.FromString,
+                _registered_method=True)
         self.Remove = channel.unary_unary(
                 '/com.baboea.services.ConceptImplementationService/Remove',
                 request_serializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementation.SerializeToString,
@@ -77,6 +82,12 @@ class ConceptImplementationServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPropertiesForDefaultImpl(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -119,6 +130,11 @@ def add_ConceptImplementationServiceServicer_to_server(servicer, server):
                     servicer.Add,
                     request_deserializer=com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementation.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.SerializeToString,
+            ),
+            'GetPropertiesForDefaultImpl': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPropertiesForDefaultImpl,
+                    request_deserializer=com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplResponse.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
@@ -173,6 +189,33 @@ class ConceptImplementationService(object):
             '/com.baboea.services.ConceptImplementationService/Add',
             com_dot_baboea_dot_models_dot_concept__impl__pb2.ConceptImplementation.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetPropertiesForDefaultImpl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ConceptImplementationService/GetPropertiesForDefaultImpl',
+            com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_concept__impl__service__pb2.GetPropertiesForDefaultImplResponse.FromString,
             options,
             channel_credentials,
             insecure,

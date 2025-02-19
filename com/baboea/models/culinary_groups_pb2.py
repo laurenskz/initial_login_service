@@ -16,17 +16,19 @@ from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_loc
 from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'com/baboea/models/culinary_groups.proto\x12\x11\x63om.baboea.models\x1a!com/baboea/models/localized.proto\x1a com/baboea/models/concepts.proto\"\xb1\x01\n\rCulinaryGroup\x12\n\n\x02id\x18\x01 \x01(\t\x12@\n\rlocalizations\x18\x02 \x03(\x0b\x32).com.baboea.models.CulinaryGroupLocalized\x12/\n\x08\x63oncepts\x18\x03 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\r\n\x05\x65moji\x18\x04 \x01(\t\x12\x12\n\nimportance\x18\x05 \x01(\x01\"s\n\x10\x43ulinaryGroupRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x03 \x01(\t\x12\x12\n\nimportance\x18\x04 \x01(\x01\";\n\x16\x43ulinaryGroupLocalized\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'com/baboea/models/culinary_groups.proto\x12\x11\x63om.baboea.models\x1a!com/baboea/models/localized.proto\x1a com/baboea/models/concepts.proto\"_\n\x14\x43ulinaryGroupConcept\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\x17\n\x0fincludeChildren\x18\x02 \x01(\x08\"\xeb\x01\n\rCulinaryGroup\x12\n\n\x02id\x18\x01 \x01(\t\x12@\n\rlocalizations\x18\x02 \x03(\x0b\x32).com.baboea.models.CulinaryGroupLocalized\x12/\n\x08\x63oncepts\x18\x03 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12\r\n\x05\x65moji\x18\x04 \x01(\t\x12\x12\n\nimportance\x18\x05 \x01(\x01\x12\x38\n\x07members\x18\x06 \x03(\x0b\x32\'.com.baboea.models.CulinaryGroupConcept\"s\n\x10\x43ulinaryGroupRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\x04name\x18\x02 \x01(\x0b\x32\".com.baboea.models.LocalizedString\x12\r\n\x05\x65moji\x18\x03 \x01(\t\x12\x12\n\nimportance\x18\x04 \x01(\x01\"i\n\x16\x43ulinaryGroupLocalized\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12,\n\x06locale\x18\x03 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRefb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.models.culinary_groups_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CULINARYGROUP']._serialized_start=132
-  _globals['_CULINARYGROUP']._serialized_end=309
-  _globals['_CULINARYGROUPREF']._serialized_start=311
-  _globals['_CULINARYGROUPREF']._serialized_end=426
-  _globals['_CULINARYGROUPLOCALIZED']._serialized_start=428
-  _globals['_CULINARYGROUPLOCALIZED']._serialized_end=487
+  _globals['_CULINARYGROUPCONCEPT']._serialized_start=131
+  _globals['_CULINARYGROUPCONCEPT']._serialized_end=226
+  _globals['_CULINARYGROUP']._serialized_start=229
+  _globals['_CULINARYGROUP']._serialized_end=464
+  _globals['_CULINARYGROUPREF']._serialized_start=466
+  _globals['_CULINARYGROUPREF']._serialized_end=581
+  _globals['_CULINARYGROUPLOCALIZED']._serialized_start=583
+  _globals['_CULINARYGROUPLOCALIZED']._serialized_end=688
 # @@protoc_insertion_point(module_scope)
