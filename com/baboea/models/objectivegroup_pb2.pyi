@@ -30,7 +30,7 @@ class SpecializedRequirementRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., numerator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ...) -> None: ...
 
 class SpecializedRequirement(_message.Message):
-    __slots__ = ("id", "min", "max", "useMin", "useMax", "numerator", "denominator", "useRatio", "applicationLevel", "numeratorMeals", "denominatorMeals", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts")
+    __slots__ = ("id", "min", "max", "useMin", "useMax", "numerator", "denominator", "useRatio", "applicationLevel", "numeratorMeals", "denominatorMeals", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts", "reward")
     ID_FIELD_NUMBER: _ClassVar[int]
     MIN_FIELD_NUMBER: _ClassVar[int]
     MAX_FIELD_NUMBER: _ClassVar[int]
@@ -46,6 +46,7 @@ class SpecializedRequirement(_message.Message):
     SCALEDENOMINATOR_FIELD_NUMBER: _ClassVar[int]
     NUMERATORCONCEPTS_FIELD_NUMBER: _ClassVar[int]
     DENOMINATORCONCEPTS_FIELD_NUMBER: _ClassVar[int]
+    REWARD_FIELD_NUMBER: _ClassVar[int]
     id: str
     min: float
     max: float
@@ -61,7 +62,8 @@ class SpecializedRequirement(_message.Message):
     scaleDenominator: float
     numeratorConcepts: RequirementConcepts
     denominatorConcepts: RequirementConcepts
-    def __init__(self, id: _Optional[str] = ..., min: _Optional[float] = ..., max: _Optional[float] = ..., useMin: bool = ..., useMax: bool = ..., numerator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., denominator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., useRatio: bool = ..., applicationLevel: _Optional[_Union[ApplicationLevelRef, _Mapping]] = ..., numeratorMeals: _Optional[_Union[MealSelection, _Mapping]] = ..., denominatorMeals: _Optional[_Union[MealSelection, _Mapping]] = ..., scaleNumerator: _Optional[float] = ..., scaleDenominator: _Optional[float] = ..., numeratorConcepts: _Optional[_Union[RequirementConcepts, _Mapping]] = ..., denominatorConcepts: _Optional[_Union[RequirementConcepts, _Mapping]] = ...) -> None: ...
+    reward: float
+    def __init__(self, id: _Optional[str] = ..., min: _Optional[float] = ..., max: _Optional[float] = ..., useMin: bool = ..., useMax: bool = ..., numerator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., denominator: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., useRatio: bool = ..., applicationLevel: _Optional[_Union[ApplicationLevelRef, _Mapping]] = ..., numeratorMeals: _Optional[_Union[MealSelection, _Mapping]] = ..., denominatorMeals: _Optional[_Union[MealSelection, _Mapping]] = ..., scaleNumerator: _Optional[float] = ..., scaleDenominator: _Optional[float] = ..., numeratorConcepts: _Optional[_Union[RequirementConcepts, _Mapping]] = ..., denominatorConcepts: _Optional[_Union[RequirementConcepts, _Mapping]] = ..., reward: _Optional[float] = ...) -> None: ...
 
 class RequirementConcepts(_message.Message):
     __slots__ = ("concepts", "useAllConcepts")
@@ -122,15 +124,17 @@ class ApplicationLevelLocalized(_message.Message):
     def __init__(self, locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ..., name: _Optional[str] = ..., description: _Optional[str] = ...) -> None: ...
 
 class ObjectiveGroup(_message.Message):
-    __slots__ = ("id", "name", "description", "objectives", "owner")
+    __slots__ = ("id", "name", "description", "objectives", "owner", "reward")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
     OBJECTIVES_FIELD_NUMBER: _ClassVar[int]
     OWNER_FIELD_NUMBER: _ClassVar[int]
+    REWARD_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     description: str
     objectives: _containers.RepeatedCompositeFieldContainer[SpecializedRequirement]
     owner: _users_pb2.UserRef
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., objectives: _Optional[_Iterable[_Union[SpecializedRequirement, _Mapping]]] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ...) -> None: ...
+    reward: float
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., objectives: _Optional[_Iterable[_Union[SpecializedRequirement, _Mapping]]] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., reward: _Optional[float] = ...) -> None: ...

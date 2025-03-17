@@ -45,7 +45,7 @@ class TemplateRecipePropertyBounds(_message.Message):
     def __init__(self, property: _Optional[_Union[_property_pb2.PropertyRef, _Mapping]] = ..., min: _Optional[float] = ..., max: _Optional[float] = ...) -> None: ...
 
 class ImprovedTemplateRecipe(_message.Message):
-    __slots__ = ("id", "categories", "cuisines", "totalTimeMinutes", "isPublic", "isVerified", "owner", "emoji", "allowedScale", "groups", "localizations", "globalConstraints", "ratioConstraints", "propertyBounds")
+    __slots__ = ("id", "categories", "cuisines", "totalTimeMinutes", "isPublic", "isVerified", "owner", "emoji", "allowedScale", "groups", "localizations", "globalConstraints", "ratioConstraints", "propertyBounds", "sumConstraints")
     ID_FIELD_NUMBER: _ClassVar[int]
     CATEGORIES_FIELD_NUMBER: _ClassVar[int]
     CUISINES_FIELD_NUMBER: _ClassVar[int]
@@ -60,6 +60,7 @@ class ImprovedTemplateRecipe(_message.Message):
     GLOBALCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
     RATIOCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
     PROPERTYBOUNDS_FIELD_NUMBER: _ClassVar[int]
+    SUMCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
     id: str
     categories: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCategoryRef]
     cuisines: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCuisineRef]
@@ -74,17 +75,20 @@ class ImprovedTemplateRecipe(_message.Message):
     globalConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.GlobalConstraint]
     ratioConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.RatioConstraint]
     propertyBounds: _containers.RepeatedCompositeFieldContainer[TemplateRecipePropertyBounds]
-    def __init__(self, id: _Optional[str] = ..., categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., totalTimeMinutes: _Optional[int] = ..., isPublic: bool = ..., isVerified: bool = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., emoji: _Optional[str] = ..., allowedScale: _Optional[float] = ..., groups: _Optional[_Iterable[_Union[TemplateRecipeIngredientGroup, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[TemplateRecipeLocalized, _Mapping]]] = ..., globalConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.GlobalConstraint, _Mapping]]] = ..., ratioConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.RatioConstraint, _Mapping]]] = ..., propertyBounds: _Optional[_Iterable[_Union[TemplateRecipePropertyBounds, _Mapping]]] = ...) -> None: ...
+    sumConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.SumConstraint]
+    def __init__(self, id: _Optional[str] = ..., categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., totalTimeMinutes: _Optional[int] = ..., isPublic: bool = ..., isVerified: bool = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., emoji: _Optional[str] = ..., allowedScale: _Optional[float] = ..., groups: _Optional[_Iterable[_Union[TemplateRecipeIngredientGroup, _Mapping]]] = ..., localizations: _Optional[_Iterable[_Union[TemplateRecipeLocalized, _Mapping]]] = ..., globalConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.GlobalConstraint, _Mapping]]] = ..., ratioConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.RatioConstraint, _Mapping]]] = ..., propertyBounds: _Optional[_Iterable[_Union[TemplateRecipePropertyBounds, _Mapping]]] = ..., sumConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.SumConstraint, _Mapping]]] = ...) -> None: ...
 
 class TemplateRecipeWithoutMetaData(_message.Message):
-    __slots__ = ("groups", "globalConstraints", "ratioConstraints")
+    __slots__ = ("groups", "globalConstraints", "ratioConstraints", "sumConstraints")
     GROUPS_FIELD_NUMBER: _ClassVar[int]
     GLOBALCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
     RATIOCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
+    SUMCONSTRAINTS_FIELD_NUMBER: _ClassVar[int]
     groups: _containers.RepeatedCompositeFieldContainer[TemplateRecipeIngredientGroup]
     globalConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.GlobalConstraint]
     ratioConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.RatioConstraint]
-    def __init__(self, groups: _Optional[_Iterable[_Union[TemplateRecipeIngredientGroup, _Mapping]]] = ..., globalConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.GlobalConstraint, _Mapping]]] = ..., ratioConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.RatioConstraint, _Mapping]]] = ...) -> None: ...
+    sumConstraints: _containers.RepeatedCompositeFieldContainer[_flavour_recipe_pb2.SumConstraint]
+    def __init__(self, groups: _Optional[_Iterable[_Union[TemplateRecipeIngredientGroup, _Mapping]]] = ..., globalConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.GlobalConstraint, _Mapping]]] = ..., ratioConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.RatioConstraint, _Mapping]]] = ..., sumConstraints: _Optional[_Iterable[_Union[_flavour_recipe_pb2.SumConstraint, _Mapping]]] = ...) -> None: ...
 
 class TemplateRecipeIngredientGroup(_message.Message):
     __slots__ = ("culinaryGroup", "concepts", "groupId", "nameOverride")

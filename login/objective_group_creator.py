@@ -79,6 +79,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             name="Macros",
             description="Applies your desired macros to every day",
             owner=user,
+            reward=5.0,
             objectives=[
                 BaseObjectiveGroupCreator.create_fat_requirement(reqs, properties, application_levels),
                 BaseObjectiveGroupCreator.create_fiber_requirement(reqs, properties, application_levels),
@@ -106,6 +107,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
                         "such as 2kg of vegetables daily. Feel free to adjust these limits to suit your individual "
                         "preferences and nutritional needs.",
             owner=user,
+            reward=1.0,
             objectives=[
                 BaseObjectiveGroupCreator.create_absolute_requirement_for_concept(
                     min_value=150,
@@ -133,6 +135,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             name="Recipe preferences",
             description="We have set the maximum number of recipes you have to make per meal to 1. Feel free to adjust",
             owner=user,
+            reward=1.0,
             objectives=[BaseObjectiveGroupCreator.create_recipe_count_requirement(properties, application_levels)]
         )
 
@@ -153,7 +156,8 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
                 useAllComponents=True,
             ),
             scaleNumerator=1,
-            numeratorConcepts=RequirementConcepts(useAllConcepts=True)
+            numeratorConcepts=RequirementConcepts(useAllConcepts=True),
+            reward=1.0
         )
 
     @staticmethod
@@ -200,6 +204,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
                 useAllComponents=True,
             ),
             scaleNumerator=1,
+            reward=1.0,
             numeratorConcepts=RequirementConcepts(concepts=BoolConceptValues(
                 conceptValues={concepts.root.id: False, concept.id: True}
             )),
@@ -223,6 +228,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
                 useAllDays=True,
                 useAllComponents=True,
             ),
+            reward=1.0,
             scaleNumerator=1,
             numeratorConcepts=RequirementConcepts(useAllConcepts=True),
         )
@@ -253,6 +259,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             ),
             scaleNumerator=kcal_per_unit,
             scaleDenominator=1,
+            reward=1.0,
             numeratorConcepts=RequirementConcepts(useAllConcepts=True),
             denominatorConcepts=RequirementConcepts(useAllConcepts=True)
         )
@@ -289,4 +296,4 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             ) for x in data.objectives
         ]
         return ObjectiveGroup(name=data.name, description=data.description, objectives=nutrient_targets,
-                              owner=owner)
+                              owner=owner, reward=1.0)

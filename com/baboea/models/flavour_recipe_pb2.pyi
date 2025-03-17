@@ -13,9 +13,16 @@ class FlavourRecipeVariable(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     COUNT: _ClassVar[FlavourRecipeVariable]
     REPETITIONS: _ClassVar[FlavourRecipeVariable]
     WEIGHT: _ClassVar[FlavourRecipeVariable]
+
+class SumConstraintStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    ENFORCE: _ClassVar[SumConstraintStrategy]
+    REWARD: _ClassVar[SumConstraintStrategy]
 COUNT: FlavourRecipeVariable
 REPETITIONS: FlavourRecipeVariable
 WEIGHT: FlavourRecipeVariable
+ENFORCE: SumConstraintStrategy
+REWARD: SumConstraintStrategy
 
 class FlavourGroup(_message.Message):
     __slots__ = ("culinaryGroup", "concepts", "groupId")
@@ -68,6 +75,26 @@ class PerServingConstraint(_message.Message):
     source: ConstraintTarget
     data: ConstraintData
     def __init__(self, source: _Optional[_Union[ConstraintTarget, _Mapping]] = ..., data: _Optional[_Union[ConstraintData, _Mapping]] = ...) -> None: ...
+
+class WeightedConstraintTarget(_message.Message):
+    __slots__ = ("target", "weight")
+    TARGET_FIELD_NUMBER: _ClassVar[int]
+    WEIGHT_FIELD_NUMBER: _ClassVar[int]
+    target: ConstraintTarget
+    weight: float
+    def __init__(self, target: _Optional[_Union[ConstraintTarget, _Mapping]] = ..., weight: _Optional[float] = ...) -> None: ...
+
+class SumConstraint(_message.Message):
+    __slots__ = ("sumTargets", "data", "reward", "strategy")
+    SUMTARGETS_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    REWARD_FIELD_NUMBER: _ClassVar[int]
+    STRATEGY_FIELD_NUMBER: _ClassVar[int]
+    sumTargets: _containers.RepeatedCompositeFieldContainer[WeightedConstraintTarget]
+    data: ConstraintData
+    reward: float
+    strategy: SumConstraintStrategy
+    def __init__(self, sumTargets: _Optional[_Iterable[_Union[WeightedConstraintTarget, _Mapping]]] = ..., data: _Optional[_Union[ConstraintData, _Mapping]] = ..., reward: _Optional[float] = ..., strategy: _Optional[_Union[SumConstraintStrategy, str]] = ...) -> None: ...
 
 class RatioConstraint(_message.Message):
     __slots__ = ("source", "target", "data", "target_scale")

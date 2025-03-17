@@ -15,11 +15,19 @@ from com.baboea import requirement_pb2 as _requirement_pb2
 from com.baboea import concept_pb2 as _concept_pb2
 from com.baboea.models import users_pb2 as _users_pb2
 from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+
+class FailedObjectiveReason(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    EXCEEDED_LIMIT: _ClassVar[FailedObjectiveReason]
+    BELOW_THRESHOLD: _ClassVar[FailedObjectiveReason]
+EXCEEDED_LIMIT: FailedObjectiveReason
+BELOW_THRESHOLD: FailedObjectiveReason
 
 class UserPlanInput(_message.Message):
     __slots__ = ("user", "desiredDays", "name")
@@ -114,10 +122,14 @@ class GenerateRefResolution(_message.Message):
     def __init__(self, properties: _Optional[_Iterable[_Union[_property_pb2.PropertyRef, _Mapping]]] = ..., foods: _Optional[_Iterable[_Union[_food_pb2.FoodRef, _Mapping]]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.ParsedRemoteRecipeRef, _Mapping]]] = ..., user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ...) -> None: ...
 
 class FailedObjective(_message.Message):
-    __slots__ = ("requirement",)
+    __slots__ = ("requirement", "reason", "group")
     REQUIREMENT_FIELD_NUMBER: _ClassVar[int]
+    REASON_FIELD_NUMBER: _ClassVar[int]
+    GROUP_FIELD_NUMBER: _ClassVar[int]
     requirement: _objectivegroup_pb2.SpecializedRequirementRef
-    def __init__(self, requirement: _Optional[_Union[_objectivegroup_pb2.SpecializedRequirementRef, _Mapping]] = ...) -> None: ...
+    reason: FailedObjectiveReason
+    group: _objectivegroup_pb2.ObjectiveGroupRef
+    def __init__(self, requirement: _Optional[_Union[_objectivegroup_pb2.SpecializedRequirementRef, _Mapping]] = ..., reason: _Optional[_Union[FailedObjectiveReason, str]] = ..., group: _Optional[_Union[_objectivegroup_pb2.ObjectiveGroupRef, _Mapping]] = ...) -> None: ...
 
 class GeneratedDay(_message.Message):
     __slots__ = ("day", "meals", "properties", "failedObjectives")

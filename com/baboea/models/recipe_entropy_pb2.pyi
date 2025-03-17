@@ -56,28 +56,32 @@ class EntropicFeatureOrDimensionRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ..., emoji: _Optional[str] = ...) -> None: ...
 
 class SimplifiedBaseCondition(_message.Message):
-    __slots__ = ("concept", "includeChildren", "negate")
+    __slots__ = ("concept", "includeChildren", "negate", "minPercentage")
     CONCEPT_FIELD_NUMBER: _ClassVar[int]
     INCLUDECHILDREN_FIELD_NUMBER: _ClassVar[int]
     NEGATE_FIELD_NUMBER: _ClassVar[int]
+    MINPERCENTAGE_FIELD_NUMBER: _ClassVar[int]
     concept: _concepts_pb2.ConceptRef
     includeChildren: bool
     negate: bool
-    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., includeChildren: bool = ..., negate: bool = ...) -> None: ...
+    minPercentage: float
+    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., includeChildren: bool = ..., negate: bool = ..., minPercentage: _Optional[float] = ...) -> None: ...
 
 class SimplifiedCase(_message.Message):
-    __slots__ = ("all", "any", "value", "disjunctiveAntecedent", "disjunctiveConsequent")
+    __slots__ = ("all", "any", "value", "disjunctiveAntecedent", "disjunctiveConsequent", "priority")
     ALL_FIELD_NUMBER: _ClassVar[int]
     ANY_FIELD_NUMBER: _ClassVar[int]
     VALUE_FIELD_NUMBER: _ClassVar[int]
     DISJUNCTIVEANTECEDENT_FIELD_NUMBER: _ClassVar[int]
     DISJUNCTIVECONSEQUENT_FIELD_NUMBER: _ClassVar[int]
+    PRIORITY_FIELD_NUMBER: _ClassVar[int]
     all: _containers.RepeatedCompositeFieldContainer[SimplifiedBaseCondition]
     any: _containers.RepeatedCompositeFieldContainer[SimplifiedBaseCondition]
     value: EntropicValueRef
     disjunctiveAntecedent: _containers.RepeatedCompositeFieldContainer[SimplifiedBaseCondition]
     disjunctiveConsequent: _containers.RepeatedCompositeFieldContainer[SimplifiedBaseCondition]
-    def __init__(self, all: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., any: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., value: _Optional[_Union[EntropicValueRef, _Mapping]] = ..., disjunctiveAntecedent: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., disjunctiveConsequent: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ...) -> None: ...
+    priority: float
+    def __init__(self, all: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., any: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., value: _Optional[_Union[EntropicValueRef, _Mapping]] = ..., disjunctiveAntecedent: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., disjunctiveConsequent: _Optional[_Iterable[_Union[SimplifiedBaseCondition, _Mapping]]] = ..., priority: _Optional[float] = ...) -> None: ...
 
 class SimplifiedFunction(_message.Message):
     __slots__ = ("cases",)
@@ -85,8 +89,18 @@ class SimplifiedFunction(_message.Message):
     cases: _containers.RepeatedCompositeFieldContainer[SimplifiedCase]
     def __init__(self, cases: _Optional[_Iterable[_Union[SimplifiedCase, _Mapping]]] = ...) -> None: ...
 
+class NameClassification(_message.Message):
+    __slots__ = ("regex", "value", "priority")
+    REGEX_FIELD_NUMBER: _ClassVar[int]
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    PRIORITY_FIELD_NUMBER: _ClassVar[int]
+    regex: str
+    value: EntropicValueRef
+    priority: float
+    def __init__(self, regex: _Optional[str] = ..., value: _Optional[_Union[EntropicValueRef, _Mapping]] = ..., priority: _Optional[float] = ...) -> None: ...
+
 class EntropicFeatureOrDimension(_message.Message):
-    __slots__ = ("id", "isFeature", "isDimension", "localizations", "defaultValue", "domain", "classificationCases", "emoji", "weight")
+    __slots__ = ("id", "isFeature", "isDimension", "localizations", "defaultValue", "domain", "classificationCases", "emoji", "weight", "nameClassifiers")
     ID_FIELD_NUMBER: _ClassVar[int]
     ISFEATURE_FIELD_NUMBER: _ClassVar[int]
     ISDIMENSION_FIELD_NUMBER: _ClassVar[int]
@@ -96,6 +110,7 @@ class EntropicFeatureOrDimension(_message.Message):
     CLASSIFICATIONCASES_FIELD_NUMBER: _ClassVar[int]
     EMOJI_FIELD_NUMBER: _ClassVar[int]
     WEIGHT_FIELD_NUMBER: _ClassVar[int]
+    NAMECLASSIFIERS_FIELD_NUMBER: _ClassVar[int]
     id: str
     isFeature: bool
     isDimension: bool
@@ -105,12 +120,15 @@ class EntropicFeatureOrDimension(_message.Message):
     classificationCases: _containers.RepeatedCompositeFieldContainer[SimplifiedCase]
     emoji: str
     weight: float
-    def __init__(self, id: _Optional[str] = ..., isFeature: bool = ..., isDimension: bool = ..., localizations: _Optional[_Iterable[_Union[EntropicFeatureOrDimensionLocalized, _Mapping]]] = ..., defaultValue: _Optional[_Union[EntropicValueRef, _Mapping]] = ..., domain: _Optional[_Iterable[_Union[EntropicValueRef, _Mapping]]] = ..., classificationCases: _Optional[_Iterable[_Union[SimplifiedCase, _Mapping]]] = ..., emoji: _Optional[str] = ..., weight: _Optional[float] = ...) -> None: ...
+    nameClassifiers: _containers.RepeatedCompositeFieldContainer[NameClassification]
+    def __init__(self, id: _Optional[str] = ..., isFeature: bool = ..., isDimension: bool = ..., localizations: _Optional[_Iterable[_Union[EntropicFeatureOrDimensionLocalized, _Mapping]]] = ..., defaultValue: _Optional[_Union[EntropicValueRef, _Mapping]] = ..., domain: _Optional[_Iterable[_Union[EntropicValueRef, _Mapping]]] = ..., classificationCases: _Optional[_Iterable[_Union[SimplifiedCase, _Mapping]]] = ..., emoji: _Optional[str] = ..., weight: _Optional[float] = ..., nameClassifiers: _Optional[_Iterable[_Union[NameClassification, _Mapping]]] = ...) -> None: ...
 
 class EntropicFeatureOrDimensionLocalized(_message.Message):
-    __slots__ = ("locale", "name")
+    __slots__ = ("locale", "name", "userQuestion")
     LOCALE_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
+    USERQUESTION_FIELD_NUMBER: _ClassVar[int]
     locale: _localized_pb2.LocaleRef
     name: str
-    def __init__(self, locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ..., name: _Optional[str] = ...) -> None: ...
+    userQuestion: str
+    def __init__(self, locale: _Optional[_Union[_localized_pb2.LocaleRef, _Mapping]] = ..., name: _Optional[str] = ..., userQuestion: _Optional[str] = ...) -> None: ...

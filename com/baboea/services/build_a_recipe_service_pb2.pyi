@@ -11,13 +11,19 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class AskClarificationOption(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
 class AskClarification(_message.Message):
-    __slots__ = ("dimension", "values")
+    __slots__ = ("dimension", "values", "userQuestion")
     DIMENSION_FIELD_NUMBER: _ClassVar[int]
     VALUES_FIELD_NUMBER: _ClassVar[int]
+    USERQUESTION_FIELD_NUMBER: _ClassVar[int]
     dimension: _recipe_entropy_pb2.EntropicFeatureOrDimensionRef
     values: _containers.RepeatedCompositeFieldContainer[_recipe_entropy_pb2.EntropicValueRef]
-    def __init__(self, dimension: _Optional[_Union[_recipe_entropy_pb2.EntropicFeatureOrDimensionRef, _Mapping]] = ..., values: _Optional[_Iterable[_Union[_recipe_entropy_pb2.EntropicValueRef, _Mapping]]] = ...) -> None: ...
+    userQuestion: _localized_pb2.LocalizedString
+    def __init__(self, dimension: _Optional[_Union[_recipe_entropy_pb2.EntropicFeatureOrDimensionRef, _Mapping]] = ..., values: _Optional[_Iterable[_Union[_recipe_entropy_pb2.EntropicValueRef, _Mapping]]] = ..., userQuestion: _Optional[_Union[_localized_pb2.LocalizedString, _Mapping]] = ...) -> None: ...
 
 class RecommendedFoods(_message.Message):
     __slots__ = ("concepts",)
