@@ -7,6 +7,6 @@ COPY food_opt_protos2/src/main/proto ./protos/foodopt/
 RUN sh /protos.sh
 COPY login ./login
 #COPY test ./test
-EXPOSE 50053
+EXPOSE 50054
 
 CMD python -m login.main
