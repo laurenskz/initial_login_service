@@ -1,5 +1,6 @@
 from com.baboea.models import concepts_pb2 as _concepts_pb2
 from com.baboea.services import base_pb2 as _base_pb2
+from com.baboea.services import template_recipe_service_pb2 as _template_recipe_service_pb2
 from com.baboea.models import food_pb2 as _food_pb2
 from com.baboea.models import localized_pb2 as _localized_pb2
 from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
@@ -34,11 +35,11 @@ class NeverSuggestAgainRequest(_message.Message):
     def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ...) -> None: ...
 
 class GiveRecipeFeedbackRequest(_message.Message):
-    __slots__ = ("recipe", "user", "liked")
+    __slots__ = ("recipe", "user", "status")
     RECIPE_FIELD_NUMBER: _ClassVar[int]
     USER_FIELD_NUMBER: _ClassVar[int]
-    LIKED_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
     recipe: _template_recipe_data_pb2.ImprovedTemplateRecipeRef
     user: _users_pb2.UserRef
-    liked: bool
-    def __init__(self, recipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ..., user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., liked: bool = ...) -> None: ...
+    status: _template_recipe_service_pb2.TemplateRecipeLikeStatus
+    def __init__(self, recipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]] = ..., user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., status: _Optional[_Union[_template_recipe_service_pb2.TemplateRecipeLikeStatus, str]] = ...) -> None: ...

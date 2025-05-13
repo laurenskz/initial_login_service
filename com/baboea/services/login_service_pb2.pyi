@@ -96,10 +96,11 @@ advanced: DesiredSetup
 simplified: DesiredSetup
 
 class MealInit(_message.Message):
-    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients", "templateRecipe")
+    __slots__ = ("name", "mealKcalMin", "mealKcalMax", "maxSideFoods", "useKcal", "smart", "sideDishes", "mealSize", "mealPref", "ownRecipeIngredients", "templateRecipe")
     NAME_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMIN_FIELD_NUMBER: _ClassVar[int]
     MEALKCALMAX_FIELD_NUMBER: _ClassVar[int]
+    MAXSIDEFOODS_FIELD_NUMBER: _ClassVar[int]
     USEKCAL_FIELD_NUMBER: _ClassVar[int]
     SMART_FIELD_NUMBER: _ClassVar[int]
     SIDEDISHES_FIELD_NUMBER: _ClassVar[int]
@@ -110,6 +111,7 @@ class MealInit(_message.Message):
     name: str
     mealKcalMin: float
     mealKcalMax: float
+    maxSideFoods: int
     useKcal: bool
     smart: _meal_pb2.SmartRecipePreferences
     sideDishes: _concept_pb2.BoolConceptValues
@@ -117,7 +119,7 @@ class MealInit(_message.Message):
     mealPref: MealStructurePreference
     ownRecipeIngredients: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.QuantifiedRecipeIngredient]
     templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipe
-    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]] = ...) -> None: ...
+    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., maxSideFoods: _Optional[int] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]] = ...) -> None: ...
 
 class NutritionPrefs(_message.Message):
     __slots__ = ("kcal", "protein", "carbPercentage")

@@ -24,27 +24,28 @@ _sym_db = _symbol_database.Default()
 
 from com.baboea.models import concepts_pb2 as com_dot_baboea_dot_models_dot_concepts__pb2
 from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base__pb2
+from com.baboea.services import template_recipe_service_pb2 as com_dot_baboea_dot_services_dot_template__recipe__service__pb2
 from com.baboea.models import food_pb2 as com_dot_baboea_dot_models_dot_food__pb2
 from com.baboea.models import localized_pb2 as com_dot_baboea_dot_models_dot_localized__pb2
 from com.baboea.models import template_recipe_data_pb2 as com_dot_baboea_dot_models_dot_template__recipe__data__pb2
 from com.baboea.models import users_pb2 as com_dot_baboea_dot_models_dot_users__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/com/baboea/services/user_feedback_service.proto\x12\x13\x63om.baboea.services\x1a com/baboea/models/concepts.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a\x1c\x63om/baboea/models/food.proto\x1a!com/baboea/models/localized.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x1d\x63om/baboea/models/users.proto\"p\n\x16\x46indConceptPathRequest\x12(\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.FoodRef\x12,\n\x06locale\x18\x02 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"J\n\x17\x46indConceptPathResponse\x12/\n\x08\x63oncepts\x18\x01 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\"t\n\x18NeverSuggestAgainRequest\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12(\n\x04user\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\"\x92\x01\n\x19GiveRecipeFeedbackRequest\x12<\n\x06recipe\x18\x01 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRef\x12(\n\x04user\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\r\n\x05liked\x18\x03 \x01(\x08\x32\xe9\x02\n\x13UserFeedbackService\x12l\n\x11NeverSuggestAgain\x12-.com.baboea.services.NeverSuggestAgainRequest\x1a&.com.baboea.services.OperationResponse\"\x00\x12n\n\x0f\x46indConceptPath\x12+.com.baboea.services.FindConceptPathRequest\x1a,.com.baboea.services.FindConceptPathResponse\"\x00\x12t\n\x12GiveRecipeFeedback\x12..com.baboea.services.GiveRecipeFeedbackRequest\x1a,.com.baboea.services.FindConceptPathResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/com/baboea/services/user_feedback_service.proto\x12\x13\x63om.baboea.services\x1a com/baboea/models/concepts.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a\x31\x63om/baboea/services/template_recipe_service.proto\x1a\x1c\x63om/baboea/models/food.proto\x1a!com/baboea/models/localized.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x1d\x63om/baboea/models/users.proto\"p\n\x16\x46indConceptPathRequest\x12(\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.FoodRef\x12,\n\x06locale\x18\x02 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"J\n\x17\x46indConceptPathResponse\x12/\n\x08\x63oncepts\x18\x01 \x03(\x0b\x32\x1d.com.baboea.models.ConceptRef\"t\n\x18NeverSuggestAgainRequest\x12.\n\x07\x63oncept\x18\x01 \x01(\x0b\x32\x1d.com.baboea.models.ConceptRef\x12(\n\x04user\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\"\xc2\x01\n\x19GiveRecipeFeedbackRequest\x12<\n\x06recipe\x18\x01 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRef\x12(\n\x04user\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12=\n\x06status\x18\x03 \x01(\x0e\x32-.com.baboea.services.TemplateRecipeLikeStatus2\xe9\x02\n\x13UserFeedbackService\x12l\n\x11NeverSuggestAgain\x12-.com.baboea.services.NeverSuggestAgainRequest\x1a&.com.baboea.services.OperationResponse\"\x00\x12n\n\x0f\x46indConceptPath\x12+.com.baboea.services.FindConceptPathRequest\x1a,.com.baboea.services.FindConceptPathResponse\"\x00\x12t\n\x12GiveRecipeFeedback\x12..com.baboea.services.GiveRecipeFeedbackRequest\x1a,.com.baboea.services.FindConceptPathResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.services.user_feedback_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_FINDCONCEPTPATHREQUEST']._serialized_start=280
-  _globals['_FINDCONCEPTPATHREQUEST']._serialized_end=392
-  _globals['_FINDCONCEPTPATHRESPONSE']._serialized_start=394
-  _globals['_FINDCONCEPTPATHRESPONSE']._serialized_end=468
-  _globals['_NEVERSUGGESTAGAINREQUEST']._serialized_start=470
-  _globals['_NEVERSUGGESTAGAINREQUEST']._serialized_end=586
-  _globals['_GIVERECIPEFEEDBACKREQUEST']._serialized_start=589
-  _globals['_GIVERECIPEFEEDBACKREQUEST']._serialized_end=735
-  _globals['_USERFEEDBACKSERVICE']._serialized_start=738
-  _globals['_USERFEEDBACKSERVICE']._serialized_end=1099
+  _globals['_FINDCONCEPTPATHREQUEST']._serialized_start=331
+  _globals['_FINDCONCEPTPATHREQUEST']._serialized_end=443
+  _globals['_FINDCONCEPTPATHRESPONSE']._serialized_start=445
+  _globals['_FINDCONCEPTPATHRESPONSE']._serialized_end=519
+  _globals['_NEVERSUGGESTAGAINREQUEST']._serialized_start=521
+  _globals['_NEVERSUGGESTAGAINREQUEST']._serialized_end=637
+  _globals['_GIVERECIPEFEEDBACKREQUEST']._serialized_start=640
+  _globals['_GIVERECIPEFEEDBACKREQUEST']._serialized_end=834
+  _globals['_USERFEEDBACKSERVICE']._serialized_start=837
+  _globals['_USERFEEDBACKSERVICE']._serialized_end=1198
 # @@protoc_insertion_point(module_scope)

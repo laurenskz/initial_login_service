@@ -41,6 +41,11 @@ class ImprovedTemplateRecipeServiceStub(object):
                 request_serializer=com_dot_baboea_dot_models_dot_template__recipe__data__pb2.ImprovedTemplateRecipe.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
                 _registered_method=True)
+        self.GetSlim = channel.unary_unary(
+                '/com.baboea.services.ImprovedTemplateRecipeService/GetSlim',
+                request_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimResponse.FromString,
+                _registered_method=True)
         self.Remove = channel.unary_unary(
                 '/com.baboea.services.ImprovedTemplateRecipeService/Remove',
                 request_serializer=com_dot_baboea_dot_models_dot_template__recipe__data__pb2.ImprovedTemplateRecipe.SerializeToString,
@@ -71,12 +76,23 @@ class ImprovedTemplateRecipeServiceStub(object):
                 request_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeQuery.SerializeToString,
                 response_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeResponse.FromString,
                 _registered_method=True)
+        self.GetBulk = channel.unary_unary(
+                '/com.baboea.services.ImprovedTemplateRecipeService/GetBulk',
+                request_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkRequest.SerializeToString,
+                response_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkResponse.FromString,
+                _registered_method=True)
 
 
 class ImprovedTemplateRecipeServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSlim(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -118,6 +134,12 @@ class ImprovedTemplateRecipeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ImprovedTemplateRecipeServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -125,6 +147,11 @@ def add_ImprovedTemplateRecipeServiceServicer_to_server(servicer, server):
                     servicer.Add,
                     request_deserializer=com_dot_baboea_dot_models_dot_template__recipe__data__pb2.ImprovedTemplateRecipe.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_base__pb2.AddResponse.SerializeToString,
+            ),
+            'GetSlim': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSlim,
+                    request_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimResponse.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
@@ -156,6 +183,11 @@ def add_ImprovedTemplateRecipeServiceServicer_to_server(servicer, server):
                     request_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeQuery.FromString,
                     response_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeResponse.SerializeToString,
             ),
+            'GetBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBulk,
+                    request_deserializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkRequest.FromString,
+                    response_serializer=com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'com.baboea.services.ImprovedTemplateRecipeService', rpc_method_handlers)
@@ -184,6 +216,33 @@ class ImprovedTemplateRecipeService(object):
             '/com.baboea.services.ImprovedTemplateRecipeService/Add',
             com_dot_baboea_dot_models_dot_template__recipe__data__pb2.ImprovedTemplateRecipe.SerializeToString,
             com_dot_baboea_dot_services_dot_base__pb2.AddResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSlim(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ImprovedTemplateRecipeService/GetSlim',
+            com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_template__recipe__service__pb2.GetSlimResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -346,6 +405,33 @@ class ImprovedTemplateRecipeService(object):
             '/com.baboea.services.ImprovedTemplateRecipeService/GetSmart',
             com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeQuery.SerializeToString,
             com_dot_baboea_dot_services_dot_template__recipe__service__pb2.SmartTemplateRecipeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/com.baboea.services.ImprovedTemplateRecipeService/GetBulk',
+            com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkRequest.SerializeToString,
+            com_dot_baboea_dot_services_dot_template__recipe__service__pb2.TemplateRecipeBulkResponse.FromString,
             options,
             channel_credentials,
             insecure,

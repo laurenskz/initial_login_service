@@ -31,47 +31,47 @@ from com.baboea.services import base_pb2 as com_dot_baboea_dot_services_dot_base
 from com.baboea.models import users_pb2 as com_dot_baboea_dot_models_dot_users__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'com/baboea/services/login_service.proto\x12\x13\x63om.baboea.services\x1a$com/baboea/models/curated_diet.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x18\x63om/baboea/concept.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a\x1d\x63om/baboea/models/users.proto\"\xc1\x03\n\x08MealInit\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0bmealKcalMin\x18\x02 \x01(\x01\x12\x13\n\x0bmealKcalMax\x18\x03 \x01(\x01\x12\x0f\n\x07useKcal\x18\x04 \x01(\x08\x12\x38\n\x05smart\x18\x05 \x01(\x0b\x32).com.baboea.models.SmartRecipePreferences\x12\x31\n\nsideDishes\x18\x06 \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12/\n\x08mealSize\x18\x07 \x01(\x0e\x32\x1d.com.baboea.services.MealSize\x12>\n\x08mealPref\x18\x08 \x01(\x0e\x32,.com.baboea.services.MealStructurePreference\x12K\n\x14ownRecipeIngredients\x18\t \x03(\x0b\x32-.com.baboea.models.QuantifiedRecipeIngredient\x12\x41\n\x0etemplateRecipe\x18\n \x01(\x0b\x32).com.baboea.models.ImprovedTemplateRecipe\"G\n\x0eNutritionPrefs\x12\x0c\n\x04kcal\x18\x01 \x01(\x01\x12\x0f\n\x07protein\x18\x02 \x01(\x01\x12\x16\n\x0e\x63\x61rbPercentage\x18\x03 \x01(\x01\"\xb5\x01\n\x0cPersonalData\x12+\n\x06gender\x18\x01 \x01(\x0e\x32\x1b.com.baboea.services.Gender\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x39\n\ractivityLevel\x18\x03 \x01(\x0e\x32\".com.baboea.services.ActivityLevel\x12\x10\n\x08weightKg\x18\x04 \x01(\x01\x12\x10\n\x08heightCm\x18\x05 \x01(\x01\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x9c\x04\n\x10InitialLoginForm\x12\x33\n\x08personal\x18\x01 \x01(\x0b\x32!.com.baboea.services.PersonalData\x12\x38\n\x06manual\x18\x02 \x01(\x0b\x32#.com.baboea.services.NutritionPrefsH\x00\x88\x01\x01\x12/\n\x04\x64iet\x18\x03 \x01(\x0b\x32!.com.baboea.models.CuratedDietRef\x12\x32\n\x06macros\x18\x04 \x01(\x0e\x32\".com.baboea.services.MacroStrategy\x12,\n\x05meals\x18\x05 \x03(\x0b\x32\x1d.com.baboea.services.MealInit\x12\x14\n\x0cremoteUserId\x18\x06 \x01(\t\x12:\n\nweightLoss\x18\x07 \x01(\x0e\x32&.com.baboea.services.DesiredWeightLoss\x12\x37\n\x0c\x64\x65siredSetup\x18\x08 \x01(\x0e\x32!.com.baboea.services.DesiredSetup\x12\x31\n\nhatedFoods\x18\t \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12=\n\x0fproteinStrategy\x18\n \x01(\x0e\x32$.com.baboea.services.ProteinStrategyB\t\n\x07_manual\"$\n\x0cLoginRequest\x12\x14\n\x0cremoteUserId\x18\x01 \x01(\t\"L\n\rLoginResponse\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\x11\n\tneedsInit\x18\x02 \x01(\x08\"\x18\n\x08TempTest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1c\n\x0cTempResponse\x12\x0c\n\x04text\x18\x02 \x01(\t*)\n\x06Gender\x12\x08\n\x04male\x10\x00\x12\n\n\x06\x66\x65male\x10\x01\x12\t\n\x05other\x10\x02**\n\x08MealSize\x12\t\n\x05small\x10\x00\x12\n\n\x06normal\x10\x01\x12\x07\n\x03\x62ig\x10\x02*D\n\x17MealStructurePreference\x12\r\n\townRecipe\x10\x00\x12\r\n\tgenerated\x10\x01\x12\x0b\n\x07\x64isable\x10\x02*h\n\rActivityLevel\x12\r\n\tsedentary\x10\x00\x12\x11\n\rlightlyActive\x10\x01\x12\x14\n\x10moderatelyActive\x10\x02\x12\x0e\n\nveryActive\x10\x03\x12\x0f\n\x0b\x65xtraActive\x10\x04*D\n\rMacroStrategy\x12\x0c\n\x08\x62\x61lanced\x10\x00\x12\x08\n\x04keto\x10\x01\x12\x0c\n\x08low_carb\x10\x02\x12\r\n\thigh_carb\x10\x03*y\n\x0fProteinStrategy\x12\x0f\n\x0blow_protein\x10\x00\x12\x10\n\x0chigh_protein\x10\x01\x12\x12\n\x0emedium_protein\x10\x02\x12\x17\n\x13medium_high_protein\x10\x03\x12\x16\n\x12medium_low_protein\x10\x04*S\n\x11\x44\x65siredWeightLoss\x12\x0f\n\x0bgain_weight\x10\x00\x12\x0c\n\x08maintain\x10\x01\x12\x0f\n\x0blose_slowly\x10\x02\x12\x0e\n\nlose_rapid\x10\x03*,\n\x0c\x44\x65siredSetup\x12\x0c\n\x08\x61\x64vanced\x10\x00\x12\x0e\n\nsimplified\x10\x01\x32`\n\x0cLoginService\x12P\n\x05Login\x12!.com.baboea.services.LoginRequest\x1a\".com.baboea.services.LoginResponse\"\x00\x32\xc7\x01\n\x0fUserInitService\x12\\\n\tSetupUser\x12%.com.baboea.services.InitialLoginForm\x1a&.com.baboea.services.OperationResponse\"\x00\x12V\n\x0cStreamWithMe\x12\x1d.com.baboea.services.TempTest\x1a!.com.baboea.services.TempResponse\"\x00(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'com/baboea/services/login_service.proto\x12\x13\x63om.baboea.services\x1a$com/baboea/models/curated_diet.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x18\x63om/baboea/concept.proto\x1a\x1e\x63om/baboea/services/base.proto\x1a\x1d\x63om/baboea/models/users.proto\"\xd7\x03\n\x08MealInit\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0bmealKcalMin\x18\x02 \x01(\x01\x12\x13\n\x0bmealKcalMax\x18\x03 \x01(\x01\x12\x14\n\x0cmaxSideFoods\x18\x0b \x01(\x05\x12\x0f\n\x07useKcal\x18\x04 \x01(\x08\x12\x38\n\x05smart\x18\x05 \x01(\x0b\x32).com.baboea.models.SmartRecipePreferences\x12\x31\n\nsideDishes\x18\x06 \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12/\n\x08mealSize\x18\x07 \x01(\x0e\x32\x1d.com.baboea.services.MealSize\x12>\n\x08mealPref\x18\x08 \x01(\x0e\x32,.com.baboea.services.MealStructurePreference\x12K\n\x14ownRecipeIngredients\x18\t \x03(\x0b\x32-.com.baboea.models.QuantifiedRecipeIngredient\x12\x41\n\x0etemplateRecipe\x18\n \x01(\x0b\x32).com.baboea.models.ImprovedTemplateRecipe\"G\n\x0eNutritionPrefs\x12\x0c\n\x04kcal\x18\x01 \x01(\x01\x12\x0f\n\x07protein\x18\x02 \x01(\x01\x12\x16\n\x0e\x63\x61rbPercentage\x18\x03 \x01(\x01\"\xb5\x01\n\x0cPersonalData\x12+\n\x06gender\x18\x01 \x01(\x0e\x32\x1b.com.baboea.services.Gender\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x39\n\ractivityLevel\x18\x03 \x01(\x0e\x32\".com.baboea.services.ActivityLevel\x12\x10\n\x08weightKg\x18\x04 \x01(\x01\x12\x10\n\x08heightCm\x18\x05 \x01(\x01\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x9c\x04\n\x10InitialLoginForm\x12\x33\n\x08personal\x18\x01 \x01(\x0b\x32!.com.baboea.services.PersonalData\x12\x38\n\x06manual\x18\x02 \x01(\x0b\x32#.com.baboea.services.NutritionPrefsH\x00\x88\x01\x01\x12/\n\x04\x64iet\x18\x03 \x01(\x0b\x32!.com.baboea.models.CuratedDietRef\x12\x32\n\x06macros\x18\x04 \x01(\x0e\x32\".com.baboea.services.MacroStrategy\x12,\n\x05meals\x18\x05 \x03(\x0b\x32\x1d.com.baboea.services.MealInit\x12\x14\n\x0cremoteUserId\x18\x06 \x01(\t\x12:\n\nweightLoss\x18\x07 \x01(\x0e\x32&.com.baboea.services.DesiredWeightLoss\x12\x37\n\x0c\x64\x65siredSetup\x18\x08 \x01(\x0e\x32!.com.baboea.services.DesiredSetup\x12\x31\n\nhatedFoods\x18\t \x01(\x0b\x32\x1d.com.baboea.BoolConceptValues\x12=\n\x0fproteinStrategy\x18\n \x01(\x0e\x32$.com.baboea.services.ProteinStrategyB\t\n\x07_manual\"$\n\x0cLoginRequest\x12\x14\n\x0cremoteUserId\x18\x01 \x01(\t\"L\n\rLoginResponse\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\x11\n\tneedsInit\x18\x02 \x01(\x08\"\x18\n\x08TempTest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1c\n\x0cTempResponse\x12\x0c\n\x04text\x18\x02 \x01(\t*)\n\x06Gender\x12\x08\n\x04male\x10\x00\x12\n\n\x06\x66\x65male\x10\x01\x12\t\n\x05other\x10\x02**\n\x08MealSize\x12\t\n\x05small\x10\x00\x12\n\n\x06normal\x10\x01\x12\x07\n\x03\x62ig\x10\x02*D\n\x17MealStructurePreference\x12\r\n\townRecipe\x10\x00\x12\r\n\tgenerated\x10\x01\x12\x0b\n\x07\x64isable\x10\x02*h\n\rActivityLevel\x12\r\n\tsedentary\x10\x00\x12\x11\n\rlightlyActive\x10\x01\x12\x14\n\x10moderatelyActive\x10\x02\x12\x0e\n\nveryActive\x10\x03\x12\x0f\n\x0b\x65xtraActive\x10\x04*D\n\rMacroStrategy\x12\x0c\n\x08\x62\x61lanced\x10\x00\x12\x08\n\x04keto\x10\x01\x12\x0c\n\x08low_carb\x10\x02\x12\r\n\thigh_carb\x10\x03*y\n\x0fProteinStrategy\x12\x0f\n\x0blow_protein\x10\x00\x12\x10\n\x0chigh_protein\x10\x01\x12\x12\n\x0emedium_protein\x10\x02\x12\x17\n\x13medium_high_protein\x10\x03\x12\x16\n\x12medium_low_protein\x10\x04*S\n\x11\x44\x65siredWeightLoss\x12\x0f\n\x0bgain_weight\x10\x00\x12\x0c\n\x08maintain\x10\x01\x12\x0f\n\x0blose_slowly\x10\x02\x12\x0e\n\nlose_rapid\x10\x03*,\n\x0c\x44\x65siredSetup\x12\x0c\n\x08\x61\x64vanced\x10\x00\x12\x0e\n\nsimplified\x10\x01\x32`\n\x0cLoginService\x12P\n\x05Login\x12!.com.baboea.services.LoginRequest\x1a\".com.baboea.services.LoginResponse\"\x00\x32\xc7\x01\n\x0fUserInitService\x12\\\n\tSetupUser\x12%.com.baboea.services.InitialLoginForm\x1a&.com.baboea.services.OperationResponse\"\x00\x12V\n\x0cStreamWithMe\x12\x1d.com.baboea.services.TempTest\x1a!.com.baboea.services.TempResponse\"\x00(\x01\x30\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.services.login_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_GENDER']._serialized_start=1724
-  _globals['_GENDER']._serialized_end=1765
-  _globals['_MEALSIZE']._serialized_start=1767
-  _globals['_MEALSIZE']._serialized_end=1809
-  _globals['_MEALSTRUCTUREPREFERENCE']._serialized_start=1811
-  _globals['_MEALSTRUCTUREPREFERENCE']._serialized_end=1879
-  _globals['_ACTIVITYLEVEL']._serialized_start=1881
-  _globals['_ACTIVITYLEVEL']._serialized_end=1985
-  _globals['_MACROSTRATEGY']._serialized_start=1987
-  _globals['_MACROSTRATEGY']._serialized_end=2055
-  _globals['_PROTEINSTRATEGY']._serialized_start=2057
-  _globals['_PROTEINSTRATEGY']._serialized_end=2178
-  _globals['_DESIREDWEIGHTLOSS']._serialized_start=2180
-  _globals['_DESIREDWEIGHTLOSS']._serialized_end=2263
-  _globals['_DESIREDSETUP']._serialized_start=2265
-  _globals['_DESIREDSETUP']._serialized_end=2309
+  _globals['_GENDER']._serialized_start=1746
+  _globals['_GENDER']._serialized_end=1787
+  _globals['_MEALSIZE']._serialized_start=1789
+  _globals['_MEALSIZE']._serialized_end=1831
+  _globals['_MEALSTRUCTUREPREFERENCE']._serialized_start=1833
+  _globals['_MEALSTRUCTUREPREFERENCE']._serialized_end=1901
+  _globals['_ACTIVITYLEVEL']._serialized_start=1903
+  _globals['_ACTIVITYLEVEL']._serialized_end=2007
+  _globals['_MACROSTRATEGY']._serialized_start=2009
+  _globals['_MACROSTRATEGY']._serialized_end=2077
+  _globals['_PROTEINSTRATEGY']._serialized_start=2079
+  _globals['_PROTEINSTRATEGY']._serialized_end=2200
+  _globals['_DESIREDWEIGHTLOSS']._serialized_start=2202
+  _globals['_DESIREDWEIGHTLOSS']._serialized_end=2285
+  _globals['_DESIREDSETUP']._serialized_start=2287
+  _globals['_DESIREDSETUP']._serialized_end=2331
   _globals['_MEALINIT']._serialized_start=301
-  _globals['_MEALINIT']._serialized_end=750
-  _globals['_NUTRITIONPREFS']._serialized_start=752
-  _globals['_NUTRITIONPREFS']._serialized_end=823
-  _globals['_PERSONALDATA']._serialized_start=826
-  _globals['_PERSONALDATA']._serialized_end=1007
-  _globals['_INITIALLOGINFORM']._serialized_start=1010
-  _globals['_INITIALLOGINFORM']._serialized_end=1550
-  _globals['_LOGINREQUEST']._serialized_start=1552
-  _globals['_LOGINREQUEST']._serialized_end=1588
-  _globals['_LOGINRESPONSE']._serialized_start=1590
-  _globals['_LOGINRESPONSE']._serialized_end=1666
-  _globals['_TEMPTEST']._serialized_start=1668
-  _globals['_TEMPTEST']._serialized_end=1692
-  _globals['_TEMPRESPONSE']._serialized_start=1694
-  _globals['_TEMPRESPONSE']._serialized_end=1722
-  _globals['_LOGINSERVICE']._serialized_start=2311
-  _globals['_LOGINSERVICE']._serialized_end=2407
-  _globals['_USERINITSERVICE']._serialized_start=2410
-  _globals['_USERINITSERVICE']._serialized_end=2609
+  _globals['_MEALINIT']._serialized_end=772
+  _globals['_NUTRITIONPREFS']._serialized_start=774
+  _globals['_NUTRITIONPREFS']._serialized_end=845
+  _globals['_PERSONALDATA']._serialized_start=848
+  _globals['_PERSONALDATA']._serialized_end=1029
+  _globals['_INITIALLOGINFORM']._serialized_start=1032
+  _globals['_INITIALLOGINFORM']._serialized_end=1572
+  _globals['_LOGINREQUEST']._serialized_start=1574
+  _globals['_LOGINREQUEST']._serialized_end=1610
+  _globals['_LOGINRESPONSE']._serialized_start=1612
+  _globals['_LOGINRESPONSE']._serialized_end=1688
+  _globals['_TEMPTEST']._serialized_start=1690
+  _globals['_TEMPTEST']._serialized_end=1714
+  _globals['_TEMPRESPONSE']._serialized_start=1716
+  _globals['_TEMPRESPONSE']._serialized_end=1744
+  _globals['_LOGINSERVICE']._serialized_start=2333
+  _globals['_LOGINSERVICE']._serialized_end=2429
+  _globals['_USERINITSERVICE']._serialized_start=2432
+  _globals['_USERINITSERVICE']._serialized_end=2631
 # @@protoc_insertion_point(module_scope)

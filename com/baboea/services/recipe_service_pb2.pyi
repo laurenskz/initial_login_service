@@ -1,4 +1,5 @@
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import recipe_quality_pb2 as _recipe_quality_pb2
 from com.baboea.models import concepts_pb2 as _concepts_pb2
 from com.baboea.models import property_pb2 as _property_pb2
 from com.baboea.models import dates_pb2 as _dates_pb2
@@ -69,7 +70,7 @@ class DoubleRange(_message.Message):
     def __init__(self, min: _Optional[float] = ..., max: _Optional[float] = ...) -> None: ...
 
 class SmartRecipesQuery(_message.Message):
-    __slots__ = ("categories", "cuisines", "allowedConcepts", "requiredConcepts", "cookTimeMinutes", "prepTimeMinutes", "totalTimeMinutes", "smartRecipeCount", "ranges", "targetDate")
+    __slots__ = ("categories", "cuisines", "allowedConcepts", "requiredConcepts", "cookTimeMinutes", "prepTimeMinutes", "totalTimeMinutes", "smartRecipeCount", "ranges", "targetDate", "quality_filter", "maxFoods")
     CATEGORIES_FIELD_NUMBER: _ClassVar[int]
     CUISINES_FIELD_NUMBER: _ClassVar[int]
     ALLOWEDCONCEPTS_FIELD_NUMBER: _ClassVar[int]
@@ -80,6 +81,8 @@ class SmartRecipesQuery(_message.Message):
     SMARTRECIPECOUNT_FIELD_NUMBER: _ClassVar[int]
     RANGES_FIELD_NUMBER: _ClassVar[int]
     TARGETDATE_FIELD_NUMBER: _ClassVar[int]
+    QUALITY_FILTER_FIELD_NUMBER: _ClassVar[int]
+    MAXFOODS_FIELD_NUMBER: _ClassVar[int]
     categories: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCategoryRef]
     cuisines: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.RecipeCuisineRef]
     allowedConcepts: _containers.RepeatedCompositeFieldContainer[_concepts_pb2.ConceptRef]
@@ -90,7 +93,9 @@ class SmartRecipesQuery(_message.Message):
     smartRecipeCount: int
     ranges: _containers.RepeatedCompositeFieldContainer[RequiredPropertyRange]
     targetDate: _dates_pb2.CalendarDate
-    def __init__(self, categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., allowedConcepts: _Optional[_Iterable[_Union[_concepts_pb2.ConceptRef, _Mapping]]] = ..., requiredConcepts: _Optional[_Iterable[_Union[_concepts_pb2.ConceptRef, _Mapping]]] = ..., cookTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., prepTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., totalTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., smartRecipeCount: _Optional[int] = ..., ranges: _Optional[_Iterable[_Union[RequiredPropertyRange, _Mapping]]] = ..., targetDate: _Optional[_Union[_dates_pb2.CalendarDate, _Mapping]] = ...) -> None: ...
+    quality_filter: _recipe_quality_pb2.RecipeQualityFilter
+    maxFoods: int
+    def __init__(self, categories: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCategoryRef, _Mapping]]] = ..., cuisines: _Optional[_Iterable[_Union[_recipes_pb2.RecipeCuisineRef, _Mapping]]] = ..., allowedConcepts: _Optional[_Iterable[_Union[_concepts_pb2.ConceptRef, _Mapping]]] = ..., requiredConcepts: _Optional[_Iterable[_Union[_concepts_pb2.ConceptRef, _Mapping]]] = ..., cookTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., prepTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., totalTimeMinutes: _Optional[_Union[IntRange, _Mapping]] = ..., smartRecipeCount: _Optional[int] = ..., ranges: _Optional[_Iterable[_Union[RequiredPropertyRange, _Mapping]]] = ..., targetDate: _Optional[_Union[_dates_pb2.CalendarDate, _Mapping]] = ..., quality_filter: _Optional[_Union[_recipe_quality_pb2.RecipeQualityFilter, _Mapping]] = ..., maxFoods: _Optional[int] = ...) -> None: ...
 
 class IntRange(_message.Message):
     __slots__ = ("min", "max")

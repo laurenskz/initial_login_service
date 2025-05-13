@@ -53,6 +53,25 @@ class BaseMealCreator(MealCreator):
         return MealRef(id=our_meal.id)
 
     def meal_based_on_template(self, user: UserRef, init: MealInit) -> MealRef:
+        if init.templateRecipe.groups:
+            user_meal = self.meal_based_on_template_recipe(user, init)
+        else:
+            user_meal = self.meal_based_on_side_dishes(user, init)
+        meal_res: AddResponse = self.meal_service.Add(user_meal)
+        return MealRef(id=meal_res.id)
+
+    def meal_based_on_side_dishes(self, user: UserRef, init: MealInit):
+        return Meal(
+            name=init.name,
+            owner=user,
+            balanced=True,
+            enableSides=True,
+            maxSideKcalPercentage=100,
+            concepts=init.sideDishes,
+            maxSideFoods=init.maxSideFoods
+        )
+
+    def meal_based_on_template_recipe(self, user: UserRef, init: MealInit):
         template_recipe = ImprovedTemplateRecipe()
         template_recipe.CopyFrom(init.templateRecipe)
         template_recipe.owner.CopyFrom(user)
@@ -68,12 +87,13 @@ class BaseMealCreator(MealCreator):
             owner=user,
             templateRecipes=[ImprovedTemplateRecipeRef(id=res.id)],
             balanced=True,
+            enableSides=False,
+            maxSideKcalPercentage=30,
             concepts=BoolConceptValues(
                 conceptValues={self.concepts.root.id: False}
             )
         )
-        meal_res: AddResponse = self.meal_service.Add(user_meal)
-        return MealRef(id=meal_res.id)
+        return user_meal
 
     def create_meals(self, user: UserRef, login: InitialLoginForm) -> Iterable[ClientMealSize]:
         result = []

@@ -13,6 +13,7 @@ class FlavourRecipeVariable(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     COUNT: _ClassVar[FlavourRecipeVariable]
     REPETITIONS: _ClassVar[FlavourRecipeVariable]
     WEIGHT: _ClassVar[FlavourRecipeVariable]
+    SERVINGS: _ClassVar[FlavourRecipeVariable]
 
 class SumConstraintStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -21,6 +22,7 @@ class SumConstraintStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 COUNT: FlavourRecipeVariable
 REPETITIONS: FlavourRecipeVariable
 WEIGHT: FlavourRecipeVariable
+SERVINGS: FlavourRecipeVariable
 ENFORCE: SumConstraintStrategy
 REWARD: SumConstraintStrategy
 

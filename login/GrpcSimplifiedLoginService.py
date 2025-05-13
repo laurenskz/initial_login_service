@@ -44,6 +44,7 @@ class GrpcSimplifiedLoginService(UserInitServiceServicer):
         print("Adding first user")
         try:
             self.create_user(request)
+            return OperationResponse()
         except:
             print("Error while setting up user")
 
