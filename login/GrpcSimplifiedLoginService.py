@@ -8,7 +8,7 @@ from com.baboea.models.diet_pb2 import ClientMealSize, UserDietDefinition, MealS
 from com.baboea.models.objectivegroup_pb2 import ObjectiveGroupRef
 from com.baboea.models.property_pb2 import PropertyRef
 from com.baboea.models.users_pb2 import User, UserRef
-from com.baboea.services.base_pb2 import AddResponse, GetRequest
+from com.baboea.services.base_pb2 import AddResponse, GetRequest, OperationResponse
 from com.baboea.services.curated_diet_service_pb2_grpc import CuratedDietServiceStub
 from com.baboea.services.diet_service_pb2_grpc import UserDietServiceStub
 from com.baboea.services.login_service_pb2 import InitialLoginForm

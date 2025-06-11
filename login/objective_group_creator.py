@@ -179,10 +179,12 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
     @staticmethod
     def create_protein_requirement(targets: UserReqs, properties: InitProperties,
                                    application_levels: ApplicationLevels) -> SpecializedRequirement:
-        return BaseObjectiveGroupCreator.create_absolute_requirement(min_value=targets.minProtein,
-                                                                     max_value=targets.maxProtein,
-                                                                     selected_property=properties.protein,
-                                                                     application_levels=application_levels)
+        return BaseObjectiveGroupCreator.create_absolute_req_with_kcal_ratio_fallback(min_value=targets.minProtein,
+                                                                                      max_value=targets.maxProtein,
+                                                                                      selected_property=properties.protein,
+                                                                                      kcal_per_unit=4.0,
+                                                                                      properties=properties,
+                                                                                      application_levels=application_levels)
 
     @staticmethod
     def create_absolute_requirement_for_concept(min_value: Optional[float], max_value: Optional[float],
@@ -247,6 +249,37 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             useMin=True,
             min=min_percentage,
             max=max_percentage,
+            numeratorMeals=MealSelection(
+                useAllMeals=True,
+                useAllDays=True,
+                useAllComponents=True,
+            ),
+            denominatorMeals=MealSelection(
+                useAllMeals=True,
+                useAllDays=True,
+                useAllComponents=True,
+            ),
+            scaleNumerator=kcal_per_unit,
+            scaleDenominator=1,
+            reward=1.0,
+            numeratorConcepts=RequirementConcepts(useAllConcepts=True),
+            denominatorConcepts=RequirementConcepts(useAllConcepts=True)
+        )
+
+    @staticmethod
+    def create_absolute_req_with_kcal_ratio_fallback(min_value: float, max_value: float, selected_property: PropertyRef,
+                                                     kcal_per_unit: float,
+                                                     properties: InitProperties,
+                                                     application_levels: ApplicationLevels) -> SpecializedRequirement:
+        return SpecializedRequirement(
+            applicationLevel=application_levels.day,
+            numerator=selected_property,
+            denominator=properties.kcal,
+            useRatio=True,
+            useMax=True,
+            useMin=True,
+            min=min_value,
+            max=max_value,
             numeratorMeals=MealSelection(
                 useAllMeals=True,
                 useAllDays=True,
