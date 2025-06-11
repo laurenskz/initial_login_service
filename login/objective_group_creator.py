@@ -79,7 +79,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             name="Macros",
             description="Applies your desired macros to every day",
             owner=user,
-            reward=5.0,
+            reward=10.0,
             objectives=[
                 BaseObjectiveGroupCreator.create_fat_requirement(reqs, properties, application_levels),
                 BaseObjectiveGroupCreator.create_fiber_requirement(reqs, properties, application_levels),
@@ -135,7 +135,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             name="Recipe preferences",
             description="We have set the maximum number of recipes you have to make per meal to 1. Feel free to adjust",
             owner=user,
-            reward=1.0,
+            reward=10.0,
             objectives=[BaseObjectiveGroupCreator.create_recipe_count_requirement(properties, application_levels)]
         )
 
