@@ -275,7 +275,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
             applicationLevel=application_levels.day,
             numerator=selected_property,
             denominator=properties.kcal,
-            useRatio=True,
+            useRatio=False,
             useMax=True,
             useMin=True,
             min=min_value,
