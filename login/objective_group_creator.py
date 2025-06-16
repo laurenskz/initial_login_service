@@ -290,7 +290,7 @@ class BaseObjectiveGroupCreator(ObjectiveGroupCreator):
                 useAllDays=True,
                 useAllComponents=True,
             ),
-            scaleNumerator=kcal_per_unit,
+            scaleNumerator=1.0,
             scaleDenominator=1,
             reward=1.0,
             numeratorConcepts=RequirementConcepts(useAllConcepts=True),
