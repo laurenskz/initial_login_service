@@ -40,43 +40,47 @@ from com.baboea import concept_pb2 as com_dot_baboea_dot_concept__pb2
 from com.baboea.models import users_pb2 as com_dot_baboea_dot_models_dot_users__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/generaterequest.proto\x12\ncom.baboea\x1a\x19\x63om/baboea/features.proto\x1a&com/baboea/models/objectivegroup.proto\x1a$com/baboea/models/concept_impl.proto\x1a\x1c\x63om/baboea/models/diet.proto\x1a!com/baboea/models/localized.proto\x1a com/baboea/models/property.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x1c\x63om/baboea/models/days.proto\x1a\x1c\x63om/baboea/models/food.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1d\x63om/baboea/models/dates.proto\x1a\'com/baboea/models/meal_components.proto\x1a\x1c\x63om/baboea/requirement.proto\x1a\x18\x63om/baboea/concept.proto\x1a\x1d\x63om/baboea/models/users.proto\"|\n\rUserPlanInput\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\x33\n\x0b\x64\x65siredDays\x18\x02 \x03(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12\x0c\n\x04name\x18\x03 \x01(\t\"\xc9\x04\n\x17MealPlanGenerateRequest\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12-\n\x05\x64\x61tes\x18\x07 \x03(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12<\n\x14utilizedDayTemplates\x18\x02 \x03(\x0b\x32\x1e.com.baboea.models.MealPlanDay\x12<\n\x11\x65nabledObjectives\x18\x03 \x03(\x0b\x32!.com.baboea.models.ObjectiveGroup\x12/\n\x0e\x61vailableMeals\x18\x04 \x03(\x0b\x32\x17.com.baboea.models.Meal\x12\x33\n\x04\x64iet\x18\x05 \x01(\x0b\x32%.com.baboea.models.UserDietDefinition\x12\x33\n\x10\x61vailableRecipes\x18\x06 \x03(\x0b\x32\x19.com.baboea.models.Recipe\x12\x42\n\x0ftemplateRecipes\x18\x08 \x03(\x0b\x32).com.baboea.models.ImprovedTemplateRecipe\x12\x46\n\x10userConceptImpls\x18\t \x03(\x0b\x32,.com.baboea.models.ConceptImplementationNode\x12\x32\n\x11userSpecificFoods\x18\n \x03(\x0b\x32\x17.com.baboea.models.Food\"9\n\x0cGroceryGroup\x12)\n\x05\x66oods\x18\x01 \x03(\x0b\x32\x1a.com.baboea.QuantifiedFood\"7\n\x0bGroceryList\x12(\n\x06groups\x18\x01 \x03(\x0b\x32\x18.com.baboea.GroceryGroup\"\xba\x01\n\x11GeneratedMealPlan\x12\n\n\x02id\x18\x03 \x01(\t\x12,\n\x0bgroceryList\x18\x02 \x01(\x0b\x32\x17.com.baboea.GroceryList\x12&\n\x04\x64\x61ys\x18\x01 \x03(\x0b\x32\x18.com.baboea.GeneratedDay\x12\x31\n\x05notes\x18\x04 \x03(\x0b\x32\".com.baboea.GeneratedMealPlanNotes\x12\x10\n\x08\x66\x65\x61sible\x18\x05 \x01(\x08\")\n\x16GeneratedMealPlanNotes\x12\x0f\n\x07message\x18\x01 \x01(\t\"0\n\x14GeneratedMealPlanRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"&\n\x16GeneratedMealPlanQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x89\x02\n\x15GenerateRefResolution\x12\x32\n\nproperties\x18\x01 \x03(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12)\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x39\n\x07recipes\x18\x03 \x03(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRef\x12(\n\x04user\x18\x04 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12,\n\x06locale\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"\xbc\x01\n\x0f\x46\x61iledObjective\x12\x41\n\x0brequirement\x18\x01 \x01(\x0b\x32,.com.baboea.models.SpecializedRequirementRef\x12\x31\n\x06reason\x18\x02 \x01(\x0e\x32!.com.baboea.FailedObjectiveReason\x12\x33\n\x05group\x18\x03 \x01(\x0b\x32$.com.baboea.models.ObjectiveGroupRef\"\xe0\x01\n\x0cGeneratedDay\x12+\n\x03\x64\x61y\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12(\n\x05meals\x18\x02 \x03(\x0b\x32\x19.com.baboea.GeneratedMeal\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValue\x12\x35\n\x10\x66\x61iledObjectives\x18\x05 \x03(\x0b\x32\x1b.com.baboea.FailedObjective\x12\x0c\n\x04logs\x18\x06 \x01(\t\"\x92\x01\n\x10GeneratedMetaDay\x12\x0f\n\x07pending\x18\x01 \x01(\x08\x12*\n\x03\x64\x61y\x18\x02 \x01(\x0b\x32\x18.com.baboea.GeneratedDayH\x00\x88\x01\x01\x12\x39\n\rerrorMessages\x18\x03 \x03(\x0b\x32\".com.baboea.models.LocalizedStringB\x06\n\x04_day\"\xa7\x01\n\rGeneratedMeal\x12(\n\x04meal\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.MealRef\x12\x36\n\ncomponents\x18\x02 \x03(\x0b\x32\".com.baboea.GeneratedMealComponent\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValue\"\x9f\x03\n\x16GeneratedMealComponent\x12\x36\n\tcomponent\x18\x01 \x01(\x0b\x32#.com.baboea.models.MealComponentRef\x12=\n\x06recipe\x18\x02 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRefH\x00\x88\x01\x01\x12\x35\n\nuserRecipe\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.RecipeRefH\x01\x88\x01\x01\x12I\n\x0etemplateRecipe\x18\x07 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRefH\x02\x88\x01\x01\x12)\n\x05\x66oods\x18\x03 \x03(\x0b\x32\x1a.com.baboea.QuantifiedFood\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValueB\t\n\x07_recipeB\r\n\x0b_userRecipeB\x11\n\x0f_templateRecipe\"L\n\x0eQuantifiedFood\x12(\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x10\n\x08quantity\x18\x02 \x01(\x01*@\n\x15\x46\x61iledObjectiveReason\x12\x12\n\x0e\x45XCEEDED_LIMIT\x10\x00\x12\x13\n\x0f\x42\x45LOW_THRESHOLD\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n com/baboea/generaterequest.proto\x12\ncom.baboea\x1a\x19\x63om/baboea/features.proto\x1a&com/baboea/models/objectivegroup.proto\x1a$com/baboea/models/concept_impl.proto\x1a\x1c\x63om/baboea/models/diet.proto\x1a!com/baboea/models/localized.proto\x1a com/baboea/models/property.proto\x1a,com/baboea/models/template_recipe_data.proto\x1a\x1c\x63om/baboea/models/days.proto\x1a\x1c\x63om/baboea/models/food.proto\x1a\x1f\x63om/baboea/models/recipes.proto\x1a\x1c\x63om/baboea/models/meal.proto\x1a\x1d\x63om/baboea/models/dates.proto\x1a\'com/baboea/models/meal_components.proto\x1a\x1c\x63om/baboea/requirement.proto\x1a\x18\x63om/baboea/concept.proto\x1a\x1d\x63om/baboea/models/users.proto\"\xee\x01\n\rUserPlanInput\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12\x33\n\x0b\x64\x65siredDays\x18\x02 \x03(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12\x0c\n\x04name\x18\x03 \x01(\t\x12-\n\x0b\x63urrentDays\x18\x04 \x03(\x0b\x32\x18.com.baboea.GeneratedDay\x12\x41\n\rmealOverrides\x18\x05 \x03(\x0b\x32*.com.baboea.MealGenerationStrategyOverride\"\xaf\x01\n\x1eMealGenerationStrategyOverride\x12-\n\x04\x64\x61te\x18\x01 \x01(\x0b\x32\x1f.com.baboea.models.CalendarDate\x12(\n\x04meal\x18\x02 \x01(\x0b\x32\x1a.com.baboea.models.MealRef\x12\x34\n\x08strategy\x18\x03 \x01(\x0e\x32\".com.baboea.MealGenerationStrategy\"\xbb\x05\n\x17MealPlanGenerateRequest\x12(\n\x04user\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12-\n\x05\x64\x61tes\x18\x07 \x03(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12<\n\x14utilizedDayTemplates\x18\x02 \x03(\x0b\x32\x1e.com.baboea.models.MealPlanDay\x12<\n\x11\x65nabledObjectives\x18\x03 \x03(\x0b\x32!.com.baboea.models.ObjectiveGroup\x12/\n\x0e\x61vailableMeals\x18\x04 \x03(\x0b\x32\x17.com.baboea.models.Meal\x12\x33\n\x04\x64iet\x18\x05 \x01(\x0b\x32%.com.baboea.models.UserDietDefinition\x12\x33\n\x10\x61vailableRecipes\x18\x06 \x03(\x0b\x32\x19.com.baboea.models.Recipe\x12\x42\n\x0ftemplateRecipes\x18\x08 \x03(\x0b\x32).com.baboea.models.ImprovedTemplateRecipe\x12\x46\n\x10userConceptImpls\x18\t \x03(\x0b\x32,.com.baboea.models.ConceptImplementationNode\x12\x32\n\x11userSpecificFoods\x18\n \x03(\x0b\x32\x17.com.baboea.models.Food\x12-\n\x0b\x63urrentDays\x18\x0b \x03(\x0b\x32\x18.com.baboea.GeneratedDay\x12\x41\n\rmealOverrides\x18\x0c \x03(\x0b\x32*.com.baboea.MealGenerationStrategyOverride\"9\n\x0cGroceryGroup\x12)\n\x05\x66oods\x18\x01 \x03(\x0b\x32\x1a.com.baboea.QuantifiedFood\"7\n\x0bGroceryList\x12(\n\x06groups\x18\x01 \x03(\x0b\x32\x18.com.baboea.GroceryGroup\"\xba\x01\n\x11GeneratedMealPlan\x12\n\n\x02id\x18\x03 \x01(\t\x12,\n\x0bgroceryList\x18\x02 \x01(\x0b\x32\x17.com.baboea.GroceryList\x12&\n\x04\x64\x61ys\x18\x01 \x03(\x0b\x32\x18.com.baboea.GeneratedDay\x12\x31\n\x05notes\x18\x04 \x03(\x0b\x32\".com.baboea.GeneratedMealPlanNotes\x12\x10\n\x08\x66\x65\x61sible\x18\x05 \x01(\x08\")\n\x16GeneratedMealPlanNotes\x12\x0f\n\x07message\x18\x01 \x01(\t\"0\n\x14GeneratedMealPlanRef\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"&\n\x16GeneratedMealPlanQuery\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x89\x02\n\x15GenerateRefResolution\x12\x32\n\nproperties\x18\x01 \x03(\x0b\x32\x1e.com.baboea.models.PropertyRef\x12)\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x39\n\x07recipes\x18\x03 \x03(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRef\x12(\n\x04user\x18\x04 \x01(\x0b\x32\x1a.com.baboea.models.UserRef\x12,\n\x06locale\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.LocaleRef\"\xbc\x01\n\x0f\x46\x61iledObjective\x12\x41\n\x0brequirement\x18\x01 \x01(\x0b\x32,.com.baboea.models.SpecializedRequirementRef\x12\x31\n\x06reason\x18\x02 \x01(\x0e\x32!.com.baboea.FailedObjectiveReason\x12\x33\n\x05group\x18\x03 \x01(\x0b\x32$.com.baboea.models.ObjectiveGroupRef\"\xe0\x01\n\x0cGeneratedDay\x12+\n\x03\x64\x61y\x18\x01 \x01(\x0b\x32\x1e.com.baboea.models.UserPlanDay\x12(\n\x05meals\x18\x02 \x03(\x0b\x32\x19.com.baboea.GeneratedMeal\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValue\x12\x35\n\x10\x66\x61iledObjectives\x18\x05 \x03(\x0b\x32\x1b.com.baboea.FailedObjective\x12\x0c\n\x04logs\x18\x06 \x01(\t\"\x92\x01\n\x10GeneratedMetaDay\x12\x0f\n\x07pending\x18\x01 \x01(\x08\x12*\n\x03\x64\x61y\x18\x02 \x01(\x0b\x32\x18.com.baboea.GeneratedDayH\x00\x88\x01\x01\x12\x39\n\rerrorMessages\x18\x03 \x03(\x0b\x32\".com.baboea.models.LocalizedStringB\x06\n\x04_day\"\xa7\x01\n\rGeneratedMeal\x12(\n\x04meal\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.MealRef\x12\x36\n\ncomponents\x18\x02 \x03(\x0b\x32\".com.baboea.GeneratedMealComponent\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValue\"\x9f\x03\n\x16GeneratedMealComponent\x12\x36\n\tcomponent\x18\x01 \x01(\x0b\x32#.com.baboea.models.MealComponentRef\x12=\n\x06recipe\x18\x02 \x01(\x0b\x32(.com.baboea.models.ParsedRemoteRecipeRefH\x00\x88\x01\x01\x12\x35\n\nuserRecipe\x18\x05 \x01(\x0b\x32\x1c.com.baboea.models.RecipeRefH\x01\x88\x01\x01\x12I\n\x0etemplateRecipe\x18\x07 \x01(\x0b\x32,.com.baboea.models.ImprovedTemplateRecipeRefH\x02\x88\x01\x01\x12)\n\x05\x66oods\x18\x03 \x03(\x0b\x32\x1a.com.baboea.QuantifiedFood\x12\x34\n\nproperties\x18\x04 \x03(\x0b\x32 .com.baboea.models.PropertyValueB\t\n\x07_recipeB\r\n\x0b_userRecipeB\x11\n\x0f_templateRecipe\"L\n\x0eQuantifiedFood\x12(\n\x04\x66ood\x18\x01 \x01(\x0b\x32\x1a.com.baboea.models.FoodRef\x12\x10\n\x08quantity\x18\x02 \x01(\x01*]\n\x16MealGenerationStrategy\x12\x10\n\x0cKEEP_CURRENT\x10\x00\x12!\n\x1dUSE_CURRENT_MODIFY_QUANTITIES\x10\x01\x12\x0e\n\nSYNTHESIZE\x10\x02*@\n\x15\x46\x61iledObjectiveReason\x12\x12\n\x0e\x45XCEEDED_LIMIT\x10\x00\x12\x13\n\x0f\x42\x45LOW_THRESHOLD\x10\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'com.baboea.generaterequest_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_FAILEDOBJECTIVEREASON']._serialized_start=3233
-  _globals['_FAILEDOBJECTIVEREASON']._serialized_end=3297
-  _globals['_USERPLANINPUT']._serialized_start=580
-  _globals['_USERPLANINPUT']._serialized_end=704
-  _globals['_MEALPLANGENERATEREQUEST']._serialized_start=707
-  _globals['_MEALPLANGENERATEREQUEST']._serialized_end=1292
-  _globals['_GROCERYGROUP']._serialized_start=1294
-  _globals['_GROCERYGROUP']._serialized_end=1351
-  _globals['_GROCERYLIST']._serialized_start=1353
-  _globals['_GROCERYLIST']._serialized_end=1408
-  _globals['_GENERATEDMEALPLAN']._serialized_start=1411
-  _globals['_GENERATEDMEALPLAN']._serialized_end=1597
-  _globals['_GENERATEDMEALPLANNOTES']._serialized_start=1599
-  _globals['_GENERATEDMEALPLANNOTES']._serialized_end=1640
-  _globals['_GENERATEDMEALPLANREF']._serialized_start=1642
-  _globals['_GENERATEDMEALPLANREF']._serialized_end=1690
-  _globals['_GENERATEDMEALPLANQUERY']._serialized_start=1692
-  _globals['_GENERATEDMEALPLANQUERY']._serialized_end=1730
-  _globals['_GENERATEREFRESOLUTION']._serialized_start=1733
-  _globals['_GENERATEREFRESOLUTION']._serialized_end=1998
-  _globals['_FAILEDOBJECTIVE']._serialized_start=2001
-  _globals['_FAILEDOBJECTIVE']._serialized_end=2189
-  _globals['_GENERATEDDAY']._serialized_start=2192
-  _globals['_GENERATEDDAY']._serialized_end=2416
-  _globals['_GENERATEDMETADAY']._serialized_start=2419
-  _globals['_GENERATEDMETADAY']._serialized_end=2565
-  _globals['_GENERATEDMEAL']._serialized_start=2568
-  _globals['_GENERATEDMEAL']._serialized_end=2735
-  _globals['_GENERATEDMEALCOMPONENT']._serialized_start=2738
-  _globals['_GENERATEDMEALCOMPONENT']._serialized_end=3153
-  _globals['_QUANTIFIEDFOOD']._serialized_start=3155
-  _globals['_QUANTIFIEDFOOD']._serialized_end=3231
+  _globals['_MEALGENERATIONSTRATEGY']._serialized_start=3640
+  _globals['_MEALGENERATIONSTRATEGY']._serialized_end=3733
+  _globals['_FAILEDOBJECTIVEREASON']._serialized_start=3735
+  _globals['_FAILEDOBJECTIVEREASON']._serialized_end=3799
+  _globals['_USERPLANINPUT']._serialized_start=581
+  _globals['_USERPLANINPUT']._serialized_end=819
+  _globals['_MEALGENERATIONSTRATEGYOVERRIDE']._serialized_start=822
+  _globals['_MEALGENERATIONSTRATEGYOVERRIDE']._serialized_end=997
+  _globals['_MEALPLANGENERATEREQUEST']._serialized_start=1000
+  _globals['_MEALPLANGENERATEREQUEST']._serialized_end=1699
+  _globals['_GROCERYGROUP']._serialized_start=1701
+  _globals['_GROCERYGROUP']._serialized_end=1758
+  _globals['_GROCERYLIST']._serialized_start=1760
+  _globals['_GROCERYLIST']._serialized_end=1815
+  _globals['_GENERATEDMEALPLAN']._serialized_start=1818
+  _globals['_GENERATEDMEALPLAN']._serialized_end=2004
+  _globals['_GENERATEDMEALPLANNOTES']._serialized_start=2006
+  _globals['_GENERATEDMEALPLANNOTES']._serialized_end=2047
+  _globals['_GENERATEDMEALPLANREF']._serialized_start=2049
+  _globals['_GENERATEDMEALPLANREF']._serialized_end=2097
+  _globals['_GENERATEDMEALPLANQUERY']._serialized_start=2099
+  _globals['_GENERATEDMEALPLANQUERY']._serialized_end=2137
+  _globals['_GENERATEREFRESOLUTION']._serialized_start=2140
+  _globals['_GENERATEREFRESOLUTION']._serialized_end=2405
+  _globals['_FAILEDOBJECTIVE']._serialized_start=2408
+  _globals['_FAILEDOBJECTIVE']._serialized_end=2596
+  _globals['_GENERATEDDAY']._serialized_start=2599
+  _globals['_GENERATEDDAY']._serialized_end=2823
+  _globals['_GENERATEDMETADAY']._serialized_start=2826
+  _globals['_GENERATEDMETADAY']._serialized_end=2972
+  _globals['_GENERATEDMEAL']._serialized_start=2975
+  _globals['_GENERATEDMEAL']._serialized_end=3142
+  _globals['_GENERATEDMEALCOMPONENT']._serialized_start=3145
+  _globals['_GENERATEDMEALCOMPONENT']._serialized_end=3560
+  _globals['_QUANTIFIEDFOOD']._serialized_start=3562
+  _globals['_QUANTIFIEDFOOD']._serialized_end=3638
 # @@protoc_insertion_point(module_scope)

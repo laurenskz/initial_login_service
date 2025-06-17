@@ -114,12 +114,12 @@ class MealInit(_message.Message):
     maxSideFoods: int
     useKcal: bool
     smart: _meal_pb2.SmartRecipePreferences
-    sideDishes: _concept_pb2.BoolConceptValues
+    sideDishes: _containers.RepeatedCompositeFieldContainer[_meal_pb2.SimplifiedSideFoodOption]
     mealSize: MealSize
     mealPref: MealStructurePreference
     ownRecipeIngredients: _containers.RepeatedCompositeFieldContainer[_recipes_pb2.QuantifiedRecipeIngredient]
     templateRecipe: _template_recipe_data_pb2.ImprovedTemplateRecipe
-    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., maxSideFoods: _Optional[int] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]] = ...) -> None: ...
+    def __init__(self, name: _Optional[str] = ..., mealKcalMin: _Optional[float] = ..., mealKcalMax: _Optional[float] = ..., maxSideFoods: _Optional[int] = ..., useKcal: bool = ..., smart: _Optional[_Union[_meal_pb2.SmartRecipePreferences, _Mapping]] = ..., sideDishes: _Optional[_Iterable[_Union[_meal_pb2.SimplifiedSideFoodOption, _Mapping]]] = ..., mealSize: _Optional[_Union[MealSize, str]] = ..., mealPref: _Optional[_Union[MealStructurePreference, str]] = ..., ownRecipeIngredients: _Optional[_Iterable[_Union[_recipes_pb2.QuantifiedRecipeIngredient, _Mapping]]] = ..., templateRecipe: _Optional[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]] = ...) -> None: ...
 
 class NutritionPrefs(_message.Message):
     __slots__ = ("kcal", "protein", "carbPercentage")
@@ -132,20 +132,22 @@ class NutritionPrefs(_message.Message):
     def __init__(self, kcal: _Optional[float] = ..., protein: _Optional[float] = ..., carbPercentage: _Optional[float] = ...) -> None: ...
 
 class PersonalData(_message.Message):
-    __slots__ = ("gender", "age", "activityLevel", "weightKg", "heightCm", "name")
+    __slots__ = ("gender", "age", "activityLevel", "weightKg", "heightCm", "name", "gdprConsent")
     GENDER_FIELD_NUMBER: _ClassVar[int]
     AGE_FIELD_NUMBER: _ClassVar[int]
     ACTIVITYLEVEL_FIELD_NUMBER: _ClassVar[int]
     WEIGHTKG_FIELD_NUMBER: _ClassVar[int]
     HEIGHTCM_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
+    GDPRCONSENT_FIELD_NUMBER: _ClassVar[int]
     gender: Gender
     age: int
     activityLevel: ActivityLevel
     weightKg: float
     heightCm: float
     name: str
-    def __init__(self, gender: _Optional[_Union[Gender, str]] = ..., age: _Optional[int] = ..., activityLevel: _Optional[_Union[ActivityLevel, str]] = ..., weightKg: _Optional[float] = ..., heightCm: _Optional[float] = ..., name: _Optional[str] = ...) -> None: ...
+    gdprConsent: bool
+    def __init__(self, gender: _Optional[_Union[Gender, str]] = ..., age: _Optional[int] = ..., activityLevel: _Optional[_Union[ActivityLevel, str]] = ..., weightKg: _Optional[float] = ..., heightCm: _Optional[float] = ..., name: _Optional[str] = ..., gdprConsent: bool = ...) -> None: ...
 
 class InitialLoginForm(_message.Message):
     __slots__ = ("personal", "manual", "diet", "macros", "meals", "remoteUserId", "weightLoss", "desiredSetup", "hatedFoods", "proteinStrategy")

@@ -67,7 +67,7 @@ class BaseMealCreator(MealCreator):
             balanced=True,
             enableSides=True,
             maxSideKcalPercentage=100,
-            concepts=init.sideDishes,
+            simplifiedSides=init.sideDishes,
             maxSideFoods=init.maxSideFoods
         )
 

@@ -17,16 +17,14 @@ class RecipeQualityFilter(_message.Message):
     COMMUNITY_ONLY: RecipeQualityFilter.RecipeStatus
     class VoteConfidence(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
+        VOTE_VERIFIED_ONLY: _ClassVar[RecipeQualityFilter.VoteConfidence]
         COMPLETELY_NEW: _ClassVar[RecipeQualityFilter.VoteConfidence]
-        TESTING_WATERS: _ClassVar[RecipeQualityFilter.VoteConfidence]
-        GAINING_TRACTION: _ClassVar[RecipeQualityFilter.VoteConfidence]
-        POPULAR: _ClassVar[RecipeQualityFilter.VoteConfidence]
-        TRIED_AND_TRUE: _ClassVar[RecipeQualityFilter.VoteConfidence]
+        VERIFIED_AND_USER_TESTED: _ClassVar[RecipeQualityFilter.VoteConfidence]
+        EVERYTHING: _ClassVar[RecipeQualityFilter.VoteConfidence]
+    VOTE_VERIFIED_ONLY: RecipeQualityFilter.VoteConfidence
     COMPLETELY_NEW: RecipeQualityFilter.VoteConfidence
-    TESTING_WATERS: RecipeQualityFilter.VoteConfidence
-    GAINING_TRACTION: RecipeQualityFilter.VoteConfidence
-    POPULAR: RecipeQualityFilter.VoteConfidence
-    TRIED_AND_TRUE: RecipeQualityFilter.VoteConfidence
+    VERIFIED_AND_USER_TESTED: RecipeQualityFilter.VoteConfidence
+    EVERYTHING: RecipeQualityFilter.VoteConfidence
     STATUS_FIELD_NUMBER: _ClassVar[int]
     MIN_VOTE_CONFIDENCE_FIELD_NUMBER: _ClassVar[int]
     MIN_LIKE_PERCENTAGE_FIELD_NUMBER: _ClassVar[int]

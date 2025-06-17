@@ -22,25 +22,48 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class MealGenerationStrategy(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    KEEP_CURRENT: _ClassVar[MealGenerationStrategy]
+    USE_CURRENT_MODIFY_QUANTITIES: _ClassVar[MealGenerationStrategy]
+    SYNTHESIZE: _ClassVar[MealGenerationStrategy]
+
 class FailedObjectiveReason(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     EXCEEDED_LIMIT: _ClassVar[FailedObjectiveReason]
     BELOW_THRESHOLD: _ClassVar[FailedObjectiveReason]
+KEEP_CURRENT: MealGenerationStrategy
+USE_CURRENT_MODIFY_QUANTITIES: MealGenerationStrategy
+SYNTHESIZE: MealGenerationStrategy
 EXCEEDED_LIMIT: FailedObjectiveReason
 BELOW_THRESHOLD: FailedObjectiveReason
 
 class UserPlanInput(_message.Message):
-    __slots__ = ("user", "desiredDays", "name")
+    __slots__ = ("user", "desiredDays", "name", "currentDays", "mealOverrides")
     USER_FIELD_NUMBER: _ClassVar[int]
     DESIREDDAYS_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
+    CURRENTDAYS_FIELD_NUMBER: _ClassVar[int]
+    MEALOVERRIDES_FIELD_NUMBER: _ClassVar[int]
     user: _users_pb2.UserRef
     desiredDays: _containers.RepeatedCompositeFieldContainer[_days_pb2.UserPlanDay]
     name: str
-    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., name: _Optional[str] = ...) -> None: ...
+    currentDays: _containers.RepeatedCompositeFieldContainer[GeneratedDay]
+    mealOverrides: _containers.RepeatedCompositeFieldContainer[MealGenerationStrategyOverride]
+    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., desiredDays: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., name: _Optional[str] = ..., currentDays: _Optional[_Iterable[_Union[GeneratedDay, _Mapping]]] = ..., mealOverrides: _Optional[_Iterable[_Union[MealGenerationStrategyOverride, _Mapping]]] = ...) -> None: ...
+
+class MealGenerationStrategyOverride(_message.Message):
+    __slots__ = ("date", "meal", "strategy")
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    MEAL_FIELD_NUMBER: _ClassVar[int]
+    STRATEGY_FIELD_NUMBER: _ClassVar[int]
+    date: _dates_pb2.CalendarDate
+    meal: _meal_pb2.MealRef
+    strategy: MealGenerationStrategy
+    def __init__(self, date: _Optional[_Union[_dates_pb2.CalendarDate, _Mapping]] = ..., meal: _Optional[_Union[_meal_pb2.MealRef, _Mapping]] = ..., strategy: _Optional[_Union[MealGenerationStrategy, str]] = ...) -> None: ...
 
 class MealPlanGenerateRequest(_message.Message):
-    __slots__ = ("user", "dates", "utilizedDayTemplates", "enabledObjectives", "availableMeals", "diet", "availableRecipes", "templateRecipes", "userConceptImpls", "userSpecificFoods")
+    __slots__ = ("user", "dates", "utilizedDayTemplates", "enabledObjectives", "availableMeals", "diet", "availableRecipes", "templateRecipes", "userConceptImpls", "userSpecificFoods", "currentDays", "mealOverrides")
     USER_FIELD_NUMBER: _ClassVar[int]
     DATES_FIELD_NUMBER: _ClassVar[int]
     UTILIZEDDAYTEMPLATES_FIELD_NUMBER: _ClassVar[int]
@@ -51,6 +74,8 @@ class MealPlanGenerateRequest(_message.Message):
     TEMPLATERECIPES_FIELD_NUMBER: _ClassVar[int]
     USERCONCEPTIMPLS_FIELD_NUMBER: _ClassVar[int]
     USERSPECIFICFOODS_FIELD_NUMBER: _ClassVar[int]
+    CURRENTDAYS_FIELD_NUMBER: _ClassVar[int]
+    MEALOVERRIDES_FIELD_NUMBER: _ClassVar[int]
     user: _users_pb2.UserRef
     dates: _containers.RepeatedCompositeFieldContainer[_days_pb2.UserPlanDay]
     utilizedDayTemplates: _containers.RepeatedCompositeFieldContainer[_days_pb2.MealPlanDay]
@@ -61,7 +86,9 @@ class MealPlanGenerateRequest(_message.Message):
     templateRecipes: _containers.RepeatedCompositeFieldContainer[_template_recipe_data_pb2.ImprovedTemplateRecipe]
     userConceptImpls: _containers.RepeatedCompositeFieldContainer[_concept_impl_pb2.ConceptImplementationNode]
     userSpecificFoods: _containers.RepeatedCompositeFieldContainer[_food_pb2.Food]
-    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., dates: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., utilizedDayTemplates: _Optional[_Iterable[_Union[_days_pb2.MealPlanDay, _Mapping]]] = ..., enabledObjectives: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroup, _Mapping]]] = ..., availableMeals: _Optional[_Iterable[_Union[_meal_pb2.Meal, _Mapping]]] = ..., diet: _Optional[_Union[_diet_pb2.UserDietDefinition, _Mapping]] = ..., availableRecipes: _Optional[_Iterable[_Union[_recipes_pb2.Recipe, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]]] = ..., userConceptImpls: _Optional[_Iterable[_Union[_concept_impl_pb2.ConceptImplementationNode, _Mapping]]] = ..., userSpecificFoods: _Optional[_Iterable[_Union[_food_pb2.Food, _Mapping]]] = ...) -> None: ...
+    currentDays: _containers.RepeatedCompositeFieldContainer[GeneratedDay]
+    mealOverrides: _containers.RepeatedCompositeFieldContainer[MealGenerationStrategyOverride]
+    def __init__(self, user: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., dates: _Optional[_Iterable[_Union[_days_pb2.UserPlanDay, _Mapping]]] = ..., utilizedDayTemplates: _Optional[_Iterable[_Union[_days_pb2.MealPlanDay, _Mapping]]] = ..., enabledObjectives: _Optional[_Iterable[_Union[_objectivegroup_pb2.ObjectiveGroup, _Mapping]]] = ..., availableMeals: _Optional[_Iterable[_Union[_meal_pb2.Meal, _Mapping]]] = ..., diet: _Optional[_Union[_diet_pb2.UserDietDefinition, _Mapping]] = ..., availableRecipes: _Optional[_Iterable[_Union[_recipes_pb2.Recipe, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipe, _Mapping]]] = ..., userConceptImpls: _Optional[_Iterable[_Union[_concept_impl_pb2.ConceptImplementationNode, _Mapping]]] = ..., userSpecificFoods: _Optional[_Iterable[_Union[_food_pb2.Food, _Mapping]]] = ..., currentDays: _Optional[_Iterable[_Union[GeneratedDay, _Mapping]]] = ..., mealOverrides: _Optional[_Iterable[_Union[MealGenerationStrategyOverride, _Mapping]]] = ...) -> None: ...
 
 class GroceryGroup(_message.Message):
     __slots__ = ("foods",)

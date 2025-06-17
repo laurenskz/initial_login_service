@@ -1,4 +1,5 @@
 from com.baboea.models import recipes_pb2 as _recipes_pb2
+from com.baboea.models import concepts_pb2 as _concepts_pb2
 from com.baboea.models import recipe_quality_pb2 as _recipe_quality_pb2
 from com.baboea.models import template_recipe_data_pb2 as _template_recipe_data_pb2
 from com.baboea.models import foodgroup_pb2 as _foodgroup_pb2
@@ -54,7 +55,7 @@ class MealRef(_message.Message):
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
 class Meal(_message.Message):
-    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes", "templateRecipes", "balanced", "maxSideKcalPercentage", "enableSides", "maxSideFoods")
+    __slots__ = ("id", "name", "description", "owner", "smartRecipes", "concepts", "recipes", "templateRecipes", "balanced", "maxSideKcalPercentage", "enableSides", "maxSideFoods", "simplifiedSides")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
@@ -67,6 +68,7 @@ class Meal(_message.Message):
     MAXSIDEKCALPERCENTAGE_FIELD_NUMBER: _ClassVar[int]
     ENABLESIDES_FIELD_NUMBER: _ClassVar[int]
     MAXSIDEFOODS_FIELD_NUMBER: _ClassVar[int]
+    SIMPLIFIEDSIDES_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     description: str
@@ -79,7 +81,18 @@ class Meal(_message.Message):
     maxSideKcalPercentage: float
     enableSides: bool
     maxSideFoods: int
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]]] = ..., balanced: bool = ..., maxSideKcalPercentage: _Optional[float] = ..., enableSides: bool = ..., maxSideFoods: _Optional[int] = ...) -> None: ...
+    simplifiedSides: _containers.RepeatedCompositeFieldContainer[SimplifiedSideFoodOption]
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., description: _Optional[str] = ..., owner: _Optional[_Union[_users_pb2.UserRef, _Mapping]] = ..., smartRecipes: _Optional[_Union[SmartRecipePreferences, _Mapping]] = ..., concepts: _Optional[_Union[_concept_pb2.BoolConceptValues, _Mapping]] = ..., recipes: _Optional[_Iterable[_Union[_recipes_pb2.RecipeRef, _Mapping]]] = ..., templateRecipes: _Optional[_Iterable[_Union[_template_recipe_data_pb2.ImprovedTemplateRecipeRef, _Mapping]]] = ..., balanced: bool = ..., maxSideKcalPercentage: _Optional[float] = ..., enableSides: bool = ..., maxSideFoods: _Optional[int] = ..., simplifiedSides: _Optional[_Iterable[_Union[SimplifiedSideFoodOption, _Mapping]]] = ...) -> None: ...
+
+class SimplifiedSideFoodOption(_message.Message):
+    __slots__ = ("concept", "minCount", "maxCount")
+    CONCEPT_FIELD_NUMBER: _ClassVar[int]
+    MINCOUNT_FIELD_NUMBER: _ClassVar[int]
+    MAXCOUNT_FIELD_NUMBER: _ClassVar[int]
+    concept: _concepts_pb2.ConceptRef
+    minCount: int
+    maxCount: int
+    def __init__(self, concept: _Optional[_Union[_concepts_pb2.ConceptRef, _Mapping]] = ..., minCount: _Optional[int] = ..., maxCount: _Optional[int] = ...) -> None: ...
 
 class MealRequirement(_message.Message):
     __slots__ = ("min", "max", "useMin", "useMax", "numerator", "denominator", "ratio", "scaleNumerator", "scaleDenominator", "numeratorConcepts", "denominatorConcepts")
